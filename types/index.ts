@@ -24,6 +24,16 @@ export type StrokeType =
   | "Butterfly" 
   | "IM";
 
+/** Primary strokes tracked on the dashboard */
+export type TrackedStroke = "Freestyle" | "Breaststroke" | "Butterfly";
+
+export interface StrokeQualityScore {
+  strokeType: TrackedStroke;
+  qualityScore: number;
+  lastSessionId?: string;
+  lastSessionDate?: string;
+}
+
 export type AnalysisStatus = 
   | "pending" 
   | "processing" 

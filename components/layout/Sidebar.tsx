@@ -6,34 +6,55 @@ import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   Users,
-  BarChart3,
   Settings,
   Droplets,
   ChevronLeft,
   ChevronRight,
+  TrendingUp,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
+import { useAuthStore } from "@/lib/auth-store";
 import { cn } from "@/lib/utils";
 
-const navItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/swimmers", label: "Swimmers", icon: Users },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/settings", label: "Settings", icon: Settings },
-];
+function isNavActive(pathname: string, href: string): boolean {
+  if (href === "/coach" || href === "/swimmer") {
+    return pathname === href;
+  }
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export default function Sidebar() {
-  const { sidebarOpen, toggleSidebar } = useAppStore();
+  const { sidebarOpen, toggleSidebar, setSidebarOpen } = useAppStore();
+  const user = useAuthStore((s) => s.user);
   const pathname = usePathname();
+
+  const navItems =
+    user?.role === "coach"
+      ? [
+          { href: "/coach", label: "Swimmers", icon: Users },
+          { href: "/settings", label: "Settings", icon: Settings },
+        ]
+      : [
+          { href: "/swimmer", label: "My progress", icon: TrendingUp },
+          { href: "/settings", label: "Settings", icon: Settings },
+        ];
+
+  const handleNavClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
+  };
 
   return (
     <motion.aside
       initial={false}
       animate={{ width: sidebarOpen ? 260 : 72 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed left-0 top-0 h-screen z-40 glass-panel border-r border-white/10 flex flex-col"
+      className={cn(
+        "fixed left-0 top-0 h-screen z-40 glass-panel border-r border-white/10 flex flex-col",
+        sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}
     >
-      {/* Logo Area */}
       <div className="h-16 flex items-center px-4 border-b border-white/5">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-aqua-300 to-aqua-600 flex items-center justify-center shrink-0">
@@ -48,14 +69,18 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 px-3 py-6 space-y-1">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
+          const isActive = isNavActive(pathname, item.href);
           const Icon = item.icon;
 
           return (
-            <Link key={item.href} href={item.href} className="block">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block"
+              onClick={handleNavClick}
+            >
               <motion.div
                 whileHover={{ x: 2 }}
                 className={cn(
@@ -85,11 +110,12 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Toggle Button */}
       <div className="p-3 border-t border-white/5">
         <button
+          type="button"
           onClick={toggleSidebar}
           className="w-full flex items-center justify-center p-2 rounded-lg hover:bg-white/5 text-slate-400 transition-colors"
+          aria-label={sidebarOpen ? "Collapse menu" : "Expand menu"}
         >
           {sidebarOpen ? <ChevronLeft className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
         </button>

@@ -11,14 +11,14 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { generateHistoricalData } from "@/lib/data";
+import type { HistoricalDataPoint } from "@/types";
 
 interface QualityChartProps {
-  swimmerId: string;
+  data: HistoricalDataPoint[];
+  compact?: boolean;
 }
 
-export default function QualityChart({ swimmerId }: QualityChartProps) {
-  const data = generateHistoricalData(swimmerId);
+export default function QualityChart({ data, compact = false }: QualityChartProps) {
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -48,7 +48,7 @@ export default function QualityChart({ swimmerId }: QualityChartProps) {
         </div>
       </div>
 
-      <div className="h-[300px]">
+      <div className={compact ? "h-[200px] md:h-[240px]" : "h-[300px]"}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>

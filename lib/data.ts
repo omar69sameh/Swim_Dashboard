@@ -122,6 +122,34 @@ export const sessions: Session[] = [
     analyzedAt: "2024-05-25T08:20:00Z",
   },
   {
+    id: "ses-009",
+    swimmerId: "sw-001",
+    swimmerName: "Sarah Chen",
+    date: "2024-05-22",
+    duration: 1500,
+    distance: 1500,
+    poolLength: 50,
+    status: "completed",
+    strokeType: "Freestyle",
+    qualityScore: 88.2,
+    createdAt: "2024-05-22T09:00:00Z",
+    analyzedAt: "2024-05-22T09:15:00Z",
+  },
+  {
+    id: "ses-010",
+    swimmerId: "sw-001",
+    swimmerName: "Sarah Chen",
+    date: "2024-05-20",
+    duration: 1200,
+    distance: 1200,
+    poolLength: 25,
+    status: "completed",
+    strokeType: "Breaststroke",
+    qualityScore: 85.6,
+    createdAt: "2024-05-20T10:00:00Z",
+    analyzedAt: "2024-05-20T10:18:00Z",
+  },
+  {
     id: "ses-005",
     swimmerId: "sw-004",
     swimmerName: "David Park",
@@ -219,11 +247,23 @@ export function generateSensorData(duration: number = 60): SensorData[] {
  * Generate ML analysis results for a session.
  * Uses deterministic seeding based on session ID for consistency.
  */
-export function generateMLResults(sessionId: string): MLResults {
+const mlResultsCache = new Map<string, MLResults>();
+
+export function generateMLResults(
+  sessionId: string,
+  options?: { lite?: boolean }
+): MLResults {
+  const lite = options?.lite ?? false;
+  const cacheKey = `${sessionId}:${lite ? "lite" : "full"}`;
+  const cached = mlResultsCache.get(cacheKey);
+  if (cached) return cached;
+
   const session = sessions.find((s) => s.id === sessionId);
   if (!session) throw new Error(`Session ${sessionId} not found`);
 
-  const sensorData = generateSensorData(session.duration);
+  // Lite mode skips huge sensor arrays (keeps UI fast); cap full mode for safety
+  const sensorDuration = lite ? 0 : Math.min(session.duration, 120);
+  const sensorData = sensorDuration > 0 ? generateSensorData(sensorDuration) : [];
 
   // Generate stroke segments (every ~2 seconds for butterfly)
   const segments = [];
@@ -304,7 +344,7 @@ export function generateMLResults(sessionId: string): MLResults {
   // Calculate weighted quality score
   const overallScore = features.reduce((sum, f) => sum + f.value * f.weight, 0);
 
-  return {
+  const result: MLResults = {
     sessionId,
     strokeType: session.strokeType,
     strokeTypeConfidence: 92 + Math.random() * 7,
@@ -312,9 +352,12 @@ export function generateMLResults(sessionId: string): MLResults {
     segments,
     features,
     sensorData,
-    processingTime: 1200 + Math.random() * 3000,
+    processingTime: lite ? 800 : 1200 + Math.random() * 3000,
     pipelineVersion: "v2.4.1",
   };
+
+  mlResultsCache.set(cacheKey, result);
+  return result;
 }
 
 /**
@@ -327,19 +370,21 @@ export function generateHistoricalData(swimmerId: string): HistoricalDataPoint[]
   const data: HistoricalDataPoint[] = [];
   const baseScore = swimmer.averageQualityScore;
 
+  const trackedStrokes = ["Freestyle", "Breaststroke", "Butterfly"] as const;
+
   for (let i = 30; i >= 0; i--) {
     const date = new Date();
     date.setDate(date.getDate() - i);
+    const strokeType = trackedStrokes[i % trackedStrokes.length];
 
-    // Add some realistic variation
     const variation = (Math.random() - 0.5) * 10;
-    const trend = i * 0.1; // slight improvement over time
+    const trend = i * 0.1;
 
     data.push({
       date: date.toISOString().split("T")[0],
       qualityScore: Math.round((baseScore + variation - trend) * 10) / 10,
-      strokeType: swimmer.strokeSpecialty,
-      sessionId: `ses-hist-${i}`,
+      strokeType,
+      sessionId: `ses-hist-${swimmerId}-${i}`,
     });
   }
 
