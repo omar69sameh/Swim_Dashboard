@@ -3,9 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Clock, ChevronRight, Activity } from "lucide-react";
-import { sessions } from "@/lib/data";
 import { formatDate, formatDuration, getStrokeEmoji } from "@/lib/utils";
-import { AnalysisStatus } from "@/types";
+import type { AnalysisStatus, Session } from "@/types";
 
 const statusConfig: Record<AnalysisStatus, { label: string; dotClass: string; bgClass: string }> = {
   completed: { label: "Analyzed", dotClass: "status-dot-live", bgClass: "bg-emerald-500/10" },
@@ -14,7 +13,11 @@ const statusConfig: Record<AnalysisStatus, { label: string; dotClass: string; bg
   failed: { label: "Failed", dotClass: "status-dot bg-rose-500", bgClass: "bg-rose-500/10" },
 };
 
-export default function SessionFeed() {
+interface SessionFeedProps {
+  sessions: Session[];
+}
+
+export default function SessionFeed({ sessions }: SessionFeedProps) {
   return (
     <div className="glass-card p-5 h-full">
       <div className="flex items-center justify-between mb-5">

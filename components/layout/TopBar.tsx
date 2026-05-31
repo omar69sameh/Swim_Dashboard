@@ -1,41 +1,39 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Bell, Search } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
+import { useAppStore } from "@/lib/store";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function TopBar() {
+  const toggleSidebar = useAppStore((s) => s.toggleSidebar);
+  const { user, signOut } = useAuth();
+
   return (
-    <header className="h-16 glass-panel border-b border-white/5 flex items-center justify-between px-6 sticky top-0 z-30">
-      <div className="flex items-center gap-4">
-        <div className="relative">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-          <input
-            type="text"
-            placeholder="Search swimmers, sessions..."
-            className="bg-ocean-900/50 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-aqua-300/50 focus:ring-1 focus:ring-aqua-300/50 w-64 transition-all"
-          />
-        </div>
-      </div>
+    <header className="h-14 md:h-16 glass-panel border-b border-white/5 flex items-center justify-between px-4 md:px-6 sticky top-0 z-20">
+      <button
+        type="button"
+        onClick={toggleSidebar}
+        className="p-2 rounded-lg hover:bg-white/5 text-slate-400 md:hidden"
+        aria-label="Open menu"
+      >
+        <Menu className="w-5 h-5" />
+      </button>
 
-      <div className="flex items-center gap-4">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative p-2 rounded-lg hover:bg-white/5 text-slate-400 transition-colors"
+      <div className="hidden md:block flex-1" />
+
+      <div className="flex items-center gap-3 ml-auto">
+        <div className="text-right hidden sm:block">
+          <p className="text-sm font-medium text-slate-200">{user?.name ?? "Guest"}</p>
+          <p className="text-xs text-slate-500 capitalize">{user?.role ?? ""}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => signOut()}
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-aqua-300 hover:bg-white/5 transition-colors"
         >
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full" />
-        </motion.button>
-
-        <div className="flex items-center gap-3 pl-4 border-l border-white/10">
-          <div className="text-right">
-            <p className="text-sm font-medium text-slate-200">Coach Williams</p>
-            <p className="text-xs text-slate-500">Head Coach</p>
-          </div>
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-aqua-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
-            CW
-          </div>
-        </div>
+          <LogOut className="w-4 h-4" />
+          <span className="hidden sm:inline">Sign out</span>
+        </button>
       </div>
     </header>
   );

@@ -8,7 +8,7 @@ import Badge from "@/components/ui/Badge";
 
 interface SessionHeaderProps {
   session: Session;
-  mlResults: MLResults;
+  mlResults?: MLResults;
 }
 
 export default function SessionHeader({ session, mlResults }: SessionHeaderProps) {
@@ -41,10 +41,12 @@ export default function SessionHeader({ session, mlResults }: SessionHeaderProps
             <span className="mr-1">{getStrokeEmoji(session.strokeType)}</span>
             {session.strokeType}
           </Badge>
-          <Badge variant="success" className="text-sm">
-            <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-            {mlResults.strokeTypeConfidence.toFixed(1)}% Match
-          </Badge>
+          {mlResults && (
+            <Badge variant="success" className="text-sm">
+              <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
+              {mlResults.strokeTypeConfidence.toFixed(1)}% Match
+            </Badge>
+          )}
         </div>
       </div>
     </div>

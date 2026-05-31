@@ -3,10 +3,14 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, TrendingUp, TrendingDown, Minus } from "lucide-react";
-import { swimmers } from "@/lib/data";
+import type { Swimmer } from "@/types";
 import { getStrokeEmoji } from "@/lib/utils";
 
-export default function SwimmerGrid() {
+interface SwimmerGridProps {
+  swimmers: Swimmer[];
+}
+
+export default function SwimmerGrid({ swimmers }: SwimmerGridProps) {
   return (
     <div className="glass-card p-5">
       <div className="flex items-center justify-between mb-5">

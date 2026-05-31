@@ -24,6 +24,7 @@ interface AppState {
   setSelectedSession: (session: Session | null) => void;
   setSelectedMLResults: (results: MLResults | null) => void;
   toggleSidebar: () => void;
+  setSidebarOpen: (open: boolean) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   clearError: () => void;
@@ -33,7 +34,7 @@ export const useAppStore = create<AppState>((set) => ({
   selectedSwimmer: null,
   selectedSession: null,
   selectedMLResults: null,
-  sidebarOpen: true,
+  sidebarOpen: false,
   isLoading: false,
   error: null,
 
@@ -41,6 +42,7 @@ export const useAppStore = create<AppState>((set) => ({
   setSelectedSession: (session) => set({ selectedSession: session }),
   setSelectedMLResults: (results) => set({ selectedMLResults: results }),
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+  setSidebarOpen: (open) => set({ sidebarOpen: open }),
   setLoading: (loading) => set({ isLoading: loading }),
   setError: (error) => set({ error }),
   clearError: () => set({ error: null }),
