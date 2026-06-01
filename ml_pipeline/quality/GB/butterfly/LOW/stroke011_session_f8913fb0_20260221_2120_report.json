@@ -1,0 +1,38 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Butterfly\\unknown_quality\\session_f8913fb0_20260221_2120\\stroke011_session_f8913fb0_20260221_2120.csv",
+  "overall_score": 75.5,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 3.162,
+  "prototype_distance_bad": 4.991,
+  "rule_scores": {
+    "smoothness": 60.2,
+    "overspeed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_shape": 100.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 40.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 61.2
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 252.1,
+    "ang_p90_deg_s": 338.6,
+    "ang_peak_deg_s": 396.0,
+    "jerk_mean_deg_s2": 1955.0,
+    "jerk_p90_deg_s2": 3734.3,
+    "dyn_peak_ms2": 12.61,
+    "wy_range_pull_deg_s": 212.0,
+    "wz_wy_ratio_pull": 0.71,
+    "phase_catch_pct": 32.7,
+    "phase_pull_pct": 31.7,
+    "phase_recovery_pct": 35.6,
+    "wy_zero_crossings": 2
+  },
+  "main_reasons": [
+    "unstable wy pattern across the stroke",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

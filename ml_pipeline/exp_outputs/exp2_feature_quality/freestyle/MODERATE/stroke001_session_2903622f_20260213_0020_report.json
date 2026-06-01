@@ -1,0 +1,43 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\session_2903622f_20260213_0020\\stroke001_session_2903622f_20260213_0020.csv",
+  "overall_score": 65.1,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 6.281,
+  "prototype_distance_bad": 6.953,
+  "weighted_score_before_penalty": 75.1,
+  "severe_penalty": 10,
+  "rule_scores": {
+    "smoothness": 71.6,
+    "pull_axis_balance": 20.0,
+    "pull_structure": 100.0,
+    "speed_control": 70.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 52.5
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 213.0,
+    "ang_p90_deg_s": 331.9,
+    "ang_peak_deg_s": 344.8,
+    "jerk_mean_deg_s2": 2024.4,
+    "jerk_p90_deg_s2": 3264.7,
+    "dyn_peak_ms2": 16.02,
+    "wx_range_pull_deg_s": 289.0,
+    "wy_range_pull_deg_s": 116.8,
+    "wz_range_pull_deg_s": 151.9,
+    "wz_wy_ratio_pull": 2.46,
+    "wx_wz_ratio_pull": 1.06,
+    "phase_catch_pct": 21.0,
+    "phase_pull_pct": 25.9,
+    "phase_recovery_pct": 53.1,
+    "recovery_cv": 0.137
+  },
+  "main_reasons": [
+    "pull axis balance is off \u2014 wz is dominating too much during pull"
+  ],
+  "style": "freestyle"
+}

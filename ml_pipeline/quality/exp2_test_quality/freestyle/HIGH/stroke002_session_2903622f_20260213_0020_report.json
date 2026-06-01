@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Freestyle\\unknown_quality\\session_2903622f_20260213_0020\\stroke002_session_2903622f_20260213_0020.csv",
+  "overall_score": 38.8,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 12.364,
+  "prototype_distance_bad": 12.717,
+  "weighted_score_before_penalty": 46.8,
+  "severe_penalty": 8,
+  "rule_scores": {
+    "smoothness": 51.5,
+    "pull_axis_balance": 20.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 35.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 35.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 50.7
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 270.1,
+    "ang_p90_deg_s": 422.1,
+    "ang_peak_deg_s": 481.9,
+    "jerk_mean_deg_s2": 2254.0,
+    "jerk_p90_deg_s2": 5094.9,
+    "dyn_peak_ms2": 17.05,
+    "wx_range_pull_deg_s": 270.9,
+    "wy_range_pull_deg_s": 115.0,
+    "wz_range_pull_deg_s": 131.2,
+    "wz_wy_ratio_pull": 0.16,
+    "wx_wz_ratio_pull": 3.31,
+    "phase_catch_pct": 16.0,
+    "phase_pull_pct": 13.6,
+    "phase_recovery_pct": 70.4,
+    "recovery_cv": 0.508
+  },
+  "main_reasons": [
+    "wrist motion is too jerky / abrupt",
+    "pull phase duration is not well balanced",
+    "recovery takes too little or too much of the stroke",
+    "recovery phase is unstable / inconsistent"
+  ],
+  "style": "freestyle"
+}

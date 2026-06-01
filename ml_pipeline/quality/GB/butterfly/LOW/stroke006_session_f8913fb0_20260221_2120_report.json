@@ -1,0 +1,37 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Butterfly\\unknown_quality\\session_f8913fb0_20260221_2120\\stroke006_session_f8913fb0_20260221_2120.csv",
+  "overall_score": 77.4,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 2.84,
+  "prototype_distance_bad": 4.689,
+  "rule_scores": {
+    "smoothness": 56.0,
+    "overspeed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_shape": 65.0,
+    "axis_balance": 100.0,
+    "signal_cleanliness": 40.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 62.3
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 261.7,
+    "ang_p90_deg_s": 360.1,
+    "ang_peak_deg_s": 411.0,
+    "jerk_mean_deg_s2": 2055.6,
+    "jerk_p90_deg_s2": 4228.2,
+    "dyn_peak_ms2": 12.08,
+    "wy_range_pull_deg_s": 237.1,
+    "wz_wy_ratio_pull": 1.49,
+    "phase_catch_pct": 32.7,
+    "phase_pull_pct": 32.7,
+    "phase_recovery_pct": 34.7,
+    "wy_zero_crossings": 2
+  },
+  "main_reasons": [
+    "unstable wy pattern across the stroke"
+  ],
+  "style": "butterfly"
+}

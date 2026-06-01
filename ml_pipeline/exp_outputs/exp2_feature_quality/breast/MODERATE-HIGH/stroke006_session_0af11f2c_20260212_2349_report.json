@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Breast\\unknown_quality\\session_0af11f2c_20260212_2349\\stroke006_session_0af11f2c_20260212_2349.csv",
+  "overall_score": 53.9,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 33.948,
+  "prototype_distance_bad": 34.894,
+  "rule_scores": {
+    "prototype_similarity": 50.7,
+    "angular_power": 20.0,
+    "dynamic_drive": 20.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 20.0,
+    "axis_balance": 100.0,
+    "phase_quality": 45.0,
+    "recovery_balance": 65.0,
+    "signal_complexity": 100.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 237.7,
+    "ang_peak_deg_s": 441.1,
+    "ang_cv": 0.477,
+    "jerk_mean_deg_s2": 1347.7,
+    "jerk_p90_deg_s2": 2238.7,
+    "dyn_peak_ms2": 10.33,
+    "dyn_p90_ms2": 7.9,
+    "wy_range_pull_deg_s": 780.2,
+    "ang_range_pull_deg_s": 346.5,
+    "wx_wy_pull": 0.13,
+    "wz_wy_pull": 0.84,
+    "pull_phase_pct": 78.5,
+    "recovery_phase_pct": 4.1,
+    "pull_energy": 259.2,
+    "recovery_energy": 427.4,
+    "num_peaks_ang": 1,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 3
+  },
+  "main_reasons": [
+    "envelope has only one dominant burst instead of the richer breaststroke pattern seen in the good set"
+  ],
+  "hard_bad_signs": 1,
+  "style": "breast"
+}

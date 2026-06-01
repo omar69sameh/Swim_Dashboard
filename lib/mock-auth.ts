@@ -102,7 +102,11 @@ export function mockSignUp(input: SignUpInput): AuthUser {
     user.coachId = coachId;
     coachAssignments[coachId] = [];
   } else {
-    user.swimmerId = `sw-new-${Date.now()}`;
+    const swimmerId = `sw-new-${Date.now()}`;
+    user.swimmerId = swimmerId;
+    if (input.coachId && coachAssignments[input.coachId]) {
+      coachAssignments[input.coachId].push(swimmerId);
+    }
   }
 
   dynamicUsers.push({ password: input.password, user });

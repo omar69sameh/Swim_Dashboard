@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { getAuthService } from "@/services";
 import { useAuthStore } from "@/lib/auth-store";
 import { readStoredSession, writeStoredSession } from "@/lib/mock-auth";
+import { getDataProvider } from "@/services/config";
 import { homePathForRole } from "@/lib/access";
 import type { SignInInput, SignUpInput } from "@/types/auth";
 
@@ -14,11 +15,23 @@ export function useAuth() {
 
   useEffect(() => {
     if (hydrated) return;
-    const stored = readStoredSession();
-    if (stored) {
-      setUser(stored);
+
+    async function hydrate() {
+      if (getDataProvider() === "api") {
+        const sessionUser = await getAuthService().getSession();
+        if (sessionUser) {
+          setUser(sessionUser);
+          writeStoredSession(sessionUser);
+          setHydrated(true);
+          return;
+        }
+      }
+      const stored = readStoredSession();
+      if (stored) setUser(stored);
+      setHydrated(true);
     }
-    setHydrated(true);
+
+    void hydrate();
   }, [hydrated, setUser, setHydrated]);
 
   const signIn = useCallback(

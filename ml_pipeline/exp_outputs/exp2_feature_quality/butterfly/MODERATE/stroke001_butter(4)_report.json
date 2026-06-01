@@ -1,0 +1,38 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Butterfly\\unknown_quality\\butter(4)\\stroke001_butter(4).csv",
+  "overall_score": 62.4,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 4.79,
+  "prototype_distance_bad": 3.972,
+  "rule_scores": {
+    "smoothness": 46.1,
+    "overspeed_control": 100.0,
+    "phase_quality": 40.0,
+    "pull_shape": 25.0,
+    "axis_balance": 100.0,
+    "signal_cleanliness": 65.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 45.3
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 313.1,
+    "ang_p90_deg_s": 519.9,
+    "ang_peak_deg_s": 605.2,
+    "jerk_mean_deg_s2": 2277.9,
+    "jerk_p90_deg_s2": 3666.8,
+    "dyn_peak_ms2": 19.53,
+    "wy_range_pull_deg_s": 367.1,
+    "wz_wy_ratio_pull": 1.25,
+    "phase_catch_pct": 12.9,
+    "phase_pull_pct": 51.5,
+    "phase_recovery_pct": 35.6,
+    "wy_zero_crossings": 1
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "pull sweep is exaggerated / chaotic rather than controlled"
+  ],
+  "style": "butterfly"
+}

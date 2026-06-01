@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Breast\\unknown_quality\\session_6fbb9911_20260212_2350\\stroke018_session_6fbb9911_20260212_2350.csv",
+  "overall_score": 67.7,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 4.814,
+  "prototype_distance_bad": 4.138,
+  "rule_scores": {
+    "prototype_similarity": 46.2,
+    "angular_power": 70.0,
+    "dynamic_drive": 20.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 100.0,
+    "axis_balance": 65.0,
+    "phase_quality": 100.0,
+    "recovery_balance": 65.0,
+    "signal_complexity": 65.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 250.8,
+    "ang_peak_deg_s": 505.8,
+    "ang_cv": 0.43,
+    "jerk_mean_deg_s2": 2039.9,
+    "jerk_p90_deg_s2": 4509.3,
+    "dyn_peak_ms2": 13.73,
+    "dyn_p90_ms2": 7.86,
+    "wy_range_pull_deg_s": 504.1,
+    "ang_range_pull_deg_s": 370.9,
+    "wx_wy_pull": 0.15,
+    "wz_wy_pull": 0.59,
+    "pull_phase_pct": 28.1,
+    "recovery_phase_pct": 53.7,
+    "pull_energy": 206.7,
+    "recovery_energy": 310.6,
+    "num_peaks_ang": 2,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 2
+  },
+  "main_reasons": [
+    "signal structure is closer to the final good breaststroke references than the final bad set"
+  ],
+  "hard_bad_signs": 0,
+  "style": "breast"
+}

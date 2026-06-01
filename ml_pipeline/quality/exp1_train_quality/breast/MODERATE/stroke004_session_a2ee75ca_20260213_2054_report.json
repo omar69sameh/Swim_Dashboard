@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Breast\\unknown_quality\\session_a2ee75ca_20260213_2054\\stroke004_session_a2ee75ca_20260213_2054.csv",
+  "overall_score": 74.0,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 7.972,
+  "prototype_distance_bad": 10.227,
+  "rule_scores": {
+    "prototype_similarity": 56.2,
+    "angular_power": 100.0,
+    "dynamic_drive": 100.0,
+    "pull_amplitude": 20.0,
+    "peak_structure": 100.0,
+    "axis_balance": 65.0,
+    "phase_quality": 100.0,
+    "recovery_balance": 100.0,
+    "signal_complexity": 20.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 404.1,
+    "ang_peak_deg_s": 645.2,
+    "ang_cv": 0.265,
+    "jerk_mean_deg_s2": 2372.7,
+    "jerk_p90_deg_s2": 4730.8,
+    "dyn_peak_ms2": 23.04,
+    "dyn_p90_ms2": 18.21,
+    "wy_range_pull_deg_s": 23.7,
+    "ang_range_pull_deg_s": 397.4,
+    "wx_wy_pull": 1.75,
+    "wz_wy_pull": 1.18,
+    "pull_phase_pct": 18.2,
+    "recovery_phase_pct": 52.1,
+    "pull_energy": 376.7,
+    "recovery_energy": 449.2,
+    "num_peaks_ang": 2,
+    "wy_zero_crossings": 0,
+    "az_zero_crossings": 3
+  },
+  "main_reasons": [
+    "pull sweep is too small / flat compared with the final good references"
+  ],
+  "hard_bad_signs": 1,
+  "style": "breast"
+}

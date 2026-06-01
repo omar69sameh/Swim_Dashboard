@@ -1,0 +1,39 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_bf7376b9_20260213_1957\\stroke009_session_bf7376b9_20260213_1957.csv",
+  "overall_score": 49.0,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 6.377,
+  "prototype_distance_bad": 3.878,
+  "rule_scores": {
+    "smoothness": 42.6,
+    "overspeed_control": 48.8,
+    "phase_quality": 40.0,
+    "pull_shape": 65.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 37.8
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 369.9,
+    "ang_p90_deg_s": 606.3,
+    "ang_peak_deg_s": 757.1,
+    "jerk_mean_deg_s2": 2347.5,
+    "jerk_p90_deg_s2": 5437.7,
+    "dyn_peak_ms2": 31.44,
+    "wy_range_pull_deg_s": 293.7,
+    "wz_wy_ratio_pull": 0.77,
+    "phase_catch_pct": 5.0,
+    "phase_pull_pct": 45.5,
+    "phase_recovery_pct": 49.5,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "movement is too fast / aggressive for a controlled stroke",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

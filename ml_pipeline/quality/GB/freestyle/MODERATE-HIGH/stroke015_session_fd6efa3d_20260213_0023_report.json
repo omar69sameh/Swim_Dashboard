@@ -1,0 +1,44 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Freestyle\\unknown_quality\\session_fd6efa3d_20260213_0023\\stroke015_session_fd6efa3d_20260213_0023.csv",
+  "overall_score": 50.8,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 12.168,
+  "prototype_distance_bad": 13.759,
+  "weighted_score_before_penalty": 68.8,
+  "severe_penalty": 18,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 65.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 30.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 53.1
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 224.1,
+    "ang_p90_deg_s": 268.3,
+    "ang_peak_deg_s": 272.2,
+    "jerk_mean_deg_s2": 1069.7,
+    "jerk_p90_deg_s2": 2522.9,
+    "dyn_peak_ms2": 7.18,
+    "wx_range_pull_deg_s": 93.8,
+    "wy_range_pull_deg_s": 78.9,
+    "wz_range_pull_deg_s": 141.5,
+    "wz_wy_ratio_pull": 0.51,
+    "wx_wz_ratio_pull": 4.56,
+    "phase_catch_pct": 3.7,
+    "phase_pull_pct": 46.9,
+    "phase_recovery_pct": 49.4,
+    "recovery_cv": 0.111
+  },
+  "main_reasons": [
+    "entry/catch timing is outside the normal freestyle range",
+    "pull phase duration is not well balanced"
+  ],
+  "style": "freestyle"
+}

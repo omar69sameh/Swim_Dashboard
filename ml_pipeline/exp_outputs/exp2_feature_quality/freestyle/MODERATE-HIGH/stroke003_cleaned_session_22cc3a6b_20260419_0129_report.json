@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\cleaned_session_22cc3a6b_20260419_0129\\stroke003_cleaned_session_22cc3a6b_20260419_0129.csv",
+  "overall_score": 51.3,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 11.422,
+  "prototype_distance_bad": 12.117,
+  "weighted_score_before_penalty": 71.3,
+  "severe_penalty": 20,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 20.0,
+    "pull_structure": 100.0,
+    "speed_control": 100.0,
+    "phase_quality": 30.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 51.5
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 227.2,
+    "ang_p90_deg_s": 254.7,
+    "ang_peak_deg_s": 262.0,
+    "jerk_mean_deg_s2": 830.6,
+    "jerk_p90_deg_s2": 1027.8,
+    "dyn_peak_ms2": 2.43,
+    "wx_range_pull_deg_s": 207.2,
+    "wy_range_pull_deg_s": 32.5,
+    "wz_range_pull_deg_s": 122.5,
+    "wz_wy_ratio_pull": 2.66,
+    "wx_wz_ratio_pull": 1.06,
+    "phase_catch_pct": 3.7,
+    "phase_pull_pct": 42.0,
+    "phase_recovery_pct": 54.3,
+    "recovery_cv": 0.118
+  },
+  "main_reasons": [
+    "pull axis balance is off \u2014 wz is dominating too much during pull",
+    "entry/catch timing is outside the normal freestyle range",
+    "pull phase duration is not well balanced",
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

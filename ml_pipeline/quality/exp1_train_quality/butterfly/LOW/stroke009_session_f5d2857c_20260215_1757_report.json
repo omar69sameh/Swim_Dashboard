@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_f5d2857c_20260215_1757\\stroke009_session_f5d2857c_20260215_1757.csv",
+  "overall_score": 85.2,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 3.693,
+  "prototype_distance_bad": 7.05,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "overspeed_control": 100.0,
+    "phase_quality": 40.0,
+    "pull_shape": 100.0,
+    "axis_balance": 100.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 65.6
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 249.2,
+    "ang_p90_deg_s": 353.4,
+    "ang_peak_deg_s": 401.5,
+    "jerk_mean_deg_s2": 1072.5,
+    "jerk_p90_deg_s2": 2168.8,
+    "dyn_peak_ms2": 9.85,
+    "wy_range_pull_deg_s": 183.2,
+    "wz_wy_ratio_pull": 1.78,
+    "phase_catch_pct": 5.9,
+    "phase_pull_pct": 64.4,
+    "phase_recovery_pct": 29.7,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "signal shape is generally controlled and closer to calibrated good strokes"
+  ],
+  "style": "butterfly"
+}

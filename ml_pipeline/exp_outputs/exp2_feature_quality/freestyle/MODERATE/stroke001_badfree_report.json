@@ -1,0 +1,44 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\badfree\\stroke001_badfree.csv",
+  "overall_score": 65.3,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 6.967,
+  "prototype_distance_bad": 7.949,
+  "weighted_score_before_penalty": 76.3,
+  "severe_penalty": 11,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 65.0,
+    "pull_structure": 65.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 25.0,
+    "recovery_stability": 35.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 53.3
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 260.4,
+    "ang_p90_deg_s": 331.0,
+    "ang_peak_deg_s": 336.0,
+    "jerk_mean_deg_s2": 1204.9,
+    "jerk_p90_deg_s2": 2234.5,
+    "dyn_peak_ms2": 11.54,
+    "wx_range_pull_deg_s": 137.8,
+    "wy_range_pull_deg_s": 87.8,
+    "wz_range_pull_deg_s": 336.1,
+    "wz_wy_ratio_pull": 1.35,
+    "wx_wz_ratio_pull": 2.05,
+    "phase_catch_pct": 28.4,
+    "phase_pull_pct": 27.2,
+    "phase_recovery_pct": 44.4,
+    "recovery_cv": 0.274
+  },
+  "main_reasons": [
+    "pull amplitude is too exaggerated or too small",
+    "recovery phase is unstable / inconsistent"
+  ],
+  "style": "freestyle"
+}

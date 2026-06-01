@@ -7,3 +7,5 @@ export { useMLResults } from "./useMLResults";
 export { useTeamMetrics } from "./useTeamMetrics";
 export { useHistoricalData } from "./useHistoricalData";
 export { useAsyncData } from "./useAsyncData";
+export { useCoaches } from "./useCoaches";
+export { useProfile } from "./useProfile";

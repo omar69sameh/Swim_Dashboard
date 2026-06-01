@@ -1,0 +1,58 @@
+{
+    "overall_accuracy": 0.9643705463182898,
+    "per_class_metrics": {
+        "Breast": {
+            "accuracy": 0.9761904761904762,
+            "precision": 0.9389312977099237,
+            "recall": 0.9761904761904762,
+            "f1_score": 0.9571984435797666,
+            "support": 126
+        },
+        "Butterfly": {
+            "accuracy": 0.9230769230769231,
+            "precision": 0.9642857142857143,
+            "recall": 0.9230769230769231,
+            "f1_score": 0.9432314410480349,
+            "support": 117
+        },
+        "Freestyle": {
+            "accuracy": 0.9831460674157303,
+            "precision": 0.9831460674157303,
+            "recall": 0.9831460674157303,
+            "f1_score": 0.9831460674157303,
+            "support": 178
+        }
+    },
+    "macro_averages": {
+        "precision": 0.9621210264704562,
+        "recall": 0.9608044888943765,
+        "f1_score": 0.9611919840145107
+    },
+    "weighted_averages": {
+        "precision": 0.9646716676552944,
+        "recall": 0.9643705463182898,
+        "f1_score": 0.964287606873327
+    },
+    "confusion_matrix": [
+        [
+            123,
+            3,
+            0
+        ],
+        [
+            6,
+            108,
+            3
+        ],
+        [
+            2,
+            1,
+            175
+        ]
+    ],
+    "class_names": [
+        "Breast",
+        "Butterfly",
+        "Freestyle"
+    ]
+}

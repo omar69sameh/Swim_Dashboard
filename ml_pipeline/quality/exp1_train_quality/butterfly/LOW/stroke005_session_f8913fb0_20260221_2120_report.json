@@ -1,0 +1,38 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_f8913fb0_20260221_2120\\stroke005_session_f8913fb0_20260221_2120.csv",
+  "overall_score": 85.1,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 2.331,
+  "prototype_distance_bad": 5.395,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "overspeed_control": 100.0,
+    "phase_quality": 40.0,
+    "pull_shape": 100.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 69.8
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 255.6,
+    "ang_p90_deg_s": 370.9,
+    "ang_peak_deg_s": 392.9,
+    "jerk_mean_deg_s2": 1552.2,
+    "jerk_p90_deg_s2": 2922.1,
+    "dyn_peak_ms2": 14.64,
+    "wy_range_pull_deg_s": 106.4,
+    "wz_wy_ratio_pull": 0.98,
+    "phase_catch_pct": 31.7,
+    "phase_pull_pct": 17.8,
+    "phase_recovery_pct": 50.5,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "recovery phase takes too much of the stroke",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

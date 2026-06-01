@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Butterfly\\unknown_quality\\session_7d343c71_20260212_2313\\stroke006_session_7d343c71_20260212_2313.csv",
+  "overall_score": 72.1,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 3.574,
+  "prototype_distance_bad": 3.024,
+  "rule_scores": {
+    "smoothness": 53.1,
+    "overspeed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_shape": 25.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 45.8
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 311.4,
+    "ang_p90_deg_s": 490.6,
+    "ang_peak_deg_s": 542.1,
+    "jerk_mean_deg_s2": 2126.7,
+    "jerk_p90_deg_s2": 4714.3,
+    "dyn_peak_ms2": 19.77,
+    "wy_range_pull_deg_s": 361.7,
+    "wz_wy_ratio_pull": 1.08,
+    "phase_catch_pct": 27.7,
+    "phase_pull_pct": 30.7,
+    "phase_recovery_pct": 41.6,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "pull sweep is exaggerated / chaotic rather than controlled"
+  ],
+  "style": "butterfly"
+}

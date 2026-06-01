@@ -1,0 +1,48 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Breast\\unknown_quality\\session_8c44fd34_20260212_2348\\stroke009_session_8c44fd34_20260212_2348.csv",
+  "overall_score": 50.6,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 5.81,
+  "prototype_distance_bad": 3.081,
+  "rule_scores": {
+    "prototype_similarity": 34.7,
+    "angular_power": 20.0,
+    "dynamic_drive": 20.0,
+    "pull_amplitude": 65.0,
+    "peak_structure": 100.0,
+    "axis_balance": 25.0,
+    "phase_quality": 100.0,
+    "recovery_balance": 100.0,
+    "signal_complexity": 20.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 214.3,
+    "ang_peak_deg_s": 409.6,
+    "ang_cv": 0.397,
+    "jerk_mean_deg_s2": 1326.5,
+    "jerk_p90_deg_s2": 2313.5,
+    "dyn_peak_ms2": 10.14,
+    "dyn_p90_ms2": 7.9,
+    "wy_range_pull_deg_s": 289.4,
+    "ang_range_pull_deg_s": 276.4,
+    "wx_wy_pull": 0.26,
+    "wz_wy_pull": 0.34,
+    "pull_phase_pct": 28.1,
+    "recovery_phase_pct": 50.4,
+    "pull_energy": 242.8,
+    "recovery_energy": 233.0,
+    "num_peaks_ang": 2,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 1
+  },
+  "main_reasons": [
+    "overall angular power is much lower than the final good reference set",
+    "wrist orientation pattern is too simple / flat compared with the final good set",
+    "pull axis balance is closer to the bad reference pattern"
+  ],
+  "hard_bad_signs": 2,
+  "style": "breast"
+}

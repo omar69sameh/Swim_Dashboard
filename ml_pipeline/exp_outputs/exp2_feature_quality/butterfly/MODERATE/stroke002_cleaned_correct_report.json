@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Butterfly\\unknown_quality\\cleaned_correct\\stroke002_cleaned_correct.csv",
+  "overall_score": 73.9,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 3.989,
+  "prototype_distance_bad": 6.769,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "overspeed_control": 100.0,
+    "phase_quality": 40.0,
+    "pull_shape": 25.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 62.9
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 255.4,
+    "ang_p90_deg_s": 336.5,
+    "ang_peak_deg_s": 347.4,
+    "jerk_mean_deg_s2": 1058.5,
+    "jerk_p90_deg_s2": 1831.2,
+    "dyn_peak_ms2": 10.02,
+    "wy_range_pull_deg_s": 30.9,
+    "wz_wy_ratio_pull": 1.13,
+    "phase_catch_pct": 6.9,
+    "phase_pull_pct": 24.8,
+    "phase_recovery_pct": 68.3,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "recovery phase takes too much of the stroke"
+  ],
+  "style": "butterfly"
+}

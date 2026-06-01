@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_f5d2857c_20260215_1757\\stroke007_session_f5d2857c_20260215_1757.csv",
+  "overall_score": 82.9,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 3.309,
+  "prototype_distance_bad": 5.507,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "overspeed_control": 100.0,
+    "phase_quality": 40.0,
+    "pull_shape": 65.0,
+    "axis_balance": 100.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 62.5
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 251.4,
+    "ang_p90_deg_s": 415.6,
+    "ang_peak_deg_s": 432.1,
+    "jerk_mean_deg_s2": 1184.7,
+    "jerk_p90_deg_s2": 2665.6,
+    "dyn_peak_ms2": 15.22,
+    "wy_range_pull_deg_s": 272.5,
+    "wz_wy_ratio_pull": 1.58,
+    "phase_catch_pct": 7.9,
+    "phase_pull_pct": 30.7,
+    "phase_recovery_pct": 61.4,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "recovery phase takes too much of the stroke"
+  ],
+  "style": "butterfly"
+}

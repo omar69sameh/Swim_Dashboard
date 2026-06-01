@@ -1,0 +1,38 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\cleaned_incorrect\\stroke001_cleaned_incorrect.csv",
+  "overall_score": 51.7,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 4.207,
+  "prototype_distance_bad": 3.473,
+  "rule_scores": {
+    "smoothness": 52.8,
+    "overspeed_control": 59.7,
+    "phase_quality": 70.0,
+    "pull_shape": 25.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 65.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 45.2
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 352.4,
+    "ang_p90_deg_s": 550.3,
+    "ang_peak_deg_s": 579.6,
+    "jerk_mean_deg_s2": 2133.2,
+    "jerk_p90_deg_s2": 3765.2,
+    "dyn_peak_ms2": 22.35,
+    "wy_range_pull_deg_s": 304.0,
+    "wz_wy_ratio_pull": 0.93,
+    "phase_catch_pct": 45.5,
+    "phase_pull_pct": 28.7,
+    "phase_recovery_pct": 25.7,
+    "wy_zero_crossings": 1
+  },
+  "main_reasons": [
+    "pull sweep is exaggerated / chaotic rather than controlled",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

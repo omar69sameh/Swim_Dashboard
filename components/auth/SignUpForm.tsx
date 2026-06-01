@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
+import { useCoaches } from "@/hooks/useCoaches";
 import type { UserRole } from "@/types/auth";
 import { cn } from "@/lib/utils";
 
@@ -12,15 +13,33 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<UserRole>("swimmer");
+  const [age, setAge] = useState("");
+  const [coachId, setCoachId] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const { coaches, isLoading: coachesLoading } = useCoaches(role === "swimmer");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
     try {
-      await signUp({ name, email, password, role });
+      const ageNum = role === "swimmer" ? parseInt(age, 10) : undefined;
+      if (role === "swimmer" && (!ageNum || ageNum < 1 || ageNum > 120)) {
+        setError("Please enter a valid age (1–120)");
+        setLoading(false);
+        return;
+      }
+
+      await signUp({
+        name,
+        email,
+        password,
+        role,
+        age: ageNum,
+        coachId: role === "swimmer" && coachId ? coachId : undefined,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign up failed");
     } finally {
@@ -38,7 +57,13 @@ export default function SignUpForm() {
           <button
             key={r}
             type="button"
-            onClick={() => setRole(r)}
+            onClick={() => {
+              setRole(r);
+              if (r === "coach") {
+                setCoachId("");
+                setAge("");
+              }
+            }}
             className={cn(
               "flex-1 py-2 rounded-lg text-sm font-medium capitalize border transition-colors",
               role === r
@@ -83,6 +108,44 @@ export default function SignUpForm() {
             className="w-full bg-ocean-900/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-aqua-300/50"
           />
         </div>
+
+        {role === "swimmer" && (
+          <div>
+            <label className="block text-xs text-slate-500 mb-1">Age</label>
+            <input
+              type="number"
+              required
+              min={1}
+              max={120}
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              className="w-full bg-ocean-900/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-aqua-300/50"
+            />
+          </div>
+        )}
+
+        {role === "swimmer" && (
+          <div>
+            <label className="block text-xs text-slate-500 mb-1">Coach (optional)</label>
+            <select
+              value={coachId}
+              onChange={(e) => setCoachId(e.target.value)}
+              disabled={coachesLoading}
+              className="w-full bg-ocean-900/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-aqua-300/50"
+            >
+              <option value="">No coach selected</option>
+              {coaches.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            {!coachesLoading && coaches.length === 0 && (
+              <p className="text-xs text-slate-500 mt-1">No coaches available yet.</p>
+            )}
+          </div>
+        )}
+
         {error && <p className="text-sm text-rose-400">{error}</p>}
         <button
           type="submit"

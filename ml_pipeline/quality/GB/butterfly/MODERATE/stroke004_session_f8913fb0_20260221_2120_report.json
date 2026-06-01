@@ -1,0 +1,38 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Butterfly\\unknown_quality\\session_f8913fb0_20260221_2120\\stroke004_session_f8913fb0_20260221_2120.csv",
+  "overall_score": 62.1,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 5.081,
+  "prototype_distance_bad": 5.159,
+  "rule_scores": {
+    "smoothness": 53.9,
+    "overspeed_control": 100.0,
+    "phase_quality": 10.0,
+    "pull_shape": 100.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 15.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 50.4
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 254.9,
+    "ang_p90_deg_s": 362.3,
+    "ang_peak_deg_s": 405.1,
+    "jerk_mean_deg_s2": 2105.9,
+    "jerk_p90_deg_s2": 3884.1,
+    "dyn_peak_ms2": 16.16,
+    "wy_range_pull_deg_s": 187.2,
+    "wz_wy_ratio_pull": 1.14,
+    "phase_catch_pct": 17.8,
+    "phase_pull_pct": 17.8,
+    "phase_recovery_pct": 64.4,
+    "wy_zero_crossings": 4
+  },
+  "main_reasons": [
+    "unstable wy pattern across the stroke",
+    "recovery phase takes too much of the stroke"
+  ],
+  "style": "butterfly"
+}

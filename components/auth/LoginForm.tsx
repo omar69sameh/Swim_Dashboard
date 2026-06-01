@@ -28,7 +28,9 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-md">
       <h1 className="text-2xl font-display font-bold text-white mb-1">Sign in</h1>
-      <p className="text-sm text-slate-400 mb-6">Coaches and swimmers use the same login.</p>
+      <p className="text-sm text-slate-400 mb-6">
+        Use the same email and password as the phone app. Coaches use this site; swimmers use the app or this site.
+      </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

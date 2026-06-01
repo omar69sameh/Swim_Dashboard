@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
-  LayoutDashboard,
   Users,
   Settings,
   Droplets,
   ChevronLeft,
   ChevronRight,
   TrendingUp,
+  UserCircle,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
 import { useAuthStore } from "@/lib/auth-store";
@@ -36,6 +36,7 @@ export default function Sidebar() {
         ]
       : [
           { href: "/swimmer", label: "My progress", icon: TrendingUp },
+          { href: "/profile", label: "Profile", icon: UserCircle },
           { href: "/settings", label: "Settings", icon: Settings },
         ];
 

@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Breast\\unknown_quality\\session_3e322fe1_20260213_2058\\stroke010_session_3e322fe1_20260213_2058.csv",
+  "overall_score": 72.0,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 4.659,
+  "prototype_distance_bad": 3.581,
+  "rule_scores": {
+    "prototype_similarity": 43.5,
+    "angular_power": 70.0,
+    "dynamic_drive": 20.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 100.0,
+    "axis_balance": 100.0,
+    "phase_quality": 100.0,
+    "recovery_balance": 100.0,
+    "signal_complexity": 65.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 241.5,
+    "ang_peak_deg_s": 407.0,
+    "ang_cv": 0.378,
+    "jerk_mean_deg_s2": 1520.9,
+    "jerk_p90_deg_s2": 2610.2,
+    "dyn_peak_ms2": 8.51,
+    "dyn_p90_ms2": 7.13,
+    "wy_range_pull_deg_s": 348.1,
+    "ang_range_pull_deg_s": 287.3,
+    "wx_wy_pull": 0.45,
+    "wz_wy_pull": 0.81,
+    "pull_phase_pct": 38.0,
+    "recovery_phase_pct": 49.6,
+    "pull_energy": 232.7,
+    "recovery_energy": 278.1,
+    "num_peaks_ang": 2,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 2
+  },
+  "main_reasons": [
+    "dynamic acceleration is too weak for the final good breaststroke pattern"
+  ],
+  "hard_bad_signs": 1,
+  "style": "breast"
+}

@@ -1,0 +1,50 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Breast\\unknown_quality\\cleaned_session_e0665051_20260419_0147\\stroke010_cleaned_session_e0665051_20260419_0147.csv",
+  "overall_score": 36.2,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 35.525,
+  "prototype_distance_bad": 35.797,
+  "rule_scores": {
+    "prototype_similarity": 50.2,
+    "angular_power": 20.0,
+    "dynamic_drive": 20.0,
+    "pull_amplitude": 20.0,
+    "peak_structure": 20.0,
+    "axis_balance": 25.0,
+    "phase_quality": 45.0,
+    "recovery_balance": 100.0,
+    "signal_complexity": 20.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 168.1,
+    "ang_peak_deg_s": 229.4,
+    "ang_cv": 0.209,
+    "jerk_mean_deg_s2": 759.1,
+    "jerk_p90_deg_s2": 1072.1,
+    "dyn_peak_ms2": 3.16,
+    "dyn_p90_ms2": 2.71,
+    "wy_range_pull_deg_s": 402.6,
+    "ang_range_pull_deg_s": 111.6,
+    "wx_wy_pull": 0.58,
+    "wz_wy_pull": 0.39,
+    "pull_phase_pct": 82.6,
+    "recovery_phase_pct": 2.5,
+    "pull_energy": 172.2,
+    "recovery_energy": 225.2,
+    "num_peaks_ang": 1,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 1
+  },
+  "main_reasons": [
+    "overall angular power is much lower than the final good reference set",
+    "dynamic acceleration is too weak for the final good breaststroke pattern",
+    "envelope has only one dominant burst instead of the richer breaststroke pattern seen in the good set",
+    "wrist orientation pattern is too simple / flat compared with the final good set",
+    "pull axis balance is closer to the bad reference pattern"
+  ],
+  "hard_bad_signs": 5,
+  "style": "breast"
+}

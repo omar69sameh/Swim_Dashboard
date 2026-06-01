@@ -1,0 +1,25 @@
+{
+  "processed": 268,
+  "failed": 2,
+  "by_style": {
+    "butterfly": 88,
+    "freestyle": 89,
+    "breast": 91
+  },
+  "by_risk": {
+    "MODERATE-HIGH": 48,
+    "HIGH": 42,
+    "MODERATE": 100,
+    "LOW": 78
+  },
+  "failures": [
+    {
+      "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\stroke_counts_per_session.csv",
+      "error": "Could not infer style from folder/file name. Put the file in a style-named subfolder or include the style in the filename."
+    },
+    {
+      "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\stroke_segments_detailed.csv",
+      "error": "Could not infer style from folder/file name. Put the file in a style-named subfolder or include the style in the filename."
+    }
+  ]
+}

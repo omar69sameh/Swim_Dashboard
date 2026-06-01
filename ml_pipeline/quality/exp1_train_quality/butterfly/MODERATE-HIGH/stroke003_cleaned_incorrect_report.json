@@ -1,0 +1,39 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\cleaned_incorrect\\stroke003_cleaned_incorrect.csv",
+  "overall_score": 54.9,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 4.43,
+  "prototype_distance_bad": 3.939,
+  "rule_scores": {
+    "smoothness": 57.5,
+    "overspeed_control": 65.3,
+    "phase_quality": 40.0,
+    "pull_shape": 65.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 47.1
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 343.5,
+    "ang_p90_deg_s": 477.6,
+    "ang_peak_deg_s": 528.0,
+    "jerk_mean_deg_s2": 2019.0,
+    "jerk_p90_deg_s2": 3606.8,
+    "dyn_peak_ms2": 4.65,
+    "wy_range_pull_deg_s": 287.4,
+    "wz_wy_ratio_pull": 0.75,
+    "phase_catch_pct": 3.0,
+    "phase_pull_pct": 44.6,
+    "phase_recovery_pct": 52.5,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "recovery phase takes too much of the stroke",
+    "axis balance in pull is closer to bad examples than good ones",
+    "stroke drive is weak"
+  ],
+  "style": "butterfly"
+}

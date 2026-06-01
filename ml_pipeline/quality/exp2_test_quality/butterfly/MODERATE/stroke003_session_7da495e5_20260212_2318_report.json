@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Butterfly\\unknown_quality\\session_7da495e5_20260212_2318\\stroke003_session_7da495e5_20260212_2318.csv",
+  "overall_score": 72.1,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 3.268,
+  "prototype_distance_bad": 2.54,
+  "rule_scores": {
+    "smoothness": 48.9,
+    "overspeed_control": 66.6,
+    "phase_quality": 100.0,
+    "pull_shape": 65.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 43.7
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 341.5,
+    "ang_p90_deg_s": 508.8,
+    "ang_peak_deg_s": 607.2,
+    "jerk_mean_deg_s2": 2221.3,
+    "jerk_p90_deg_s2": 4398.9,
+    "dyn_peak_ms2": 14.69,
+    "wy_range_pull_deg_s": 278.4,
+    "wz_wy_ratio_pull": 1.1,
+    "phase_catch_pct": 32.7,
+    "phase_pull_pct": 32.7,
+    "phase_recovery_pct": 34.7,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "very jerky wrist motion"
+  ],
+  "style": "butterfly"
+}

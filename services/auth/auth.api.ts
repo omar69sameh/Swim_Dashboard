@@ -5,7 +5,12 @@ import type { IAuthService } from "./auth.types";
 export const authApiService: IAuthService = {
   async getSession() {
     try {
-      return await apiGet<AuthUser>("/api/auth/session");
+      const res = await fetch("/api/auth/session", {
+        credentials: "include",
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) return null;
+      return (await res.json()) as AuthUser;
     } catch {
       return null;
     }
@@ -15,6 +20,7 @@ export const authApiService: IAuthService = {
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(input),
     });
     if (!res.ok) {
@@ -28,6 +34,7 @@ export const authApiService: IAuthService = {
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(input),
     });
     if (!res.ok) {
@@ -38,6 +45,6 @@ export const authApiService: IAuthService = {
   },
 
   async signOut() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
   },
 };

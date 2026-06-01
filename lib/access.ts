@@ -21,9 +21,8 @@ export function getSessionFilters(user: AuthUser | null, swimmerId?: string): Se
   if (user.role === "swimmer" && user.swimmerId) {
     return { swimmerId: user.swimmerId };
   }
-  if (user.role === "coach" && user.coachId) {
-    const ids = getSwimmerIdsForCoach(user.coachId);
-    return { swimmerIds: ids };
+  if (user.role === "coach") {
+    return {};
   }
   return undefined;
 }
@@ -33,8 +32,9 @@ export function canAccessSwimmer(user: AuthUser | null, swimmerId: string): bool
   if (user.role === "swimmer") {
     return user.swimmerId === swimmerId;
   }
-  if (user.role === "coach" && user.coachId) {
-    return getSwimmerIdsForCoach(user.coachId).includes(swimmerId);
+  // Server BFF enforces coach_id assignment; UI only links to listed swimmers
+  if (user.role === "coach") {
+    return true;
   }
   return false;
 }

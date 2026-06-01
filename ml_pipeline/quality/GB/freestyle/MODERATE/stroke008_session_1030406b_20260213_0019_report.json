@@ -1,0 +1,44 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Freestyle\\unknown_quality\\session_1030406b_20260213_0019\\stroke008_session_1030406b_20260213_0019.csv",
+  "overall_score": 70.7,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 8.189,
+  "prototype_distance_bad": 9.274,
+  "weighted_score_before_penalty": 78.7,
+  "severe_penalty": 8,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 65.0,
+    "pull_structure": 100.0,
+    "speed_control": 100.0,
+    "phase_quality": 35.0,
+    "pull_amplitude": 65.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 53.1
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 260.9,
+    "ang_p90_deg_s": 331.6,
+    "ang_peak_deg_s": 361.7,
+    "jerk_mean_deg_s2": 1289.7,
+    "jerk_p90_deg_s2": 2403.0,
+    "dyn_peak_ms2": 6.69,
+    "wx_range_pull_deg_s": 292.9,
+    "wy_range_pull_deg_s": 373.1,
+    "wz_range_pull_deg_s": 280.6,
+    "wz_wy_ratio_pull": 0.54,
+    "wx_wz_ratio_pull": 1.66,
+    "phase_catch_pct": 16.0,
+    "phase_pull_pct": 53.1,
+    "phase_recovery_pct": 30.9,
+    "recovery_cv": 0.189
+  },
+  "main_reasons": [
+    "pull phase duration is not well balanced",
+    "recovery takes too little or too much of the stroke"
+  ],
+  "style": "freestyle"
+}

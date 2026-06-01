@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Freestyle\\unknown_quality\\session_12113382_20260213_0021\\stroke001_session_12113382_20260213_0021.csv",
+  "overall_score": 15.8,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 6.417,
+  "prototype_distance_bad": 5.884,
+  "weighted_score_before_penalty": 51.8,
+  "severe_penalty": 36,
+  "rule_scores": {
+    "smoothness": 20.0,
+    "pull_axis_balance": 20.0,
+    "pull_structure": 100.0,
+    "speed_control": 70.0,
+    "phase_quality": 35.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 47.8
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 296.0,
+    "ang_p90_deg_s": 400.1,
+    "ang_peak_deg_s": 464.7,
+    "jerk_mean_deg_s2": 2535.2,
+    "jerk_p90_deg_s2": 5432.4,
+    "dyn_peak_ms2": 19.23,
+    "wx_range_pull_deg_s": 324.2,
+    "wy_range_pull_deg_s": 130.3,
+    "wz_range_pull_deg_s": 211.8,
+    "wz_wy_ratio_pull": 2.05,
+    "wx_wz_ratio_pull": 1.33,
+    "phase_catch_pct": 9.9,
+    "phase_pull_pct": 25.9,
+    "phase_recovery_pct": 64.2,
+    "recovery_cv": 0.109
+  },
+  "main_reasons": [
+    "wrist motion is too jerky / abrupt",
+    "pull axis balance is off \u2014 wz is dominating too much during pull",
+    "entry/catch timing is outside the normal freestyle range",
+    "recovery takes too little or too much of the stroke"
+  ],
+  "style": "freestyle"
+}

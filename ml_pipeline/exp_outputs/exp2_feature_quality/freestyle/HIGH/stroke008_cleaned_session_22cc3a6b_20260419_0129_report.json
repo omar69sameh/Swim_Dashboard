@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\cleaned_session_22cc3a6b_20260419_0129\\stroke008_cleaned_session_22cc3a6b_20260419_0129.csv",
+  "overall_score": 37.1,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 10.84,
+  "prototype_distance_bad": 11.839,
+  "weighted_score_before_penalty": 66.1,
+  "severe_penalty": 29,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 65.0,
+    "pull_structure": 65.0,
+    "speed_control": 70.0,
+    "phase_quality": 35.0,
+    "pull_amplitude": 25.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 52.2
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 214.1,
+    "ang_p90_deg_s": 252.1,
+    "ang_peak_deg_s": 257.8,
+    "jerk_mean_deg_s2": 815.8,
+    "jerk_p90_deg_s2": 1012.7,
+    "dyn_peak_ms2": 3.13,
+    "wx_range_pull_deg_s": 168.3,
+    "wy_range_pull_deg_s": 32.2,
+    "wz_range_pull_deg_s": 70.0,
+    "wz_wy_ratio_pull": 1.27,
+    "wx_wz_ratio_pull": 0.83,
+    "phase_catch_pct": 3.7,
+    "phase_pull_pct": 32.1,
+    "phase_recovery_pct": 64.2,
+    "recovery_cv": 0.19
+  },
+  "main_reasons": [
+    "entry/catch timing is outside the normal freestyle range",
+    "recovery takes too little or too much of the stroke",
+    "pull amplitude is too exaggerated or too small",
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

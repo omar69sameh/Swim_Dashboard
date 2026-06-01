@@ -1,0 +1,38 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_f1aad541_20260213_1955\\stroke009_session_f1aad541_20260213_1955.csv",
+  "overall_score": 54.2,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 5.076,
+  "prototype_distance_bad": 3.843,
+  "rule_scores": {
+    "smoothness": 38.0,
+    "overspeed_control": 30.1,
+    "phase_quality": 70.0,
+    "pull_shape": 65.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 43.1
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 399.9,
+    "ang_p90_deg_s": 558.5,
+    "ang_peak_deg_s": 598.8,
+    "jerk_mean_deg_s2": 2441.0,
+    "jerk_p90_deg_s2": 5055.2,
+    "dyn_peak_ms2": 35.76,
+    "wy_range_pull_deg_s": 247.3,
+    "wz_wy_ratio_pull": 1.11,
+    "phase_catch_pct": 41.6,
+    "phase_pull_pct": 19.8,
+    "phase_recovery_pct": 38.6,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "movement is too fast / aggressive for a controlled stroke"
+  ],
+  "style": "butterfly"
+}
