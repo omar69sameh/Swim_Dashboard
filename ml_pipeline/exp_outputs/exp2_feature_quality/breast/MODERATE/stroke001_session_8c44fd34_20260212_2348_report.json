@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Breast\\unknown_quality\\session_8c44fd34_20260212_2348\\stroke001_session_8c44fd34_20260212_2348.csv",
+  "overall_score": 70.0,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 4.78,
+  "prototype_distance_bad": 5.077,
+  "rule_scores": {
+    "prototype_similarity": 51.5,
+    "angular_power": 20.0,
+    "dynamic_drive": 100.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 100.0,
+    "axis_balance": 25.0,
+    "phase_quality": 100.0,
+    "recovery_balance": 65.0,
+    "signal_complexity": 100.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 234.9,
+    "ang_peak_deg_s": 457.8,
+    "ang_cv": 0.63,
+    "jerk_mean_deg_s2": 1860.3,
+    "jerk_p90_deg_s2": 3155.6,
+    "dyn_peak_ms2": 18.17,
+    "dyn_p90_ms2": 12.94,
+    "wy_range_pull_deg_s": 476.5,
+    "ang_range_pull_deg_s": 428.4,
+    "wx_wy_pull": 0.57,
+    "wz_wy_pull": 0.51,
+    "pull_phase_pct": 33.9,
+    "recovery_phase_pct": 52.9,
+    "pull_energy": 201.4,
+    "recovery_energy": 311.8,
+    "num_peaks_ang": 2,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 3
+  },
+  "main_reasons": [
+    "pull axis balance is closer to the bad reference pattern"
+  ],
+  "hard_bad_signs": 0,
+  "style": "breast"
+}

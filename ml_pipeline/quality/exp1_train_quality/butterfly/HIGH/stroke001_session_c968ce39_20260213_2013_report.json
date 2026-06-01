@@ -1,0 +1,38 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_c968ce39_20260213_2013\\stroke001_session_c968ce39_20260213_2013.csv",
+  "overall_score": 41.6,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 6.999,
+  "prototype_distance_bad": 4.813,
+  "rule_scores": {
+    "smoothness": 15.0,
+    "overspeed_control": 66.2,
+    "phase_quality": 40.0,
+    "pull_shape": 25.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 65.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 40.7
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 342.2,
+    "ang_p90_deg_s": 579.6,
+    "ang_peak_deg_s": 673.2,
+    "jerk_mean_deg_s2": 2990.3,
+    "jerk_p90_deg_s2": 5903.6,
+    "dyn_peak_ms2": 34.0,
+    "wy_range_pull_deg_s": 514.7,
+    "wz_wy_ratio_pull": 1.12,
+    "phase_catch_pct": 19.8,
+    "phase_pull_pct": 48.5,
+    "phase_recovery_pct": 31.7,
+    "wy_zero_crossings": 1
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "pull sweep is exaggerated / chaotic rather than controlled"
+  ],
+  "style": "butterfly"
+}

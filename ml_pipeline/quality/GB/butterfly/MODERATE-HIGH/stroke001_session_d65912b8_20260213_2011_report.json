@@ -1,0 +1,38 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Butterfly\\unknown_quality\\session_d65912b8_20260213_2011\\stroke001_session_d65912b8_20260213_2011.csv",
+  "overall_score": 54.3,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 5.495,
+  "prototype_distance_bad": 3.988,
+  "rule_scores": {
+    "smoothness": 15.0,
+    "overspeed_control": 64.4,
+    "phase_quality": 70.0,
+    "pull_shape": 65.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 42.1
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 344.9,
+    "ang_p90_deg_s": 560.9,
+    "ang_peak_deg_s": 608.9,
+    "jerk_mean_deg_s2": 2858.5,
+    "jerk_p90_deg_s2": 5639.1,
+    "dyn_peak_ms2": 25.73,
+    "wy_range_pull_deg_s": 265.4,
+    "wz_wy_ratio_pull": 0.69,
+    "phase_catch_pct": 28.7,
+    "phase_pull_pct": 47.5,
+    "phase_recovery_pct": 23.8,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

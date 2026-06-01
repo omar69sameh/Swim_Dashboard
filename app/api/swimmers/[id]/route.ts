@@ -1,20 +1,71 @@
 import { swimmers } from "@/lib/data";
-import { NextResponse } from "next/server";
+import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
+import { createSupabaseAdmin } from "@/lib/supabase/admin";
+import { mapProfileToSwimmer } from "@/lib/supabase/mappers";
+import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
+import type { ProfileRow, SwimmingSessionRow } from "@/lib/supabase/database.types";
+import { NextRequest, NextResponse } from "next/server";
+
+const PROFILE_SELECT = "id, first_name, last_name, age, role, coach_id, created_at";
 
 /**
  * GET /api/swimmers/:id
- * Future: Supabase dashboard DB — swimmers table
  */
 export async function GET(
-  _request: Request,
+  _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const swimmer = swimmers.find((s) => s.id === id);
 
-  if (!swimmer) {
+  if (!isSupabaseConfigured()) {
+    const swimmer = swimmers.find((s) => s.id === id);
+    if (!swimmer) {
+      return NextResponse.json({ error: "Swimmer not found" }, { status: 404 });
+    }
+    return NextResponse.json(swimmer);
+  }
+
+  const authUser = await getAuthUserFromRequest();
+  if (!authUser) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  if (authUser.role === "swimmer" && authUser.swimmerId !== id) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  if (authUser.role === "coach") {
+    const allowed = await isSwimmerAssignedToCoach(id, authUser.id);
+    if (!allowed) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  }
+
+  const admin = createSupabaseAdmin();
+  const { data: profile, error } = await admin
+    .from("profiles")
+    .select(PROFILE_SELECT)
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error || !profile) {
     return NextResponse.json({ error: "Swimmer not found" }, { status: 404 });
   }
 
-  return NextResponse.json(swimmer);
+  const { data: sessions } = await admin
+    .from("swimming_sessions")
+    .select("user_id, created_at, session_metadata")
+    .eq("user_id", id);
+
+  const rows = (sessions ?? []) as Pick<SwimmingSessionRow, "created_at" | "session_metadata">[];
+  let lastDate: string | null = null;
+  for (const row of rows) {
+    const d = row.session_metadata?.start_time ?? row.created_at ?? null;
+    if (d && (!lastDate || new Date(d) > new Date(lastDate))) lastDate = d;
+  }
+
+  return NextResponse.json(
+    mapProfileToSwimmer(profile as ProfileRow, rows.length, lastDate)
+  );
 }

@@ -1,0 +1,45 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Freestyle\\unknown_quality\\goodfreestyle\\stroke004_goodfreestyle.csv",
+  "overall_score": 79.5,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 11.116,
+  "prototype_distance_bad": 11.106,
+  "weighted_score_before_penalty": 85.5,
+  "severe_penalty": 6,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 100.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 25.0,
+    "recovery_stability": 35.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 50.0
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 252.2,
+    "ang_p90_deg_s": 380.7,
+    "ang_peak_deg_s": 406.5,
+    "jerk_mean_deg_s2": 1482.2,
+    "jerk_p90_deg_s2": 2649.1,
+    "dyn_peak_ms2": 5.03,
+    "wx_range_pull_deg_s": 256.5,
+    "wy_range_pull_deg_s": 297.5,
+    "wz_range_pull_deg_s": 378.9,
+    "wz_wy_ratio_pull": 1.04,
+    "wx_wz_ratio_pull": 1.34,
+    "phase_catch_pct": 16.0,
+    "phase_pull_pct": 33.3,
+    "phase_recovery_pct": 50.6,
+    "recovery_cv": 0.504
+  },
+  "main_reasons": [
+    "pull amplitude is too exaggerated or too small",
+    "recovery phase is unstable / inconsistent",
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

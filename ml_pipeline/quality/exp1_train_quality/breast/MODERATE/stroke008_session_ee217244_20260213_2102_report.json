@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Breast\\unknown_quality\\session_ee217244_20260213_2102\\stroke008_session_ee217244_20260213_2102.csv",
+  "overall_score": 70.7,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 5.49,
+  "prototype_distance_bad": 7.671,
+  "rule_scores": {
+    "prototype_similarity": 58.3,
+    "angular_power": 70.0,
+    "dynamic_drive": 65.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 100.0,
+    "axis_balance": 65.0,
+    "phase_quality": 45.0,
+    "recovery_balance": 25.0,
+    "signal_complexity": 100.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 256.4,
+    "ang_peak_deg_s": 587.4,
+    "ang_cv": 0.497,
+    "jerk_mean_deg_s2": 2369.0,
+    "jerk_p90_deg_s2": 4579.6,
+    "dyn_peak_ms2": 22.5,
+    "dyn_p90_ms2": 10.24,
+    "wy_range_pull_deg_s": 833.3,
+    "ang_range_pull_deg_s": 376.3,
+    "wx_wy_pull": 0.24,
+    "wz_wy_pull": 0.58,
+    "pull_phase_pct": 50.4,
+    "recovery_phase_pct": 47.1,
+    "pull_energy": 327.2,
+    "recovery_energy": 188.7,
+    "num_peaks_ang": 3,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 4
+  },
+  "main_reasons": [
+    "recovery energy is too low relative to pull"
+  ],
+  "hard_bad_signs": 0,
+  "style": "breast"
+}

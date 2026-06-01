@@ -1,0 +1,43 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\cleaned_session_22cc3a6b_20260419_0129\\stroke002_cleaned_session_22cc3a6b_20260419_0129.csv",
+  "overall_score": 80.7,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 8.276,
+  "prototype_distance_bad": 9.51,
+  "weighted_score_before_penalty": 80.7,
+  "severe_penalty": 0,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 65.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 53.5
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 270.2,
+    "ang_p90_deg_s": 309.8,
+    "ang_peak_deg_s": 322.4,
+    "jerk_mean_deg_s2": 1124.5,
+    "jerk_p90_deg_s2": 1740.0,
+    "dyn_peak_ms2": 2.7,
+    "wx_range_pull_deg_s": 152.5,
+    "wy_range_pull_deg_s": 39.9,
+    "wz_range_pull_deg_s": 297.3,
+    "wz_wy_ratio_pull": 0.57,
+    "wx_wz_ratio_pull": 2.25,
+    "phase_catch_pct": 23.5,
+    "phase_pull_pct": 30.9,
+    "phase_recovery_pct": 45.7,
+    "recovery_cv": 0.16
+  },
+  "main_reasons": [
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

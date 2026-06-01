@@ -1,0 +1,43 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Freestyle\\unknown_quality\\goodfree\\stroke001_goodfree.csv",
+  "overall_score": 78.2,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 5.488,
+  "prototype_distance_bad": 6.548,
+  "weighted_score_before_penalty": 86.2,
+  "severe_penalty": 8,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 54.4
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 275.7,
+    "ang_p90_deg_s": 354.8,
+    "ang_peak_deg_s": 371.6,
+    "jerk_mean_deg_s2": 1618.1,
+    "jerk_p90_deg_s2": 2795.0,
+    "dyn_peak_ms2": 12.76,
+    "wx_range_pull_deg_s": 219.5,
+    "wy_range_pull_deg_s": 38.6,
+    "wz_range_pull_deg_s": 214.6,
+    "wz_wy_ratio_pull": 0.92,
+    "wx_wz_ratio_pull": 0.71,
+    "phase_catch_pct": 24.7,
+    "phase_pull_pct": 30.9,
+    "phase_recovery_pct": 44.4,
+    "recovery_cv": 0.126
+  },
+  "main_reasons": [
+    "pull shape looks incomplete or poorly structured"
+  ],
+  "style": "freestyle"
+}

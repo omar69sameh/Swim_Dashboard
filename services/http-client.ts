@@ -19,6 +19,7 @@ export async function apiGet<T>(path: string): Promise<T> {
   const response = await fetch(url, {
     method: "GET",
     headers: { Accept: "application/json" },
+    credentials: "include",
   });
 
   if (!response.ok) {

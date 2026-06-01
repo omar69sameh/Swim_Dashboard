@@ -1,0 +1,40 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Butterfly\\unknown_quality\\session_c968ce39_20260213_2013\\stroke007_session_c968ce39_20260213_2013.csv",
+  "overall_score": 56.4,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 4.532,
+  "prototype_distance_bad": 2.497,
+  "rule_scores": {
+    "smoothness": 47.2,
+    "overspeed_control": 51.0,
+    "phase_quality": 40.0,
+    "pull_shape": 65.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 35.5
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 366.3,
+    "ang_p90_deg_s": 542.2,
+    "ang_peak_deg_s": 669.6,
+    "jerk_mean_deg_s2": 2255.3,
+    "jerk_p90_deg_s2": 4845.6,
+    "dyn_peak_ms2": 16.32,
+    "wy_range_pull_deg_s": 73.4,
+    "wz_wy_ratio_pull": 0.83,
+    "phase_catch_pct": 18.8,
+    "phase_pull_pct": 24.8,
+    "phase_recovery_pct": 56.4,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "movement is too fast / aggressive for a controlled stroke",
+    "recovery phase takes too much of the stroke",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

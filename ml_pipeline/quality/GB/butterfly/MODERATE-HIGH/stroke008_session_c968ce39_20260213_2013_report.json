@@ -1,0 +1,39 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Butterfly\\unknown_quality\\session_c968ce39_20260213_2013\\stroke008_session_c968ce39_20260213_2013.csv",
+  "overall_score": 49.5,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 5.188,
+  "prototype_distance_bad": 4.451,
+  "rule_scores": {
+    "smoothness": 56.3,
+    "overspeed_control": 52.3,
+    "phase_quality": 10.0,
+    "pull_shape": 25.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 46.2
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 364.3,
+    "ang_p90_deg_s": 496.9,
+    "ang_peak_deg_s": 544.9,
+    "jerk_mean_deg_s2": 2049.9,
+    "jerk_p90_deg_s2": 3631.4,
+    "dyn_peak_ms2": 21.84,
+    "wy_range_pull_deg_s": 66.5,
+    "wz_wy_ratio_pull": 0.66,
+    "phase_catch_pct": 6.9,
+    "phase_pull_pct": 14.9,
+    "phase_recovery_pct": 78.2,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "movement is too fast / aggressive for a controlled stroke",
+    "recovery phase takes too much of the stroke",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

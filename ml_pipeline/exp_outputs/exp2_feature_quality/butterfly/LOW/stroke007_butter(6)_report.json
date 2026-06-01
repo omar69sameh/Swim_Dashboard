@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Butterfly\\unknown_quality\\butter(6)\\stroke007_butter(6).csv",
+  "overall_score": 84.5,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 3.259,
+  "prototype_distance_bad": 5.827,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "overspeed_control": 100.0,
+    "phase_quality": 40.0,
+    "pull_shape": 100.0,
+    "axis_balance": 65.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 64.1
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 279.9,
+    "ang_p90_deg_s": 395.1,
+    "ang_peak_deg_s": 413.7,
+    "jerk_mean_deg_s2": 1495.5,
+    "jerk_p90_deg_s2": 2504.0,
+    "dyn_peak_ms2": 14.23,
+    "wy_range_pull_deg_s": 134.4,
+    "wz_wy_ratio_pull": 0.96,
+    "phase_catch_pct": 3.0,
+    "phase_pull_pct": 60.4,
+    "phase_recovery_pct": 36.6,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

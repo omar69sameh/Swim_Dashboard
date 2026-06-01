@@ -1,0 +1,39 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_bf7376b9_20260213_1957\\stroke004_session_bf7376b9_20260213_1957.csv",
+  "overall_score": 64.5,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 5.952,
+  "prototype_distance_bad": 3.102,
+  "rule_scores": {
+    "smoothness": 32.9,
+    "overspeed_control": 54.7,
+    "phase_quality": 100.0,
+    "pull_shape": 25.0,
+    "axis_balance": 100.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 34.3
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 360.6,
+    "ang_p90_deg_s": 636.3,
+    "ang_peak_deg_s": 798.6,
+    "jerk_mean_deg_s2": 2542.8,
+    "jerk_p90_deg_s2": 6166.4,
+    "dyn_peak_ms2": 19.2,
+    "wy_range_pull_deg_s": 366.0,
+    "wz_wy_ratio_pull": 1.29,
+    "phase_catch_pct": 34.7,
+    "phase_pull_pct": 31.7,
+    "phase_recovery_pct": 33.7,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "movement is too fast / aggressive for a controlled stroke",
+    "pull sweep is exaggerated / chaotic rather than controlled"
+  ],
+  "style": "butterfly"
+}

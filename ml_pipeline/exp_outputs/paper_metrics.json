@@ -1,0 +1,16 @@
+{
+  "experiment1_segment_and_classify": {
+    "n_files": 23,
+    "accuracy": 0.6086956521739131,
+    "precision": 0.75,
+    "recall": 0.46153846153846156,
+    "f1": 0.5714285714285714
+  },
+  "experiment2_feature_extraction": {
+    "n_strokes": 268,
+    "accuracy": 0.6007462686567164,
+    "precision": 0.7051282051282052,
+    "recall": 0.39568345323741005,
+    "f1": 0.5069124423963134
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Freestyle\\unknown_quality\\goodfree\\stroke003_goodfree.csv",
+  "overall_score": 76.2,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 8.508,
+  "prototype_distance_bad": 9.763,
+  "weighted_score_before_penalty": 76.2,
+  "severe_penalty": 0,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 65.0,
+    "speed_control": 100.0,
+    "phase_quality": 35.0,
+    "pull_amplitude": 65.0,
+    "recovery_stability": 70.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 53.4
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 248.9,
+    "ang_p90_deg_s": 290.4,
+    "ang_peak_deg_s": 307.8,
+    "jerk_mean_deg_s2": 1254.6,
+    "jerk_p90_deg_s2": 2331.5,
+    "dyn_peak_ms2": 3.59,
+    "wx_range_pull_deg_s": 130.2,
+    "wy_range_pull_deg_s": 295.8,
+    "wz_range_pull_deg_s": 310.0,
+    "wz_wy_ratio_pull": 0.94,
+    "wx_wz_ratio_pull": 1.92,
+    "phase_catch_pct": 35.8,
+    "phase_pull_pct": 30.9,
+    "phase_recovery_pct": 33.3,
+    "recovery_cv": 0.226
+  },
+  "main_reasons": [
+    "entry/catch timing is outside the normal freestyle range",
+    "recovery takes too little or too much of the stroke",
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

@@ -1,0 +1,46 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Freestyle\\unknown_quality\\badfreestyle\\stroke013_badfreestyle.csv",
+  "overall_score": 43.2,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 7.374,
+  "prototype_distance_bad": 7.971,
+  "weighted_score_before_penalty": 59.2,
+  "severe_penalty": 16,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 20.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 25.0,
+    "recovery_stability": 35.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 51.9
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 263.8,
+    "ang_p90_deg_s": 321.6,
+    "ang_peak_deg_s": 366.9,
+    "jerk_mean_deg_s2": 1197.0,
+    "jerk_p90_deg_s2": 2148.7,
+    "dyn_peak_ms2": 5.24,
+    "wx_range_pull_deg_s": 200.6,
+    "wy_range_pull_deg_s": 52.3,
+    "wz_range_pull_deg_s": 352.2,
+    "wz_wy_ratio_pull": 1.97,
+    "wx_wz_ratio_pull": 2.14,
+    "phase_catch_pct": 24.7,
+    "phase_pull_pct": 32.1,
+    "phase_recovery_pct": 43.2,
+    "recovery_cv": 0.255
+  },
+  "main_reasons": [
+    "pull axis balance is off \u2014 wz is dominating too much during pull",
+    "pull amplitude is too exaggerated or too small",
+    "recovery phase is unstable / inconsistent",
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

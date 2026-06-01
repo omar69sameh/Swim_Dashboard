@@ -1,0 +1,39 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_a2ee75ca_20260213_2013\\stroke001_session_a2ee75ca_20260213_2013.csv",
+  "overall_score": 38.4,
+  "verdict": "BAD / HIGH RISK",
+  "risk": "HIGH",
+  "prototype_distance_good": 7.577,
+  "prototype_distance_bad": 5.835,
+  "rule_scores": {
+    "smoothness": 21.3,
+    "overspeed_control": 61.4,
+    "phase_quality": 40.0,
+    "pull_shape": 25.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 65.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 43.5
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 349.8,
+    "ang_p90_deg_s": 599.5,
+    "ang_peak_deg_s": 682.6,
+    "jerk_mean_deg_s2": 2773.3,
+    "jerk_p90_deg_s2": 5507.4,
+    "dyn_peak_ms2": 45.18,
+    "wy_range_pull_deg_s": 466.0,
+    "wz_wy_ratio_pull": 0.88,
+    "phase_catch_pct": 17.8,
+    "phase_pull_pct": 48.5,
+    "phase_recovery_pct": 33.7,
+    "wy_zero_crossings": 1
+  },
+  "main_reasons": [
+    "very jerky wrist motion",
+    "pull sweep is exaggerated / chaotic rather than controlled",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}

@@ -1,0 +1,34 @@
+{
+  "total_files_found": 270,
+  "skipped_non_stroke_files": 2,
+  "processed_ok": 268,
+  "failed": 0,
+  "sessions_evaluated": 23,
+  "quality_accuracy": 0.8260869565217391,
+  "quality_correct": 19,
+  "quality_total": 23,
+  "calibration_by_style": {
+    "breast": {
+      "score_threshold": 38.006,
+      "ratio_threshold": 0.368,
+      "fit_accuracy": 0.8571428571428571,
+      "fit_correct": 6,
+      "fit_total": 7
+    },
+    "butterfly": {
+      "score_threshold": 67.925,
+      "ratio_threshold": 0.25,
+      "fit_accuracy": 0.7777777777777778,
+      "fit_correct": 7,
+      "fit_total": 9
+    },
+    "freestyle": {
+      "score_threshold": 57.979,
+      "ratio_threshold": 0.545,
+      "fit_accuracy": 0.8571428571428571,
+      "fit_correct": 6,
+      "fit_total": 7
+    }
+  },
+  "expected_layout": "test_root/style/quality(good|bad)/session_name/stroke*.csv"
+}

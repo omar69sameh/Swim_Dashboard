@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Breast\\unknown_quality\\session_5cad9c1a_20260212_2345\\stroke005_session_5cad9c1a_20260212_2345.csv",
+  "overall_score": 64.0,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 23.553,
+  "prototype_distance_bad": 24.477,
+  "rule_scores": {
+    "prototype_similarity": 51.0,
+    "angular_power": 20.0,
+    "dynamic_drive": 20.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 100.0,
+    "axis_balance": 100.0,
+    "phase_quality": 45.0,
+    "recovery_balance": 100.0,
+    "signal_complexity": 100.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 226.4,
+    "ang_peak_deg_s": 425.2,
+    "ang_cv": 0.405,
+    "jerk_mean_deg_s2": 1637.9,
+    "jerk_p90_deg_s2": 3668.9,
+    "dyn_peak_ms2": 10.41,
+    "dyn_p90_ms2": 9.26,
+    "wy_range_pull_deg_s": 585.9,
+    "ang_range_pull_deg_s": 295.8,
+    "wx_wy_pull": 0.26,
+    "wz_wy_pull": 0.89,
+    "pull_phase_pct": 78.5,
+    "recovery_phase_pct": 19.0,
+    "pull_energy": 230.7,
+    "recovery_energy": 232.4,
+    "num_peaks_ang": 2,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 4
+  },
+  "main_reasons": [
+    "overall angular power is much lower than the final good reference set"
+  ],
+  "hard_bad_signs": 1,
+  "style": "breast"
+}

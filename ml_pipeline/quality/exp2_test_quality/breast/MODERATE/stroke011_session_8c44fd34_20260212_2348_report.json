@@ -1,0 +1,46 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Breast\\unknown_quality\\session_8c44fd34_20260212_2348\\stroke011_session_8c44fd34_20260212_2348.csv",
+  "overall_score": 72.1,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 32.92,
+  "prototype_distance_bad": 34.287,
+  "rule_scores": {
+    "prototype_similarity": 51.0,
+    "angular_power": 70.0,
+    "dynamic_drive": 100.0,
+    "pull_amplitude": 100.0,
+    "peak_structure": 100.0,
+    "axis_balance": 100.0,
+    "phase_quality": 45.0,
+    "recovery_balance": 25.0,
+    "signal_complexity": 20.0,
+    "duration": 100.0
+  },
+  "key_features": {
+    "duration_s": 1.2,
+    "ang_mean_deg_s": 276.7,
+    "ang_peak_deg_s": 569.7,
+    "ang_cv": 0.441,
+    "jerk_mean_deg_s2": 1928.2,
+    "jerk_p90_deg_s2": 4552.6,
+    "dyn_peak_ms2": 18.94,
+    "dyn_p90_ms2": 12.48,
+    "wy_range_pull_deg_s": 919.1,
+    "ang_range_pull_deg_s": 412.9,
+    "wx_wy_pull": 0.3,
+    "wz_wy_pull": 0.84,
+    "pull_phase_pct": 91.7,
+    "recovery_phase_pct": 5.8,
+    "pull_energy": 268.5,
+    "recovery_energy": 510.0,
+    "num_peaks_ang": 3,
+    "wy_zero_crossings": 2,
+    "az_zero_crossings": 1
+  },
+  "main_reasons": [
+    "wrist orientation pattern is too simple / flat compared with the final good set"
+  ],
+  "hard_bad_signs": 1,
+  "style": "breast"
+}

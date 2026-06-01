@@ -1,0 +1,44 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\session_1663d122_20260213_0023\\stroke005_session_1663d122_20260213_0023.csv",
+  "overall_score": 76.8,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 7.732,
+  "prototype_distance_bad": 8.713,
+  "weighted_score_before_penalty": 76.8,
+  "severe_penalty": 0,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 65.0,
+    "recovery_stability": 35.0,
+    "dynamic_drive": 35.0,
+    "prototype_similarity": 53.0
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 267.3,
+    "ang_p90_deg_s": 348.7,
+    "ang_peak_deg_s": 357.2,
+    "jerk_mean_deg_s2": 1365.5,
+    "jerk_p90_deg_s2": 2232.5,
+    "dyn_peak_ms2": 5.02,
+    "wx_range_pull_deg_s": 307.4,
+    "wy_range_pull_deg_s": 180.8,
+    "wz_range_pull_deg_s": 294.7,
+    "wz_wy_ratio_pull": 0.8,
+    "wx_wz_ratio_pull": 2.2,
+    "phase_catch_pct": 18.5,
+    "phase_pull_pct": 34.6,
+    "phase_recovery_pct": 46.9,
+    "recovery_cv": 0.34
+  },
+  "main_reasons": [
+    "recovery phase is unstable / inconsistent",
+    "stroke drive is weak"
+  ],
+  "style": "freestyle"
+}

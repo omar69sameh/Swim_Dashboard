@@ -1,0 +1,44 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segmented_from_grutest\\Freestyle\\unknown_quality\\badfree\\stroke019_badfree.csv",
+  "overall_score": 72.8,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 8.233,
+  "prototype_distance_bad": 9.604,
+  "weighted_score_before_penalty": 82.8,
+  "severe_penalty": 10,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 65.0,
+    "speed_control": 100.0,
+    "phase_quality": 30.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 53.8
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 255.9,
+    "ang_p90_deg_s": 328.1,
+    "ang_peak_deg_s": 344.1,
+    "jerk_mean_deg_s2": 1164.2,
+    "jerk_p90_deg_s2": 2061.9,
+    "dyn_peak_ms2": 8.24,
+    "wx_range_pull_deg_s": 161.7,
+    "wy_range_pull_deg_s": 102.9,
+    "wz_range_pull_deg_s": 137.4,
+    "wz_wy_ratio_pull": 0.59,
+    "wx_wz_ratio_pull": 2.06,
+    "phase_catch_pct": 3.7,
+    "phase_pull_pct": 46.9,
+    "phase_recovery_pct": 49.4,
+    "recovery_cv": 0.076
+  },
+  "main_reasons": [
+    "entry/catch timing is outside the normal freestyle range",
+    "pull phase duration is not well balanced"
+  ],
+  "style": "freestyle"
+}

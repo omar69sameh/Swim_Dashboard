@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Butterfly\\unknown_quality\\session_7da495e5_20260212_2318\\stroke007_session_7da495e5_20260212_2318.csv",
+  "overall_score": 64.3,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 14.754,
+  "prototype_distance_bad": 16.071,
+  "rule_scores": {
+    "smoothness": 70.6,
+    "overspeed_control": 73.2,
+    "phase_quality": 40.0,
+    "pull_shape": 100.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 40.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 52.1
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 330.9,
+    "ang_p90_deg_s": 455.6,
+    "ang_peak_deg_s": 538.8,
+    "jerk_mean_deg_s2": 1706.6,
+    "jerk_p90_deg_s2": 4126.2,
+    "dyn_peak_ms2": 12.09,
+    "wy_range_pull_deg_s": 182.5,
+    "wz_wy_ratio_pull": 8.2,
+    "phase_catch_pct": 58.4,
+    "phase_pull_pct": 24.8,
+    "phase_recovery_pct": 16.8,
+    "wy_zero_crossings": 2
+  },
+  "main_reasons": [
+    "unstable wy pattern across the stroke"
+  ],
+  "style": "butterfly"
+}

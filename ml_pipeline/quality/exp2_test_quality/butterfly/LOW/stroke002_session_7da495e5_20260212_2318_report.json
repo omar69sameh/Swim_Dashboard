@@ -1,0 +1,37 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\exp_outputs\\exp2_segment_files\\Butterfly\\unknown_quality\\session_7da495e5_20260212_2318\\stroke002_session_7da495e5_20260212_2318.csv",
+  "overall_score": 82.2,
+  "verdict": "GOOD / LOW RISK",
+  "risk": "LOW",
+  "prototype_distance_good": 2.493,
+  "prototype_distance_bad": 3.751,
+  "rule_scores": {
+    "smoothness": 59.1,
+    "overspeed_control": 54.2,
+    "phase_quality": 100.0,
+    "pull_shape": 100.0,
+    "axis_balance": 100.0,
+    "signal_cleanliness": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 60.1
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 361.3,
+    "ang_p90_deg_s": 486.7,
+    "ang_peak_deg_s": 500.2,
+    "jerk_mean_deg_s2": 1982.6,
+    "jerk_p90_deg_s2": 2966.0,
+    "dyn_peak_ms2": 16.3,
+    "wy_range_pull_deg_s": 141.8,
+    "wz_wy_ratio_pull": 1.54,
+    "phase_catch_pct": 23.8,
+    "phase_pull_pct": 31.7,
+    "phase_recovery_pct": 44.6,
+    "wy_zero_crossings": 0
+  },
+  "main_reasons": [
+    "movement is too fast / aggressive for a controlled stroke"
+  ],
+  "style": "butterfly"
+}

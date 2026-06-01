@@ -1,0 +1,43 @@
+{
+  "file": "C:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\Freestyle\\unknown_quality\\session_d71cfbb7_20260213_0018\\stroke001_session_d71cfbb7_20260213_0018.csv",
+  "overall_score": 50.6,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 5.149,
+  "prototype_distance_bad": 6.151,
+  "weighted_score_before_penalty": 68.6,
+  "severe_penalty": 18,
+  "rule_scores": {
+    "smoothness": 20.0,
+    "pull_axis_balance": 100.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 100.0,
+    "dynamic_drive": 100.0,
+    "prototype_similarity": 54.4
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 248.9,
+    "ang_p90_deg_s": 407.3,
+    "ang_peak_deg_s": 436.8,
+    "jerk_mean_deg_s2": 2730.6,
+    "jerk_p90_deg_s2": 5538.3,
+    "dyn_peak_ms2": 16.03,
+    "wx_range_pull_deg_s": 375.3,
+    "wy_range_pull_deg_s": 180.8,
+    "wz_range_pull_deg_s": 165.9,
+    "wz_wy_ratio_pull": 0.82,
+    "wx_wz_ratio_pull": 2.19,
+    "phase_catch_pct": 23.5,
+    "phase_pull_pct": 24.7,
+    "phase_recovery_pct": 51.9,
+    "recovery_cv": 0.124
+  },
+  "main_reasons": [
+    "wrist motion is too jerky / abrupt"
+  ],
+  "style": "freestyle"
+}

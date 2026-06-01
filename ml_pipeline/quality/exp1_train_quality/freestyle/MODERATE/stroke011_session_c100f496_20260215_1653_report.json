@@ -1,0 +1,43 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Freestyle\\unknown_quality\\session_c100f496_20260215_1653\\stroke011_session_c100f496_20260215_1653.csv",
+  "overall_score": 66.7,
+  "verdict": "BORDERLINE / MODERATE RISK",
+  "risk": "MODERATE",
+  "prototype_distance_good": 10.866,
+  "prototype_distance_bad": 12.097,
+  "weighted_score_before_penalty": 74.7,
+  "severe_penalty": 8,
+  "rule_scores": {
+    "smoothness": 100.0,
+    "pull_axis_balance": 65.0,
+    "pull_structure": 25.0,
+    "speed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_amplitude": 100.0,
+    "recovery_stability": 35.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 52.7
+  },
+  "key_features": {
+    "duration_s": 0.8,
+    "ang_mean_deg_s": 237.3,
+    "ang_p90_deg_s": 341.9,
+    "ang_peak_deg_s": 380.3,
+    "jerk_mean_deg_s2": 1394.9,
+    "jerk_p90_deg_s2": 2918.0,
+    "dyn_peak_ms2": 7.88,
+    "wx_range_pull_deg_s": 356.5,
+    "wy_range_pull_deg_s": 329.9,
+    "wz_range_pull_deg_s": 143.4,
+    "wz_wy_ratio_pull": 0.45,
+    "wx_wz_ratio_pull": 3.91,
+    "phase_catch_pct": 13.6,
+    "phase_pull_pct": 35.8,
+    "phase_recovery_pct": 50.6,
+    "recovery_cv": 0.434
+  },
+  "main_reasons": [
+    "recovery phase is unstable / inconsistent"
+  ],
+  "style": "freestyle"
+}

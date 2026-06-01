@@ -1,0 +1,39 @@
+{
+  "file": "c:\\Users\\tempuser\\OneDrive\\Desktop\\Final\\segmentFiles\\exp1_train_segments\\Butterfly\\unknown_quality\\session_e616b1bd_20260212_2323\\stroke001_session_e616b1bd_20260212_2323.csv",
+  "overall_score": 56.6,
+  "verdict": "BAD / MODERATE-HIGH RISK",
+  "risk": "MODERATE-HIGH",
+  "prototype_distance_good": 4.719,
+  "prototype_distance_bad": 3.597,
+  "rule_scores": {
+    "smoothness": 54.2,
+    "overspeed_control": 100.0,
+    "phase_quality": 100.0,
+    "pull_shape": 25.0,
+    "axis_balance": 25.0,
+    "signal_cleanliness": 15.0,
+    "dynamic_drive": 70.0,
+    "prototype_similarity": 43.3
+  },
+  "key_features": {
+    "duration_s": 1.0,
+    "ang_mean_deg_s": 302.2,
+    "ang_p90_deg_s": 480.7,
+    "ang_peak_deg_s": 558.1,
+    "jerk_mean_deg_s2": 2098.1,
+    "jerk_p90_deg_s2": 4117.6,
+    "dyn_peak_ms2": 23.3,
+    "wy_range_pull_deg_s": 347.2,
+    "wz_wy_ratio_pull": 0.53,
+    "phase_catch_pct": 34.7,
+    "phase_pull_pct": 31.7,
+    "phase_recovery_pct": 33.7,
+    "wy_zero_crossings": 3
+  },
+  "main_reasons": [
+    "unstable wy pattern across the stroke",
+    "pull sweep is exaggerated / chaotic rather than controlled",
+    "axis balance in pull is closer to bad examples than good ones"
+  ],
+  "style": "butterfly"
+}
