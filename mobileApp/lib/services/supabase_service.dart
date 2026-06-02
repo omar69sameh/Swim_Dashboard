@@ -14,6 +14,12 @@ class SupabaseService {
     await Supabase.initialize(
       url: SupabaseConfig.url,
       anonKey: SupabaseConfig.anonKey,
+      // Implicit flow: password-reset emails carry tokens in the URL hash
+      // instead of a PKCE code. This lets a browser (not the app) handle
+      // the reset link without needing the app's code verifier.
+      authOptions: const FlutterAuthClientOptions(
+        authFlowType: AuthFlowType.implicit,
+      ),
     );
   }
 
@@ -76,8 +82,13 @@ class SupabaseService {
   }
 
   /// Send password reset email.
+  /// Uses implicit flow so tokens arrive as URL hash fragments on the
+  /// reset-password page — no server-side code exchange needed.
   static Future<void> resetPassword(String email) async {
-    await _client.auth.resetPasswordForEmail(email.trim().toLowerCase());
+    await _client.auth.resetPasswordForEmail(
+      email.trim().toLowerCase(),
+      redirectTo: '${SupabaseConfig.dashboardUrl}/reset-password',
+    );
   }
 
   /// Sign in — blocks coach accounts (coaches use the web dashboard).

@@ -1,5 +1,4 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { NextRequest, NextResponse } from "next/server";
 
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -22,24 +21,25 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Too many attempts. Try again in a minute." }, { status: 429 });
   }
 
-  const { email } = await request.json();
+  const body = await request.json().catch(() => ({}));
+  const email = typeof body.email === "string" ? body.email.trim() : "";
   if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
 
-  if (!isSupabaseConfigured()) {
+  const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    // Not configured — silently succeed so UI shows "check your inbox"
     return NextResponse.json({ ok: true });
   }
 
-  const rawOrigin = request.headers.get("origin") ?? "";
-  const allowedOrigins = [
-    process.env.NEXT_PUBLIC_SITE_URL ?? "",
-    "http://localhost:3000",
-  ].filter(Boolean);
-  const origin = allowedOrigins.includes(rawOrigin) ? rawOrigin : allowedOrigins[0] ?? "http://localhost:3000";
+  const origin = request.headers.get("origin") ?? "http://localhost:3000";
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-    redirectTo: `${origin}/reset-password`,
+
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/reset-password`,
   });
 
-  // Always return success to avoid email enumeration
+  // Always return ok — never reveal whether the email exists
   return NextResponse.json({ ok: true });
 }
