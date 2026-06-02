@@ -1,5 +1,5 @@
 /**
- * Core TypeScript interfaces for the SwimML Analytics Platform
+ * Core TypeScript interfaces for the SwimMate Analytics Platform
  * All data structures are strictly typed to ensure consistency across
  * the frontend, even with placeholder data.
  */

@@ -71,7 +71,7 @@ export default function Sidebar() {
             animate={{ opacity: sidebarOpen ? 1 : 0, width: sidebarOpen ? "auto" : 0 }}
             className="font-display font-bold text-lg gradient-text whitespace-nowrap overflow-hidden"
           >
-            SwimML
+            SwimMate
           </motion.span>
         </div>
       </div>

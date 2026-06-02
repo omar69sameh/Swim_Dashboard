@@ -29,17 +29,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const origin = request.headers.get("origin") ?? "http://localhost:3000";
+  const rawOrigin = request.headers.get("origin") ?? "";
+  const allowedOrigins = [
+    process.env.NEXT_PUBLIC_SITE_URL ?? "",
+    "http://localhost:3000",
+  ].filter(Boolean);
+  const origin = allowedOrigins.includes(rawOrigin) ? rawOrigin : allowedOrigins[0] ?? "http://localhost:3000";
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
     redirectTo: `${origin}/reset-password`,
   });
-
-  if (error) {
-    console.error("resetPasswordForEmail error:", error.message);
-  } else {
-    console.log("Password reset email sent to:", email.trim());
-  }
 
   // Always return success to avoid email enumeration
   return NextResponse.json({ ok: true });
