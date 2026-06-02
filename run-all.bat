@@ -34,6 +34,18 @@ if not exist "%VENV%" (
   echo.
 )
 
+REM Keep .next and node_modules junctions pointing to AppData\Local (outside OneDrive)
+set "SWIMML=%LOCALAPPDATA%\SwimML"
+if not exist "%SWIMML%\.next" mkdir "%SWIMML%\.next"
+if not exist "%SWIMML%\node_modules" mklink /J "%SWIMML%\node_modules" "%~dp0node_modules" >nul 2>&1
+if exist ".next" (dir /aL ".next" >nul 2>&1 || rd /s /q ".next" >nul 2>&1)
+if not exist ".next" mklink /J ".next" "%SWIMML%\.next" >nul 2>&1
+
+echo Freeing port 3000 if in use...
+for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":3000 " ^| findstr "LISTEN"') do (
+  taskkill /PID %%p /F >nul 2>&1
+)
+
 echo [1/3] Dashboard  - http://localhost:3000
 start "SwimML Dashboard" cmd /k "cd /d "%~dp0" && npm run dev"
 

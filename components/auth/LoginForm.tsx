@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
-import { getDemoAccounts } from "@/lib/mock-auth";
 
 export default function LoginForm() {
   const { signIn } = useAuth();
@@ -61,6 +60,11 @@ export default function LoginForm() {
         >
           {loading ? "Signing in..." : "Sign in"}
         </button>
+        <p className="text-center">
+          <Link href="/forgot-password" className="text-xs text-slate-500 hover:text-aqua-300">
+            Forgot password?
+          </Link>
+        </p>
       </form>
 
       <p className="mt-4 text-sm text-slate-500 text-center">
@@ -70,16 +74,6 @@ export default function LoginForm() {
         </Link>
       </p>
 
-      <div className="mt-8 pt-6 border-t border-white/10">
-        <p className="text-xs text-slate-500 mb-2">Demo accounts</p>
-        <ul className="text-xs text-slate-400 space-y-1">
-          {getDemoAccounts().map((a) => (
-            <li key={a.email}>
-              {a.role}: {a.email} / {a.password}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }

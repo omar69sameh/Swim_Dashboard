@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { StrokeQualityScore } from "@/types";
-import { getStrokeEmoji } from "@/lib/utils";
+import StrokeIcon from "@/components/ui/StrokeIcon";
 import { cn } from "@/lib/utils";
 
 interface StrokeScoreCardsProps {
@@ -27,7 +27,7 @@ export default function StrokeScoreCards({
               hasSession && "glass-card-hover cursor-pointer hover:border-aqua-300/30"
             )}
           >
-            <span className="text-xl md:text-2xl block mb-1">{getStrokeEmoji(item.strokeType)}</span>
+            <span className="flex justify-center mb-1"><StrokeIcon stroke={item.strokeType} size={28} /></span>
             <p className="text-xs text-slate-500 truncate">{item.strokeType}</p>
             <p className="text-xl md:text-2xl font-bold text-aqua-300 mt-1">
               {hasSession ? item.qualityScore : "—"}

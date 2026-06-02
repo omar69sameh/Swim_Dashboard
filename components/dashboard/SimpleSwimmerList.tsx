@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import type { Session, Swimmer } from "@/types";
-import { getStrokeEmoji } from "@/lib/utils";
-import { getStrokeScoresForSwimmer } from "@/lib/stroke-scores";
+import StrokeIcon from "@/components/ui/StrokeIcon";
+import { getStrokeScoresForSwimmer, TRACKED_STROKES } from "@/lib/stroke-scores";
 
 interface SimpleSwimmerListProps {
   swimmers: Swimmer[];
@@ -20,6 +20,15 @@ export default function SimpleSwimmerList({
     <ul className="space-y-2">
       {swimmers.map((swimmer) => {
         const strokeScores = getStrokeScoresForSwimmer(swimmer.id, sessions);
+        const totalSessions = sessions.filter(
+          (s) => s.swimmerId === swimmer.id && s.status === "completed"
+        ).length;
+        const perType = TRACKED_STROKES.map((t) => ({
+          type: t,
+          count: sessions.filter(
+            (s) => s.swimmerId === swimmer.id && s.strokeType === t && s.status === "completed"
+          ).length,
+        }));
 
         return (
           <li key={swimmer.id}>
@@ -29,19 +38,18 @@ export default function SimpleSwimmerList({
               className="block p-4 rounded-lg glass-card-hover border border-transparent hover:border-white/10"
             >
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xl shrink-0">{getStrokeEmoji(swimmer.strokeSpecialty)}</span>
-                <p className="font-medium text-slate-200 truncate">{swimmer.name}</p>
+                <StrokeIcon stroke={swimmer.strokeSpecialty} size={22} />
+                <p className="font-medium text-slate-200 truncate flex-1">{swimmer.name}</p>
+                <span className="text-xs text-slate-500 shrink-0">{totalSessions} sessions</span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
-                {strokeScores.map((s) => (
+                {strokeScores.map((s, i) => (
                   <div key={s.strokeType} className="rounded-md bg-white/5 px-1 py-2">
                     <p className="text-[10px] text-slate-500 truncate">{s.strokeType}</p>
                     <p className="text-sm font-bold text-aqua-300">
                       {s.qualityScore > 0 ? s.qualityScore : "—"}
                     </p>
-                    {s.numStrokes != null && s.qualityScore > 0 && (
-                      <p className="text-[9px] text-slate-600 mt-0.5">{s.numStrokes} strokes</p>
-                    )}
+                    <p className="text-[9px] text-slate-600 mt-0.5">{perType[i].count} sessions</p>
                   </div>
                 ))}
               </div>

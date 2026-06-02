@@ -12,9 +12,17 @@ function getApiBaseUrl(): string {
   return process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 }
 
-export async function apiGet<T>(path: string): Promise<T> {
+const cache = new Map<string, { data: unknown; expiresAt: number }>();
+const CACHE_TTL_MS = 30_000;
+
+export async function apiGet<T>(path: string, bustCache = false): Promise<T> {
   const base = getApiBaseUrl();
   const url = `${base}${path}`;
+
+  if (!bustCache) {
+    const hit = cache.get(url);
+    if (hit && hit.expiresAt > Date.now()) return hit.data as T;
+  }
 
   const response = await fetch(url, {
     method: "GET",
@@ -33,5 +41,15 @@ export async function apiGet<T>(path: string): Promise<T> {
     throw new ServiceError(message, response.status);
   }
 
-  return response.json() as Promise<T>;
+  const data = await response.json() as T;
+  cache.set(url, { data, expiresAt: Date.now() + CACHE_TTL_MS });
+  return data;
+}
+
+export function bustApiCache(path?: string) {
+  if (path) {
+    cache.delete((process.env.NEXT_PUBLIC_API_BASE_URL ?? "") + path);
+  } else {
+    cache.clear();
+  }
 }
