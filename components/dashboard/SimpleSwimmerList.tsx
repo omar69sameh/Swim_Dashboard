@@ -39,6 +39,9 @@ export default function SimpleSwimmerList({
                     <p className="text-sm font-bold text-aqua-300">
                       {s.qualityScore > 0 ? s.qualityScore : "—"}
                     </p>
+                    {s.numStrokes != null && s.qualityScore > 0 && (
+                      <p className="text-[9px] text-slate-600 mt-0.5">{s.numStrokes} strokes</p>
+                    )}
                   </div>
                 ))}
               </div>

@@ -1,4 +1,5 @@
 import { sessions } from "@/lib/data";
+import { fetchAnalysis } from "@/lib/supabase/analysis";
 import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { mapSwimmingSessionToSession } from "@/lib/supabase/mappers";
@@ -6,6 +7,9 @@ import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import type { SwimmingSessionRow } from "@/lib/supabase/database.types";
 import { NextResponse } from "next/server";
+
+const SESSION_SELECT =
+  "id, user_id, session_id, swimmer_info, device_info, session_metadata, created_at, analysis_status, analyzed_at";
 
 /**
  * GET /api/sessions/:id
@@ -32,9 +36,7 @@ export async function GET(
   const admin = createSupabaseAdmin();
   const { data, error } = await admin
     .from("swimming_sessions")
-    .select(
-      "id, user_id, session_id, swimmer_info, device_info, session_metadata, created_at"
-    )
+    .select(SESSION_SELECT)
     .eq("id", id)
     .maybeSingle();
 
@@ -55,5 +57,6 @@ export async function GET(
     }
   }
 
-  return NextResponse.json(mapSwimmingSessionToSession(row));
+  const analysis = await fetchAnalysis(id);
+  return NextResponse.json(mapSwimmingSessionToSession(row, analysis));
 }

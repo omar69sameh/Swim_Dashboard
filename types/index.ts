@@ -30,6 +30,7 @@ export type TrackedStroke = "Freestyle" | "Breaststroke" | "Butterfly";
 export interface StrokeQualityScore {
   strokeType: TrackedStroke;
   qualityScore: number;
+  numStrokes?: number;
   lastSessionId?: string;
   lastSessionDate?: string;
 }
@@ -51,6 +52,7 @@ export interface Session {
   status: AnalysisStatus;
   strokeType: StrokeType;
   qualityScore?: number;
+  numStrokes?: number;
   createdAt: string;
   analyzedAt?: string;
 }
@@ -85,19 +87,12 @@ export interface MLResults {
   strokeType: StrokeType;
   strokeTypeConfidence: number;
   overallQualityScore: number;
+  numStrokes?: number;
   segments: StrokeSegment[];
   features: MLFeature[];
   sensorData: SensorData[];
   processingTime: number; // in ms
   pipelineVersion: string;
-}
-
-export interface TeamMetric {
-  label: string;
-  value: string | number;
-  change: number; // percentage change
-  trend: "up" | "down" | "neutral";
-  icon: string;
 }
 
 export interface HistoricalDataPoint {

@@ -16,3 +16,16 @@ npm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Python / ML
+ml-service/.venv/
+**/__pycache__/
+*.pyc
+ml_pipeline/**/__pycache__/
+ml_pipeline/exp_outputs/
+
+# Flutter (mobileApp build output is large; keep source only)
+mobileApp/build/
+mobileApp/.dart_tool/
+mobileApp/.flutter-plugins
+mobileApp/.flutter-plugins-dependencies

@@ -32,6 +32,9 @@ export default function StrokeScoreCards({
             <p className="text-xl md:text-2xl font-bold text-aqua-300 mt-1">
               {hasSession ? item.qualityScore : "—"}
             </p>
+            {hasSession && item.numStrokes != null && (
+              <p className="text-[10px] text-slate-500 mt-1">{item.numStrokes} strokes</p>
+            )}
           </div>
         );
 

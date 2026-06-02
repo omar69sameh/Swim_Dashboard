@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "inspect:supabase": "node scripts/inspect-supabase.mjs"
+    "inspect:supabase": "node scripts/inspect-supabase.mjs",
+    "backfill:analysis": "node scripts/backfill-analysis-pending.mjs"
   },
   "overrides": {
     "postcss": "^8.5.15"

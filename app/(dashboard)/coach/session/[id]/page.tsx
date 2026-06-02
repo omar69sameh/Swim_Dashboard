@@ -65,6 +65,18 @@ export default function CoachSessionPage() {
             <span>{getStrokeEmoji(session.strokeType)}</span>
             {session.strokeType} · {formatDate(session.date)}
           </p>
+          {session.status === "completed" && session.qualityScore != null && (
+            <div className="flex items-center gap-4 mt-2">
+              <p className="text-sm text-aqua-300">
+                Quality: <span className="font-semibold">{session.qualityScore}</span>/100
+              </p>
+              {session.numStrokes != null && (
+                <p className="text-sm text-slate-400">
+                  Strokes: <span className="font-semibold text-slate-300">{session.numStrokes}</span>
+                </p>
+              )}
+            </div>
+          )}
         </div>
       )}
 

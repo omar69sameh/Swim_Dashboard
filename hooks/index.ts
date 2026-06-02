@@ -4,7 +4,6 @@ export { useSwimmer } from "./useSwimmer";
 export { useSessions } from "./useSessions";
 export { useSession } from "./useSession";
 export { useMLResults } from "./useMLResults";
-export { useTeamMetrics } from "./useTeamMetrics";
 export { useHistoricalData } from "./useHistoricalData";
 export { useAsyncData } from "./useAsyncData";
 export { useCoaches } from "./useCoaches";

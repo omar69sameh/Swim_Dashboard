@@ -60,11 +60,29 @@ export default function SwimmerSessionPage() {
 
       {session && (
         <div className="glass-card p-4">
-          <h1 className="text-lg font-bold text-white">{session.strokeType}</h1>
-          <p className="text-sm text-slate-500 flex items-center gap-2 mt-1">
+          <h1 className="text-lg font-bold text-white flex items-center gap-2">
             <span>{getStrokeEmoji(session.strokeType)}</span>
-            {formatDate(session.date)}
-          </p>
+            {session.strokeType}
+          </h1>
+          <p className="text-sm text-slate-500 mt-1">{formatDate(session.date)}</p>
+          {session.status === "completed" && session.qualityScore != null && (
+            <div className="flex items-center gap-4 mt-2">
+              <p className="text-sm text-aqua-300">
+                Quality: <span className="font-semibold">{session.qualityScore}</span>/100
+              </p>
+              {session.numStrokes != null && (
+                <p className="text-sm text-slate-400">
+                  Strokes: <span className="font-semibold text-slate-300">{session.numStrokes}</span>
+                </p>
+              )}
+            </div>
+          )}
+          {session.status === "pending" && (
+            <p className="text-sm text-amber-400/90 mt-2">Analysis pending — check back soon</p>
+          )}
+          {session.status === "processing" && (
+            <p className="text-sm text-blue-300/90 mt-2">Analysis in progress...</p>
+          )}
         </div>
       )}
 

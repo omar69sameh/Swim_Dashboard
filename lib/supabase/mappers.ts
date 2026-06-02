@@ -1,4 +1,6 @@
 import type { Session, StrokeType, Swimmer } from "@/types";
+import type { SessionAnalysisRow } from "./analysis";
+import { analysisToSessionStatus } from "./analysis";
 import type { ProfileRow, SwimmingSessionRow } from "./database.types";
 
 function profileName(p: ProfileRow): string {
@@ -23,7 +25,24 @@ export function mapProfileToSwimmer(
   };
 }
 
-export function mapSwimmingSessionToSession(row: SwimmingSessionRow): Session {
+function mapStrokeType(value: string | undefined): StrokeType {
+  const v = (value ?? "Freestyle") as StrokeType;
+  if (
+    v === "Freestyle" ||
+    v === "Backstroke" ||
+    v === "Breaststroke" ||
+    v === "Butterfly" ||
+    v === "IM"
+  ) {
+    return v;
+  }
+  return "Freestyle";
+}
+
+export function mapSwimmingSessionToSession(
+  row: SwimmingSessionRow,
+  analysis?: SessionAnalysisRow | null
+): Session {
   const meta = row.session_metadata ?? {};
   const info = row.swimmer_info ?? {};
   const name =
@@ -31,6 +50,10 @@ export function mapSwimmingSessionToSession(row: SwimmingSessionRow): Session {
     ([info.first_name, info.last_name].filter(Boolean).join(" ").trim() || "Swimmer");
 
   const date = meta.start_time ?? row.created_at ?? new Date().toISOString();
+  const status = analysisToSessionStatus(row.analysis_status, !!analysis);
+  const strokeType = analysis
+    ? mapStrokeType(analysis.primary_stroke)
+    : ("Freestyle" as StrokeType);
 
   return {
     id: row.id,
@@ -40,8 +63,11 @@ export function mapSwimmingSessionToSession(row: SwimmingSessionRow): Session {
     duration: meta.duration_seconds ?? 0,
     distance: 0,
     poolLength: 25,
-    status: "pending",
-    strokeType: "Freestyle" as StrokeType,
+    status,
+    strokeType,
+    qualityScore: analysis?.quality_score ?? undefined,
+    numStrokes: analysis?.num_strokes ?? undefined,
     createdAt: row.created_at ?? date,
+    analyzedAt: row.analyzed_at ?? analysis?.created_at ?? undefined,
   };
 }
