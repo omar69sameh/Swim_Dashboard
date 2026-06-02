@@ -2,7 +2,6 @@ import type {
   Swimmer,
   Session,
   MLResults,
-  TeamMetric,
   HistoricalDataPoint,
 } from "@/types";
 
@@ -28,10 +27,6 @@ export interface ISessionService {
 
 export interface IMLAnalysisService {
   getResults(sessionId: string): Promise<MLResults>;
-}
-
-export interface ITeamMetricsService {
-  getTeamMetrics(): Promise<TeamMetric[]>;
 }
 
 export interface IHistoricalDataService {

@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import {
   Users,
   Settings,
-  Droplets,
   ChevronLeft,
   ChevronRight,
   TrendingUp,
@@ -59,7 +58,14 @@ export default function Sidebar() {
       <div className="h-16 flex items-center px-4 border-b border-white/5">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-aqua-300 to-aqua-600 flex items-center justify-center shrink-0">
-            <Droplets className="w-5 h-5 text-white" />
+            {/* swimmer + wave logo */}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-white">
+              <circle cx="14" cy="4" r="2" fill="currentColor" />
+              <path d="M2 13 Q5 10 8 12 Q11 14 14 11 Q17 8 19 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+              <path d="M2 16 Q5 13 8 15 Q11 17 14 14 Q17 11 19 13" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none" opacity="0.6" />
+              <path d="M10 12 L14 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M10 12 Q7 9 5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
           </div>
           <motion.span
             animate={{ opacity: sidebarOpen ? 1 : 0, width: sidebarOpen ? "auto" : 0 }}

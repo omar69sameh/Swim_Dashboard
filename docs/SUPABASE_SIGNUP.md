@@ -87,7 +87,7 @@ if (profile?.role === "coach") {
 }
 ```
 
-On mobile signup, always set `role: 'swimmer'` in `profiles` and `user_metadata` — never `coach`.
+On mobile signup, always set `role: 'swimmer'` in `profiles` and `user_metadata` — never `coach`. Implemented in `mobileApp/lib/services/supabase_service.dart`; coaches are blocked at login.
 
 ## Testing
 

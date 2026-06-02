@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
 import CoachSelector from "@/components/settings/CoachSelector";
+import ChangePasswordForm from "@/components/settings/ChangePasswordForm";
 import LoadingState from "@/components/ui/LoadingState";
 
 export default function SettingsPage() {
@@ -59,6 +60,8 @@ export default function SettingsPage() {
             </Link>
           </>
         )}
+
+        <ChangePasswordForm />
 
         <button
           type="button"

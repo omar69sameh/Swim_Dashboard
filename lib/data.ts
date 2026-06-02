@@ -390,10 +390,3 @@ export function generateHistoricalData(swimmerId: string): HistoricalDataPoint[]
 
   return data;
 }
-
-export const teamMetrics = [
-  { label: "Total Swimmers", value: 5, change: 0, trend: "neutral" as const, icon: "Users" },
-  { label: "Avg Quality Score", value: "87.8", change: 3.2, trend: "up" as const, icon: "TrendingUp" },
-  { label: "Pipeline Success", value: "98.5%", change: 1.2, trend: "up" as const, icon: "Zap" },
-  { label: "Sessions This Week", value: 12, change: -2, trend: "down" as const, icon: "Activity" },
-];

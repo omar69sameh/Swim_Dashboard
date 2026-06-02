@@ -2,6 +2,7 @@ import { swimmers } from "@/lib/data";
 import { getSwimmerIdsForCoach as getMockSwimmerIdsForCoach } from "@/lib/mock-auth";
 import { getSwimmerIdsForCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
+import { fetchAnalysisMap } from "@/lib/supabase/analysis";
 import { mapProfileToSwimmer } from "@/lib/supabase/mappers";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
@@ -60,27 +61,59 @@ export async function GET(request: NextRequest) {
 
   const { data: sessionRows } = await admin
     .from("swimming_sessions")
-    .select("user_id, created_at, session_metadata")
+    .select("id, user_id, created_at, session_metadata, analysis_status")
     .in("user_id", profileIds);
 
-  const sessionStats = new Map<string, { count: number; lastDate: string | null }>();
-  for (const row of (sessionRows ?? []) as Pick<SwimmingSessionRow, "user_id" | "created_at" | "session_metadata">[]) {
+  const rows =
+    (sessionRows ?? []) as Pick<
+      SwimmingSessionRow,
+      "id" | "user_id" | "created_at" | "session_metadata" | "analysis_status"
+    >[];
+
+  const analysisMap = await fetchAnalysisMap(rows.map((r) => r.id));
+
+  const sessionStats = new Map<
+    string,
+    { count: number; lastDate: string | null; qualitySum: number; qualityCount: number }
+  >();
+
+  for (const row of rows) {
     const date = row.session_metadata?.start_time ?? row.created_at ?? null;
+    const analysis = analysisMap.get(row.id);
+    const completed =
+      row.analysis_status === "completed" || analysis != null;
+    const score = analysis?.quality_score;
+
     const prev = sessionStats.get(row.user_id);
     if (!prev) {
-      sessionStats.set(row.user_id, { count: 1, lastDate: date });
+      sessionStats.set(row.user_id, {
+        count: 1,
+        lastDate: date,
+        qualitySum: completed && score != null ? score : 0,
+        qualityCount: completed && score != null ? 1 : 0,
+      });
     } else {
       const lastDate =
         prev.lastDate && date && new Date(date) > new Date(prev.lastDate)
           ? date
           : prev.lastDate ?? date;
-      sessionStats.set(row.user_id, { count: prev.count + 1, lastDate });
+      sessionStats.set(row.user_id, {
+        count: prev.count + 1,
+        lastDate,
+        qualitySum: prev.qualitySum + (completed && score != null ? score : 0),
+        qualityCount: prev.qualityCount + (completed && score != null ? 1 : 0),
+      });
     }
   }
 
   const list = (profiles as ProfileRow[]).map((p) => {
     const stats = sessionStats.get(p.id);
-    return mapProfileToSwimmer(p, stats?.count ?? 0, stats?.lastDate ?? null);
+    const swimmer = mapProfileToSwimmer(p, stats?.count ?? 0, stats?.lastDate ?? null);
+    if (stats && stats.qualityCount > 0) {
+      swimmer.averageQualityScore =
+        Math.round((stats.qualitySum / stats.qualityCount) * 10) / 10;
+    }
+    return swimmer;
   });
 
   return NextResponse.json(list);

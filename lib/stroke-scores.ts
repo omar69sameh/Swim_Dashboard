@@ -28,6 +28,7 @@ export function getStrokeScoresForSwimmer(
     return {
       strokeType,
       qualityScore: latest?.qualityScore ?? 0,
+      numStrokes: latest?.numStrokes,
       lastSessionId: latest?.id,
       lastSessionDate: latest?.date,
     };

@@ -5,11 +5,30 @@ import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { mockSignIn } from "@/lib/mock-auth";
 import { NextRequest, NextResponse } from "next/server";
 
+const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = loginAttempts.get(ip);
+  if (!entry || entry.resetAt < now) {
+    loginAttempts.set(ip, { count: 1, resetAt: now + 60_000 });
+    return false;
+  }
+  if (entry.count >= 10) return true;
+  entry.count++;
+  return false;
+}
+
 /**
  * POST /api/auth/login
  * Supabase Auth signInWithPassword + session cookies
  */
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: "Too many attempts. Try again in a minute." }, { status: 429 });
+  }
+
   const body = await request.json();
   const email = body.email as string;
   const password = body.password as string;

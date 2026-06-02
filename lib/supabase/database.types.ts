@@ -18,6 +18,9 @@ export interface CoachOption {
 export interface SwimmingSessionRow {
   id: string;
   user_id: string;
+  analysis_status?: string | null;
+  analysis_error?: string | null;
+  analyzed_at?: string | null;
   session_id: string | null;
   swimmer_info: {
     name?: string;
