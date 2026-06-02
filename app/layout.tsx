@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SwimML Analytics - Swimming Performance Dashboard",
-  description: "AI-powered swimming stroke analysis for elite coaches",
+  title: "SwimMate — Swimming Performance Dashboard",
+  description: "AI-powered swimming stroke analysis for coaches and athletes",
 };
 
 export default function RootLayout({

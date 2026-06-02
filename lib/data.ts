@@ -1,5 +1,5 @@
 /**
- * Realistic placeholder data for the SwimML Analytics Dashboard.
+ * Realistic placeholder data for the SwimMate Analytics Dashboard.
  * This simulates the data that would normally come from Supabase + ML API.
  * All values are calibrated to realistic swimming performance metrics.
  */

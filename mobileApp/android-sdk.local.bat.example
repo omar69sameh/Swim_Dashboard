@@ -1,0 +1,7 @@
+@echo off
+REM Copy this file to android-sdk.local.bat and set your SDK path.
+REM android-sdk.local.bat is not committed to git.
+
+set "ANDROID_SDK=C:\Users\YOUR_USER\AppData\Local\Android\Sdk"
+REM Must be a full JDK (needs bin\javac.exe and bin\jlink.exe), not a JRE only
+set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.0.4.1-hotspot"

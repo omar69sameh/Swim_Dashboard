@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import StrokeScoreCards from "@/components/dashboard/StrokeScoreCards";
 import QualityChart from "@/components/dashboard/QualityChart";
 import StrokeIcon from "@/components/ui/StrokeIcon";
@@ -11,6 +13,14 @@ import { useSwimmer, useSessions, useHistoricalData } from "@/hooks";
 import { getStrokeScoresForSwimmer } from "@/lib/stroke-scores";
 import { TRACKED_STROKES } from "@/lib/stroke-scores";
 import { formatDate } from "@/lib/utils";
+
+const STROKE_BADGE_COLOR: Record<string, string> = {
+  Freestyle:    "bg-cyan-400/10    text-cyan-300    border-cyan-400/20",
+  Butterfly:    "bg-violet-400/10  text-violet-300  border-violet-400/20",
+  Breaststroke: "bg-emerald-400/10 text-emerald-300 border-emerald-400/20",
+  Backstroke:   "bg-amber-400/10   text-amber-300   border-amber-400/20",
+  IM:           "bg-rose-400/10    text-rose-300    border-rose-400/20",
+};
 
 export default function SwimmerHomePage() {
   const user = useAuthStore((s) => s.user);
@@ -52,31 +62,77 @@ export default function SwimmerHomePage() {
 
   return (
     <>
-      <div>
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-white">My progress</h1>
-        <p className="text-slate-400 text-sm mt-1">Quality by stroke — Freestyle, Breaststroke, Butterfly</p>
-      </div>
+      {/* ── Hero banner ─────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative w-full h-44 md:h-56 rounded-2xl overflow-hidden"
+      >
+        <Image
+          src="/swimming-hero.jpg"
+          alt="Competitive swimmer"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ocean-950/90 via-ocean-950/50 to-transparent" />
+        <div className="absolute inset-0 flex flex-col justify-end p-5">
+          <motion.h1
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-2xl md:text-3xl font-display font-bold text-white drop-shadow"
+          >
+            My Progress
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-slate-300 text-sm mt-1"
+          >
+            Quality by stroke — Freestyle, Breaststroke, Butterfly
+          </motion.p>
+        </div>
+      </motion.div>
 
       {isLoading && <LoadingState message="Loading..." />}
       {error && <ErrorState message={error} />}
 
       {!isLoading && sessions && (
         <>
-          {/* Session counts */}
+          {/* ── Stat cards ──────────────────────────────────── */}
           <div className="flex flex-wrap gap-3">
-            <div className="glass-card px-4 py-2 text-sm">
-              <span className="text-slate-500">Total sessions </span>
-              <span className="font-bold text-white">{totalSessions}</span>
-            </div>
-            {perType.map(({ type, count }) => (
-              <div key={type} className="glass-card px-4 py-2 text-sm flex items-center gap-2">
-                <StrokeIcon stroke={type} size={16} />
-                <span className="text-slate-500">{type} </span>
-                <span className="font-bold text-aqua-300">{count}</span>
-              </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35 }}
+              className="glass-card px-5 py-3 text-sm flex flex-col items-center gap-0.5 min-w-[90px]"
+            >
+              <span className="text-2xl font-bold text-white">{totalSessions}</span>
+              <span className="text-slate-500 text-xs">Total sessions</span>
+            </motion.div>
+
+            {perType.map(({ type, count }, i) => (
+              <motion.div
+                key={type}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35, delay: (i + 1) * 0.07 }}
+                className={`glass-card px-4 py-3 text-sm flex flex-col items-center gap-1 min-w-[90px] border ${STROKE_BADGE_COLOR[type] ?? "border-white/5"} transition-all hover:scale-105 cursor-default`}
+              >
+                <span className="group">
+                  <StrokeIcon stroke={type} size={22} animated />
+                </span>
+                <span className="font-bold text-lg leading-none">{count}</span>
+                <span className="text-[10px] opacity-70">{type}</span>
+              </motion.div>
             ))}
           </div>
 
+          {/* ── Stroke score cards ──────────────────────────── */}
           {strokeScores.length > 0 && (
             <div>
               <p className="text-xs text-slate-500 mb-2">Tap a stroke to view that session</p>
@@ -84,30 +140,43 @@ export default function SwimmerHomePage() {
             </div>
           )}
 
-          {/* Recent sessions — last 30 days */}
+          {/* ── Recent sessions ─────────────────────────────── */}
           <div>
             <h2 className="text-sm font-semibold text-slate-300 mb-3">Sessions — last 30 days</h2>
             {recentSessions.length === 0 ? (
               <p className="text-sm text-slate-500">No completed sessions in the last 30 days.</p>
             ) : (
               <ul className="space-y-2">
-                {recentSessions.map((s) => (
-                  <li key={s.id}>
+                {recentSessions.map((s, i) => (
+                  <motion.li
+                    key={s.id}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.06 }}
+                  >
                     <Link
                       href={`/swimmer/session/${s.id}`}
                       prefetch
-                      className="flex items-center gap-3 p-3 rounded-lg glass-card-hover border border-transparent hover:border-white/10 transition-colors"
+                      className="group flex items-center gap-3 p-3 rounded-xl glass-card border border-transparent hover:border-white/10 hover:bg-ocean-800/60 transition-all duration-200 hover:-translate-y-0.5"
                     >
-                      <StrokeIcon stroke={s.strokeType} size={20} />
+                      <span className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
+                        <StrokeIcon stroke={s.strokeType} size={20} animated />
+                      </span>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm text-slate-200 font-medium">{s.strokeType}</p>
                         <p className="text-xs text-slate-500">{formatDate(s.date)}</p>
                       </div>
-                      <span className="text-aqua-300 font-bold text-sm shrink-0">
-                        {s.qualityScore ?? "—"}
-                      </span>
+                      <div className="flex flex-col items-end shrink-0">
+                        <span className="text-aqua-300 font-bold text-sm">
+                          {s.qualityScore ?? "—"}
+                        </span>
+                        <span className="text-[10px] text-slate-600">score</span>
+                      </div>
+                      <svg className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             )}
@@ -116,7 +185,13 @@ export default function SwimmerHomePage() {
       )}
 
       {!historyLoading && history && history.length > 0 && (
-        <QualityChart data={history} compact />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <QualityChart data={history} compact />
+        </motion.div>
       )}
 
       {swimmer && (
