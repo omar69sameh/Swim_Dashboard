@@ -1,0 +1,21 @@
+# Local SDK override (machine-specific)
+android-sdk.local.bat
+
+# Easy-to-find release copy
+dist/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# IDE
+.idea/
+*.iml
+
+# Android signing / local
+**/android/key.properties
+**/*.jks
