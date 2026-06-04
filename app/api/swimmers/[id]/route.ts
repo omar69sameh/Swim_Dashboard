@@ -2,6 +2,7 @@ import { swimmers } from "@/lib/data";
 import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { mapProfileToSwimmer } from "@/lib/supabase/mappers";
+import { fetchAnalysisMap } from "@/lib/supabase/analysis";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import type { ProfileRow, SwimmingSessionRow } from "@/lib/supabase/database.types";
@@ -55,17 +56,38 @@ export async function GET(
 
   const { data: sessions } = await admin
     .from("swimming_sessions")
-    .select("user_id, created_at, session_metadata")
+    .select("id, user_id, created_at, session_metadata, analysis_status")
     .eq("user_id", id);
 
-  const rows = (sessions ?? []) as Pick<SwimmingSessionRow, "created_at" | "session_metadata">[];
+  const rows = (sessions ?? []) as Pick<
+    SwimmingSessionRow,
+    "id" | "user_id" | "created_at" | "session_metadata" | "analysis_status"
+  >[];
+
   let lastDate: string | null = null;
   for (const row of rows) {
     const d = row.session_metadata?.start_time ?? row.created_at ?? null;
     if (d && (!lastDate || new Date(d) > new Date(lastDate))) lastDate = d;
   }
 
-  return NextResponse.json(
-    mapProfileToSwimmer(profile as ProfileRow, rows.length, lastDate)
-  );
+  const analysisMap = await fetchAnalysisMap(rows.map((r) => r.id));
+
+  let qualitySum = 0;
+  let qualityCount = 0;
+  for (const row of rows) {
+    const analysis = analysisMap.get(row.id);
+    const completed = row.analysis_status === "completed" || analysis != null;
+    const score = analysis?.quality_score;
+    if (completed && score != null) {
+      qualitySum += score;
+      qualityCount += 1;
+    }
+  }
+
+  const swimmer = mapProfileToSwimmer(profile as ProfileRow, rows.length, lastDate);
+  if (qualityCount > 0) {
+    swimmer.averageQualityScore = Math.round((qualitySum / qualityCount) * 10) / 10;
+  }
+
+  return NextResponse.json(swimmer);
 }
