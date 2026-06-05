@@ -10,7 +10,7 @@ import ErrorState from "@/components/ui/ErrorState";
 import { useSession, useMLResults } from "@/hooks";
 import { useAuthStore } from "@/lib/auth-store";
 import { canAccessSwimmer } from "@/lib/access";
-import { formatDate, getStrokeEmoji } from "@/lib/utils";
+import { formatDateTime, getStrokeEmoji, qualityTierDisplay } from "@/lib/utils";
 
 export default function CoachSessionPage() {
   const params = useParams();
@@ -63,7 +63,7 @@ export default function CoachSessionPage() {
           <h1 className="text-lg font-bold text-white">{session.swimmerName}</h1>
           <p className="text-sm text-slate-500 flex items-center gap-2 mt-1">
             <span>{getStrokeEmoji(session.strokeType)}</span>
-            {session.strokeType} · {formatDate(session.date)}
+            {session.strokeType} · {formatDateTime(session.createdAt)}
           </p>
           {session.status === "completed" && session.qualityScore != null && (
             <div className="flex items-center gap-4 mt-2">
@@ -99,6 +99,36 @@ export default function CoachSessionPage() {
             features={mlResults.features}
             strokeType={session?.strokeType}
           />
+          {mlResults.segments && mlResults.segments.length > 0 && (
+            <div className="glass-card p-5">
+              <h2 className="text-lg font-display font-semibold text-white mb-1">
+                Stroke-by-Stroke Breakdown
+              </h2>
+              {mlResults.segments[0]?.qualityTier ? (
+                <p className="text-xs text-slate-500 mb-4">
+                  {mlResults.segments.length} strokes — each individually assessed by the ML pipeline.
+                </p>
+              ) : (
+                <p className="text-xs text-slate-500 mb-4">
+                  {mlResults.segments.length} strokes detected — session-level quality applied to all.
+                </p>
+              )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {mlResults.segments.map((seg, i) => {
+                  const t = qualityTierDisplay(
+                    seg.qualityTier ?? mlResults.qualityTier,
+                    seg.qualityLabel ?? mlResults.qualityLabel
+                  );
+                  return (
+                    <div key={i} className={`rounded-lg border px-3 py-2.5 flex flex-col gap-1 ${t.bg}`}>
+                      <span className="text-xs text-slate-500">Stroke {i + 1}</span>
+                      <span className={`text-sm font-semibold ${t.color}`}>{t.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </>
       )}
     </>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Lock } from "lucide-react";
 
 export default function ChangePasswordForm() {
   const [current, setCurrent] = useState("");
@@ -40,16 +41,22 @@ export default function ChangePasswordForm() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-sm text-aqua-300 hover:text-aqua-200"
+        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-left"
       >
-        Change password →
+        <div className="w-8 h-8 rounded-lg bg-slate-500/15 border border-slate-400/20 flex items-center justify-center shrink-0">
+          <Lock className="w-4 h-4 text-slate-300" />
+        </div>
+        <div>
+          <p className="text-sm font-medium text-slate-200">Change Password</p>
+          <p className="text-xs text-slate-500">Update your account password</p>
+        </div>
       </button>
     );
   }
 
   return (
-    <form onSubmit={handleSave} className="space-y-3 pt-3 border-t border-white/10">
-      <p className="text-xs text-slate-500 font-medium">Change password</p>
+    <form onSubmit={handleSave} className="space-y-3 p-4 rounded-xl border border-white/10 bg-white/5">
+      <p className="text-sm font-medium text-slate-200">Change Password</p>
       {(["Current password", "New password", "Confirm new password"] as const).map((label, i) => {
         const vals = [current, next, confirm];
         const setters = [setCurrent, setNext, setConfirm];

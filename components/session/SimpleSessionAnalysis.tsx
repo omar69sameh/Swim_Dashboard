@@ -15,12 +15,12 @@ interface SimpleSessionAnalysisProps {
 export default function SimpleSessionAnalysis({
   score,
   features,
-  maxFeatures = 3,
+  maxFeatures,
   strokeType,
 }: SimpleSessionAnalysisProps) {
-  const topFeatures = [...features]
-    .sort((a, b) => b.value - a.value)
-    .slice(0, maxFeatures);
+  const displayed = maxFeatures
+    ? [...features].sort((a, b) => b.value - a.value).slice(0, maxFeatures)
+    : features;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -33,8 +33,8 @@ export default function SimpleSessionAnalysis({
         <QualityGauge score={score} />
       </div>
       <div className="glass-card p-5 space-y-4">
-        <h2 className="text-lg font-display font-semibold text-white">Top areas</h2>
-        {topFeatures.map((feature, index) => (
+        <h2 className="text-lg font-display font-semibold text-white">Session Breakdown</h2>
+        {displayed.map((feature, index) => (
           <ProgressBar
             key={feature.name}
             value={feature.value}

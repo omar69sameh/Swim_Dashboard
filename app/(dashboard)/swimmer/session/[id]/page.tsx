@@ -9,7 +9,7 @@ import LoadingState from "@/components/ui/LoadingState";
 import ErrorState from "@/components/ui/ErrorState";
 import { useSession, useMLResults } from "@/hooks";
 import { useAuthStore } from "@/lib/auth-store";
-import { formatDate, getStrokeEmoji } from "@/lib/utils";
+import { formatDateTime, getStrokeEmoji, qualityTierDisplay } from "@/lib/utils";
 
 export default function SwimmerSessionPage() {
   const params = useParams();
@@ -64,7 +64,9 @@ export default function SwimmerSessionPage() {
             <span>{getStrokeEmoji(session.strokeType)}</span>
             {session.strokeType}
           </h1>
-          <p className="text-sm text-slate-500 mt-1">{formatDate(session.date)}</p>
+          <p className="text-sm text-slate-500 mt-1">
+            Recorded {formatDateTime(session.createdAt)}
+          </p>
           {session.status === "completed" && session.qualityScore != null && (
             <div className="flex items-center gap-4 mt-2">
               <p className="text-sm text-aqua-300">
@@ -105,6 +107,38 @@ export default function SwimmerSessionPage() {
             features={mlResults.features}
             strokeType={session?.strokeType}
           />
+          {mlResults.segments && mlResults.segments.length > 0 && (
+            <div className="glass-card p-5">
+              <h2 className="text-lg font-display font-semibold text-white mb-1">
+                Stroke-by-Stroke Breakdown
+              </h2>
+              {/* Show source note — per-stroke if available, session-level fallback */}
+              {mlResults.segments[0]?.qualityTier ? (
+                <p className="text-xs text-slate-500 mb-4">
+                  Each stroke was individually assessed by the ML pipeline.
+                </p>
+              ) : (
+                <p className="text-xs text-slate-500 mb-4">
+                  Session-level quality applied to all {mlResults.segments.length} strokes.
+                </p>
+              )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {mlResults.segments.map((seg, i) => {
+                  // Use per-stroke tier if the pipeline stored it, otherwise fall back to session tier
+                  const t = qualityTierDisplay(
+                    seg.qualityTier ?? mlResults.qualityTier,
+                    seg.qualityLabel ?? mlResults.qualityLabel
+                  );
+                  return (
+                    <div key={i} className={`rounded-lg border px-3 py-2.5 flex flex-col gap-1 ${t.bg}`}>
+                      <span className="text-xs text-slate-500">Stroke {i + 1}</span>
+                      <span className={`text-sm font-semibold ${t.color}`}>{t.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </>
       )}
     </>

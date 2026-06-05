@@ -4,14 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import StrokeScoreCards from "@/components/dashboard/StrokeScoreCards";
+import PersonalBestSection from "@/components/dashboard/PersonalBestSection";
+import WeeklyVolumeChart from "@/components/dashboard/WeeklyVolumeChart";
 import QualityChart from "@/components/dashboard/QualityChart";
 import StrokeIcon from "@/components/ui/StrokeIcon";
 import LoadingState from "@/components/ui/LoadingState";
 import ErrorState from "@/components/ui/ErrorState";
 import { useAuthStore } from "@/lib/auth-store";
 import { useSwimmer, useSessions, useHistoricalData } from "@/hooks";
-import { getStrokeScoresForSwimmer } from "@/lib/stroke-scores";
-import { TRACKED_STROKES } from "@/lib/stroke-scores";
+import { getStrokeScoresForSwimmer, getPersonalBestPerStroke, getMonthlyStrokeStats, TRACKED_STROKES } from "@/lib/stroke-scores";
 import { formatDate } from "@/lib/utils";
 
 const STROKE_BADGE_COLOR: Record<string, string> = {
@@ -32,6 +33,9 @@ export default function SwimmerHomePage() {
 
   const isLoading = swimmerLoading || sessionsLoading;
   const strokeScores = swimmerId && sessions ? getStrokeScoresForSwimmer(swimmerId, sessions) : [];
+  const monthlyStats = swimmerId && sessions ? getMonthlyStrokeStats(swimmerId, sessions) : [];
+  const personalBests = swimmerId && sessions ? getPersonalBestPerStroke(swimmerId, sessions) : [];
+  const pbSessionIds = new Set(personalBests.map((pb) => pb.sessionId));
 
   const oneMonthAgo = new Date();
   oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
@@ -132,17 +136,78 @@ export default function SwimmerHomePage() {
             ))}
           </div>
 
-          {/* ── Stroke score cards ──────────────────────────── */}
-          {strokeScores.length > 0 && (
+          {/* ── Monthly averages ────────────────────────────── */}
+          {monthlyStats.length > 0 && (
             <div>
-              <p className="text-xs text-slate-500 mb-2">Tap a stroke to view that session</p>
-              <StrokeScoreCards scores={strokeScores} sessionLinkPrefix="/swimmer/session" />
+              <h2 className="text-sm font-semibold text-slate-300 mb-3">
+                This month —{" "}
+                {new Date().toLocaleString("en-US", { month: "long", year: "numeric" })}
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {monthlyStats.map(({ strokeType, count, avgScore }) => {
+                  const badgeColor = STROKE_BADGE_COLOR[strokeType] ?? "border-white/5";
+                  const scoreColor =
+                    avgScore >= 75
+                      ? "text-emerald-400"
+                      : avgScore >= 50
+                      ? "text-amber-400"
+                      : "text-rose-400";
+                  return (
+                    <motion.div
+                      key={strokeType}
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className={`glass-card px-4 py-3 flex flex-col gap-0.5 min-w-[130px] border ${badgeColor}`}
+                    >
+                      <span className="text-xs text-slate-500">{strokeType}</span>
+                      <span className={`text-2xl font-bold leading-none ${scoreColor}`}>
+                        {avgScore}
+                      </span>
+                      <span className="text-[10px] text-slate-500 mt-0.5">
+                        avg · {count} session{count > 1 ? "s" : ""}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           )}
 
+          {/* ── Stroke score cards ──────────────────────────── */}
+          {strokeScores.length > 0 && (
+            <div>
+              <p className="text-xs text-slate-500 mb-2">Latest session per stroke — tap to view</p>
+              <StrokeScoreCards
+                scores={strokeScores}
+                sessionLinkPrefix="/swimmer/session"
+                pbSessionIds={pbSessionIds}
+              />
+            </div>
+          )}
+
+          {/* ── Personal Bests ──────────────────────────────── */}
+          {personalBests.length > 0 && (
+            <PersonalBestSection
+              pbs={personalBests}
+              sessionLinkPrefix="/swimmer/session"
+            />
+          )}
+
+          {/* ── Weekly volume chart ─────────────────────────── */}
+          <WeeklyVolumeChart sessions={sessions} swimmerId={swimmerId} />
+
           {/* ── Recent sessions ─────────────────────────────── */}
           <div>
-            <h2 className="text-sm font-semibold text-slate-300 mb-3">Sessions — last 30 days</h2>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-semibold text-slate-300">Sessions — last 30 days</h2>
+              <Link
+                href="/swimmer/compare"
+                className="text-xs text-aqua-300 hover:text-aqua-200 border border-aqua-300/30 rounded-lg px-3 py-1 hover:bg-aqua-300/10 transition-colors"
+              >
+                Compare sessions
+              </Link>
+            </div>
             {recentSessions.length === 0 ? (
               <p className="text-sm text-slate-500">No completed sessions in the last 30 days.</p>
             ) : (

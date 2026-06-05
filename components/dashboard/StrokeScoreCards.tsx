@@ -10,6 +10,7 @@ interface StrokeScoreCardsProps {
   scores: StrokeQualityScore[];
   sessionLinkPrefix: string;
   compact?: boolean;
+  pbSessionIds?: Set<string>;
 }
 
 const STROKE_RING: Record<string, string> = {
@@ -60,12 +61,14 @@ export default function StrokeScoreCards({
   scores,
   sessionLinkPrefix,
   compact = false,
+  pbSessionIds,
 }: StrokeScoreCardsProps) {
   return (
     <div className={cn("grid gap-3", compact ? "grid-cols-3" : "grid-cols-1 sm:grid-cols-3")}>
       {scores.map((item, i) => {
         const hasSession = item.lastSessionId && item.qualityScore > 0;
         const hoverBg = STROKE_BG[item.strokeType] ?? "";
+        const isPB = !!(item.lastSessionId && pbSessionIds?.has(item.lastSessionId));
 
         const content = (
           <motion.div
@@ -73,10 +76,20 @@ export default function StrokeScoreCards({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
             className={cn(
-              "group glass-card p-3 md:p-4 text-center transition-all duration-300 border border-white/5",
+              "group glass-card p-3 md:p-4 text-center transition-all duration-300 border border-white/5 relative",
               hasSession && cn("glass-card-hover cursor-pointer shadow-lg", hoverBg)
             )}
           >
+            {isPB && (
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
+                className="absolute top-2 right-2 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300"
+              >
+                PB
+              </motion.span>
+            )}
             <span className="flex justify-center mb-1 group">
               <StrokeIcon stroke={item.strokeType} size={32} animated={!!hasSession} />
             </span>
