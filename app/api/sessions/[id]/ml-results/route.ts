@@ -2,6 +2,7 @@ import { generateMLResults, sessions } from "@/lib/data";
 import {
   analysisRowToMLResults,
   fetchAnalysis,
+  fetchSessionStrokes,
 } from "@/lib/supabase/analysis";
 import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
@@ -89,7 +90,12 @@ export async function GET(
     );
   }
 
-  const analysis = await fetchAnalysis(id);
+  // Fetch session_analysis and session_strokes in parallel
+  const [analysis, strokeRows] = await Promise.all([
+    fetchAnalysis(id),
+    fetchSessionStrokes(id),
+  ]);
+
   if (!analysis) {
     return NextResponse.json(
       { error: "Analysis not yet complete", status: "pending" },
@@ -97,5 +103,5 @@ export async function GET(
     );
   }
 
-  return NextResponse.json(analysisRowToMLResults(id, analysis));
+  return NextResponse.json(analysisRowToMLResults(id, analysis, strokeRows));
 }

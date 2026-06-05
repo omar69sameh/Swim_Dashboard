@@ -3,15 +3,18 @@
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import StrokeScoreCards from "@/components/dashboard/StrokeScoreCards";
+import PersonalBestSection from "@/components/dashboard/PersonalBestSection";
+import WeeklyVolumeChart from "@/components/dashboard/WeeklyVolumeChart";
 import QualityChart from "@/components/dashboard/QualityChart";
 import LoadingState from "@/components/ui/LoadingState";
 import ErrorState from "@/components/ui/ErrorState";
 import { useSwimmer, useSessions, useHistoricalData } from "@/hooks";
 import { useAuthStore } from "@/lib/auth-store";
 import { canAccessSwimmer } from "@/lib/access";
-import { getStrokeScoresForSwimmer } from "@/lib/stroke-scores";
+import { getStrokeScoresForSwimmer, getPersonalBestPerStroke, getMonthlyStrokeStats } from "@/lib/stroke-scores";
 import { formatDate, getStrokeEmoji } from "@/lib/utils";
 
 export default function CoachSwimmerPage() {
@@ -42,6 +45,9 @@ export default function CoachSwimmerPage() {
   }
 
   const strokeScores = sessions ? getStrokeScoresForSwimmer(swimmerId, sessions) : [];
+  const monthlyStats = sessions ? getMonthlyStrokeStats(swimmerId, sessions) : [];
+  const personalBests = sessions ? getPersonalBestPerStroke(swimmerId, sessions) : [];
+  const pbSessionIds = new Set(personalBests.map((pb) => pb.sessionId));
   const recentSessions = (sessions ?? [])
     .filter((s) => s.status === "completed")
     .slice(0, 5);
@@ -74,14 +80,56 @@ export default function CoachSwimmerPage() {
             </div>
           </div>
 
+          {monthlyStats.length > 0 && (
+            <div>
+              <h2 className="text-sm font-semibold text-slate-300 mb-3">
+                This month —{" "}
+                {new Date().toLocaleString("en-US", { month: "long", year: "numeric" })}
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {monthlyStats.map(({ strokeType, count, avgScore }) => {
+                  const scoreColor =
+                    avgScore >= 75 ? "text-emerald-400" : avgScore >= 50 ? "text-amber-400" : "text-rose-400";
+                  return (
+                    <motion.div
+                      key={strokeType}
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="glass-card px-4 py-3 flex flex-col gap-0.5 min-w-[130px] border border-white/10"
+                    >
+                      <span className="text-xs text-slate-500">{strokeType}</span>
+                      <span className={`text-2xl font-bold leading-none ${scoreColor}`}>{avgScore}</span>
+                      <span className="text-[10px] text-slate-500 mt-0.5">
+                        avg · {count} session{count > 1 ? "s" : ""}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {strokeScores.length > 0 && (
             <div>
-              <p className="text-xs text-slate-500 mb-2">Quality by stroke (tap to open session)</p>
+              <p className="text-xs text-slate-500 mb-2">Latest session per stroke — tap to open</p>
               <StrokeScoreCards
                 scores={strokeScores}
                 sessionLinkPrefix="/coach/session"
+                pbSessionIds={pbSessionIds}
               />
             </div>
+          )}
+
+          {personalBests.length > 0 && (
+            <PersonalBestSection
+              pbs={personalBests}
+              sessionLinkPrefix="/coach/session"
+            />
+          )}
+
+          {sessions && sessions.length > 0 && (
+            <WeeklyVolumeChart sessions={sessions} swimmerId={swimmerId} />
           )}
 
           {!historyLoading && history && history.length > 0 && (

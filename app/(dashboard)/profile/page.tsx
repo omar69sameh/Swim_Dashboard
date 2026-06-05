@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth-store";
@@ -59,9 +60,15 @@ export default function ProfilePage() {
 
         <Link
           href="/settings"
-          className="inline-block text-sm text-aqua-300 hover:text-aqua-200"
+          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
         >
-          Change coach or update details in Settings →
+          <div className="w-8 h-8 rounded-lg bg-aqua-500/15 border border-aqua-300/20 flex items-center justify-center shrink-0">
+            <Settings className="w-4 h-4 text-aqua-300" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-slate-200">Update in Settings</p>
+            <p className="text-xs text-slate-500">Change coach or update account details</p>
+          </div>
         </Link>
       </div>
     </>

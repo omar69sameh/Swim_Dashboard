@@ -49,6 +49,22 @@ def set_analysis_status(
     get_client().table("swimming_sessions").update(payload).eq("id", session_id).execute()
 
 
+STROKE_MAP = {
+    "freestyle": "Freestyle", "butterfly": "Butterfly",
+    "breast": "Breaststroke", "breaststroke": "Breaststroke",
+    "backstroke": "Backstroke", "im": "IM",
+}
+
+def _normalize_stroke(raw: str | None) -> str:
+    if not raw:
+        return "Freestyle"
+    lower = str(raw).lower().replace("-", "_").replace(" ", "_")
+    for key, val in STROKE_MAP.items():
+        if lower.startswith(key) or f"_{key}_" in f"_{lower}_" or lower.endswith(f"_{key}"):
+            return val
+    return "Freestyle"
+
+
 def upsert_session_analysis(session_id: str, result: dict[str, Any]) -> None:
     row = {
         "session_id": session_id,
@@ -62,6 +78,31 @@ def upsert_session_analysis(session_id: str, result: dict[str, Any]) -> None:
         "pipeline_version": result.get("pipeline_version", "segmented-v1"),
     }
     get_client().table("session_analysis").upsert(row).execute()
+
+    # Also write each stroke as its own row in session_strokes
+    stroke_rows = result.get("strokes_json", [])
+    if stroke_rows:
+        _upsert_session_strokes(session_id, stroke_rows)
+
+
+def _upsert_session_strokes(session_id: str, stroke_rows: list[dict[str, Any]]) -> None:
+    """Insert one row per stroke into session_strokes (idempotent)."""
+    rows = []
+    for i, s in enumerate(stroke_rows):
+        rows.append({
+            "session_id":            session_id,
+            "stroke_index":          int(s.get("stroke_index", i + 1)),
+            "stroke_type":           _normalize_stroke(s.get("segmentation_style") or s.get("predicted_stroke_type")),
+            "quality_tier":          s.get("quality_tier"),
+            "quality_label":         s.get("predicted_quality"),
+            "confidence":            float(s["confidence"]) if s.get("confidence") is not None else None,
+            "start_time":            float(s["start_time"]) if s.get("start_time") is not None else None,
+            "peak_time":             float(s["peak_time"])  if s.get("peak_time")  is not None else None,
+            "end_time":              float(s["end_time"])   if s.get("end_time")   is not None else None,
+            "predicted_stroke_type": s.get("predicted_stroke_type"),
+        })
+    # upsert with ignore-duplicates so re-running analysis is safe
+    get_client().table("session_strokes").upsert(rows, on_conflict="session_id,stroke_index").execute()
 
 
 def fetch_pending_session_ids(limit: int = 5) -> list[str]:

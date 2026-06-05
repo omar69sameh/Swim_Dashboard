@@ -66,6 +66,8 @@ export function mapSwimmingSessionToSession(
     status,
     strokeType,
     qualityScore: analysis?.quality_score ?? undefined,
+    qualityTier: analysis?.quality_tier ?? undefined,
+    qualityLabel: analysis?.quality_label ?? undefined,
     numStrokes: analysis?.num_strokes ?? undefined,
     createdAt: row.created_at ?? date,
     analyzedAt: row.analyzed_at ?? analysis?.created_at ?? undefined,

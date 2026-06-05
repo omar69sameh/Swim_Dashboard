@@ -1,4 +1,6 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdmin } from "@/lib/supabase/admin";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { NextRequest, NextResponse } from "next/server";
 
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -15,6 +17,19 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+async function emailExistsInSystem(email: string): Promise<boolean> {
+  try {
+    const admin = createSupabaseAdmin();
+    // Fetch users in batches and check for matching email
+    const { data, error } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+    if (error || !data) return false;
+    return data.users.some((u) => u.email?.toLowerCase() === email.toLowerCase());
+  } catch {
+    // If admin check fails, fall through and allow the request
+    return true;
+  }
+}
+
 export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for") ?? "unknown";
   if (isRateLimited(ip)) {
@@ -22,15 +37,20 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json().catch(() => ({}));
-  const email = typeof body.email === "string" ? body.email.trim() : "";
+  const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
   if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
 
-  const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    // Not configured — silently succeed so UI shows "check your inbox"
+  if (!isSupabaseConfigured()) {
+    // Dev mode — silently succeed
     return NextResponse.json({ ok: true });
+  }
+
+  const exists = await emailExistsInSystem(email);
+  if (!exists) {
+    return NextResponse.json(
+      { error: "No account found with that email address. Please check and try again." },
+      { status: 404 }
+    );
   }
 
   const origin = request.headers.get("origin") ?? "http://localhost:3000";
@@ -40,6 +60,5 @@ export async function POST(request: NextRequest) {
     redirectTo: `${origin}/auth/callback?next=/reset-password`,
   });
 
-  // Always return ok — never reveal whether the email exists
   return NextResponse.json({ ok: true });
 }

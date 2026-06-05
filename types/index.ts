@@ -52,6 +52,8 @@ export interface Session {
   status: AnalysisStatus;
   strokeType: StrokeType;
   qualityScore?: number;
+  qualityTier?: string;   // "low" | "moderate" | "moderate_high" | "high"
+  qualityLabel?: string;  // "Good" | "Bad"
   numStrokes?: number;
   createdAt: string;
   analyzedAt?: string;
@@ -72,6 +74,11 @@ export interface StrokeSegment {
   endIndex: number;
   strokeType: StrokeType;
   confidence: number;
+  qualityTier?: string;   // per-stroke: "low" | "moderate" | "moderate_high" | "high" | "good" | "risk"
+  qualityLabel?: string;  // per-stroke: "Good" | "Bad"
+  startTime?: number;     // seconds from session start
+  peakTime?: number;
+  endTime?: number;
 }
 
 export interface MLFeature {
@@ -87,6 +94,8 @@ export interface MLResults {
   strokeType: StrokeType;
   strokeTypeConfidence: number;
   overallQualityScore: number;
+  qualityTier?: string;   // e.g. "low" | "moderate" | "moderate_high" | "high"
+  qualityLabel?: string;  // e.g. "Good" | "Bad"
   numStrokes?: number;
   segments: StrokeSegment[];
   features: MLFeature[];

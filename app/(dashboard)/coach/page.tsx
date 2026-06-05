@@ -1,6 +1,8 @@
 "use client";
 
 import SimpleSwimmerList from "@/components/dashboard/SimpleSwimmerList";
+import CoachRiskTable from "@/components/dashboard/CoachRiskTable";
+import WeeklyVolumeChart from "@/components/dashboard/WeeklyVolumeChart";
 import LoadingState from "@/components/ui/LoadingState";
 import ErrorState from "@/components/ui/ErrorState";
 import EmptyState from "@/components/ui/EmptyState";
@@ -48,7 +50,11 @@ export default function CoachHomePage() {
         <EmptyState message="No swimmers assigned yet." />
       )}
       {swimmers && swimmers.length > 0 && sessions && (
-        <SimpleSwimmerList swimmers={swimmers} sessions={sessions} />
+        <>
+          <CoachRiskTable swimmers={swimmers} sessions={sessions} />
+          <WeeklyVolumeChart sessions={sessions} />
+          <SimpleSwimmerList swimmers={swimmers} sessions={sessions} />
+        </>
       )}
       {sessionsLoading && swimmers && !sessions && (
         <p className="text-xs text-slate-500 text-center">Loading sessions...</p>

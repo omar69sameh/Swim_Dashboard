@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { User } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
 import CoachSelector from "@/components/settings/CoachSelector";
@@ -53,15 +54,27 @@ export default function SettingsPage() {
         )}
 
         {user?.role === "swimmer" && (
-          <>
-            <CoachSelector />
-            <Link href="/profile" className="text-sm text-aqua-300 hover:text-aqua-200">
-              View full profile →
-            </Link>
-          </>
+          <CoachSelector />
         )}
 
-        <ChangePasswordForm />
+        <div className="border-t border-white/10 pt-4 space-y-3">
+          {user?.role === "swimmer" && (
+            <Link
+              href="/profile"
+              className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors group"
+            >
+              <div className="w-8 h-8 rounded-lg bg-aqua-500/15 border border-aqua-300/20 flex items-center justify-center shrink-0">
+                <User className="w-4 h-4 text-aqua-300" />
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-medium text-slate-200">View Profile</p>
+                <p className="text-xs text-slate-500">See your full swimmer profile</p>
+              </div>
+            </Link>
+          )}
+
+          <ChangePasswordForm />
+        </div>
 
         <button
           type="button"
