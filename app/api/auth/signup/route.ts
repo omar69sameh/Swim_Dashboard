@@ -4,15 +4,15 @@ import { validateCoachId } from "@/lib/supabase/coach-assignments";
 import { toAuthUser } from "@/lib/supabase/auth-user";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { mockSignUp } from "@/lib/mock-auth";
+import { badRequest, serverError, apiOk } from "@/lib/api-helpers";
 import type { ProfileRow } from "@/lib/supabase/database.types";
 import type { UserRole } from "@/types/auth";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 const PROFILE_SELECT = "id, first_name, last_name, age, role, coach_id, created_at";
 
 /**
  * POST /api/auth/signup
- * Supabase Auth signUp + profiles row (role, optional coach_id)
  */
 export async function POST(request: NextRequest) {
   try {
@@ -24,42 +24,33 @@ export async function POST(request: NextRequest) {
     const coachId = body.coachId as string | undefined;
     const ageRaw = body.age;
 
-    if (!email || !password || !name) {
-      return NextResponse.json({ error: "Email, password, and name required" }, { status: 400 });
-    }
+    if (!email || !password || !name) return badRequest("Email, password and name are required");
 
     let age: number | null = null;
     if (role === "swimmer") {
       const parsed = typeof ageRaw === "number" ? ageRaw : parseInt(String(ageRaw), 10);
       if (!Number.isFinite(parsed) || parsed < 1 || parsed > 120) {
-        return NextResponse.json({ error: "Valid age (1–120) is required for swimmers" }, { status: 400 });
+        return badRequest("Valid age (1–120) is required for swimmers");
       }
       age = parsed;
     }
 
     if (!isSupabaseConfigured()) {
       const user = mockSignUp({ email, password, name, role, coachId, age: age ?? undefined });
-      return NextResponse.json(user);
+      return apiOk(user);
     }
 
     const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase.auth.signUp({
       email: email.trim(),
       password,
-      options: {
-        data: { role, name },
-      },
+      options: { data: { role, name } },
     });
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
+    if (error) return badRequest(error.message);
 
     if (!data.user) {
-      return NextResponse.json(
-        { error: "Check your email to confirm your account, then sign in." },
-        { status: 400 }
-      );
+      return badRequest("Check your email to confirm your account, then sign in.");
     }
 
     const parts = name.split(/\s+/);
@@ -88,9 +79,8 @@ export async function POST(request: NextRequest) {
       .eq("id", data.user.id)
       .maybeSingle();
 
-    return NextResponse.json(toAuthUser(data.user, profile as ProfileRow | null));
+    return apiOk(toAuthUser(data.user, profile as ProfileRow | null));
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Sign up failed";
-    return NextResponse.json({ error: message }, { status: 400 });
+    return serverError(err instanceof Error ? err.message : "Sign up failed");
   }
 }

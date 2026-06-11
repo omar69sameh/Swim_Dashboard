@@ -18,7 +18,8 @@ async function fetchProfile(): Promise<UserProfile> {
 export function useProfile(enabled = true) {
   const { data, isLoading, error, refetch } = useAsyncData(
     () => (enabled ? fetchProfile() : Promise.resolve(null as unknown as UserProfile)),
-    [enabled]
+    [enabled],
+    { cacheKey: enabled ? "profile" : undefined }
   );
 
   return { profile: data, isLoading, error, refetch };

@@ -4,8 +4,29 @@ import type { ProfileRow } from "./database.types";
 
 const PROFILE_SELECT = "id, first_name, last_name, age, role, coach_id, created_at";
 
+// Per-user profile cache. Profiles change rarely, but every API request
+// re-resolved them with 1–2 DB round-trips, which dominated response time.
+const profileCache = new Map<string, { profile: ProfileRow | null; expiresAt: number }>();
+const PROFILE_CACHE_TTL_MS = 60_000;
+
+export function invalidateProfileCache(userId?: string) {
+  if (userId) profileCache.delete(userId);
+  else profileCache.clear();
+}
+
 /** Creates or patches profile so mobile-only signups work on the dashboard too */
 export async function ensureProfileForUser(user: User): Promise<ProfileRow | null> {
+  const cached = profileCache.get(user.id);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.profile;
+  }
+
+  const profile = await resolveProfile(user);
+  profileCache.set(user.id, { profile, expiresAt: Date.now() + PROFILE_CACHE_TTL_MS });
+  return profile;
+}
+
+async function resolveProfile(user: User): Promise<ProfileRow | null> {
   const admin = createSupabaseAdmin();
   const { data: existing, error: readError } = await admin
     .from("profiles")

@@ -11,7 +11,8 @@ export function useSwimmers() {
 
   const { data, isLoading, error, refetch } = useAsyncData(
     () => getSwimmerService().listSwimmers(options),
-    [user?.id, user?.role, options?.coachId, options?.swimmerId]
+    [user?.id, user?.role, options?.coachId, options?.swimmerId],
+    { cacheKey: `swimmers:${user?.id}:${user?.role}:${options?.coachId ?? ""}:${options?.swimmerId ?? ""}` }
   );
 
   return { swimmers: data, isLoading, error, refetch };

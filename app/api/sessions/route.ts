@@ -6,8 +6,9 @@ import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { mapSwimmingSessionToSession } from "@/lib/supabase/mappers";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { unauthorized, forbidden, serverError, apiOk } from "@/lib/api-helpers";
 import type { SwimmingSessionRow } from "@/lib/supabase/database.types";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 const SESSION_SELECT =
   "id, user_id, session_id, swimmer_info, device_info, session_metadata, created_at, analysis_status, analyzed_at";
@@ -20,40 +21,36 @@ export async function GET(request: NextRequest) {
   const swimmerIdsParam = request.nextUrl.searchParams.get("swimmerIds");
 
   if (!isSupabaseConfigured()) {
-    if (swimmerId) {
-      return NextResponse.json(sessions.filter((s) => s.swimmerId === swimmerId));
-    }
+    if (swimmerId) return apiOk(sessions.filter((s) => s.swimmerId === swimmerId));
     if (swimmerIdsParam) {
       const ids = swimmerIdsParam.split(",").map((s) => s.trim());
-      return NextResponse.json(sessions.filter((s) => ids.includes(s.swimmerId)));
+      return apiOk(sessions.filter((s) => ids.includes(s.swimmerId)));
     }
-    return NextResponse.json(sessions);
+    return apiOk(sessions);
   }
 
   const authUser = await getAuthUserFromRequest();
-  if (!authUser) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
+  if (!authUser) return unauthorized();
 
   const admin = createSupabaseAdmin();
-  let query = admin.from("swimming_sessions").select(SESSION_SELECT).order("created_at", { ascending: false });
+  let query = admin
+    .from("swimming_sessions")
+    .select(SESSION_SELECT)
+    .order("created_at", { ascending: false });
 
   if (authUser.role === "swimmer") {
     query = query.eq("user_id", authUser.swimmerId!);
   } else if (authUser.role === "coach") {
     const assignedIds = await getSwimmerIdsForCoach(authUser.id);
-    if (assignedIds.length === 0) {
-      return NextResponse.json([]);
-    }
+    if (assignedIds.length === 0) return apiOk([]);
+
     if (swimmerId) {
-      if (!assignedIds.includes(swimmerId)) {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-      }
+      if (!assignedIds.includes(swimmerId)) return forbidden();
       query = query.eq("user_id", swimmerId);
     } else if (swimmerIdsParam) {
       const ids = swimmerIdsParam.split(",").map((s) => s.trim()).filter(Boolean);
       const allowed = ids.filter((id) => assignedIds.includes(id));
-      if (allowed.length === 0) return NextResponse.json([]);
+      if (allowed.length === 0) return apiOk([]);
       query = query.in("user_id", allowed);
     } else {
       query = query.in("user_id", assignedIds);
@@ -66,16 +63,11 @@ export async function GET(request: NextRequest) {
   }
 
   const { data, error } = await query;
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
+  if (error) return serverError(error.message);
 
   const rows = data as SwimmingSessionRow[];
   const analysisMap = await fetchAnalysisMap(rows.map((r) => r.id));
-  const mapped = rows.map((row) =>
-    mapSwimmingSessionToSession(row, analysisMap.get(row.id) ?? null)
-  );
+  const mapped = rows.map((row) => mapSwimmingSessionToSession(row, analysisMap.get(row.id) ?? null));
 
-  return NextResponse.json(mapped);
+  return apiOk(mapped);
 }

@@ -20,7 +20,8 @@ export function useSessions(extraFilters?: SessionFilters) {
       user?.id,
       filters?.swimmerId,
       filters?.swimmerIds?.join(","),
-    ]
+    ],
+    { cacheKey: `sessions:${user?.id}:${filters?.swimmerId ?? ""}:${filters?.swimmerIds?.join(",") ?? ""}` }
   );
 
   return { sessions: data, isLoading, error, refetch };

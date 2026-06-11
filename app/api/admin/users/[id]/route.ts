@@ -1,17 +1,12 @@
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
+import { invalidateProfileCache } from "@/lib/supabase/ensure-profile";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
-import { NextRequest, NextResponse } from "next/server";
-
-function unauthorized() {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-}
-function forbidden() {
-  return NextResponse.json({ error: "Forbidden: admin only" }, { status: 403 });
-}
+import { unauthorized, forbidden, badRequest, serverError, apiOk } from "@/lib/api-helpers";
+import { NextRequest } from "next/server";
 
 /**
  * PATCH /api/admin/users/[id]
- * Update a user's profile fields
+ * Update a user's profile fields (name, role, age, coachId).
  */
 export async function PATCH(
   request: NextRequest,
@@ -23,18 +18,16 @@ export async function PATCH(
 
   const { id } = await params;
   const body = await request.json().catch(() => ({}));
-  const { name, role, age, coachId, email } = body as {
+  const { name, role, age, coachId } = body as {
     name?: string;
     role?: string;
     age?: number | null;
     coachId?: string | null;
-    email?: string;
   };
 
   const admin = createSupabaseAdmin();
-
-  // Update profile
   const profileUpdates: Record<string, unknown> = {};
+
   if (name) {
     const parts = name.trim().split(/\s+/);
     profileUpdates.first_name = parts[0] ?? name;
@@ -49,14 +42,10 @@ export async function PATCH(
       .from("profiles")
       .update(profileUpdates)
       .eq("id", id);
-    if (profileError) {
-      return NextResponse.json({ error: profileError.message }, { status: 500 });
-    }
+    if (profileError) return serverError(profileError.message);
   }
 
-  // Update auth user metadata if email or role changed
   const authUpdates: Record<string, unknown> = {};
-  if (email) authUpdates.email = email;
   if (role || name) {
     authUpdates.user_metadata = { ...(role ? { role } : {}), ...(name ? { name } : {}) };
   }
@@ -64,13 +53,13 @@ export async function PATCH(
     await admin.auth.admin.updateUserById(id, authUpdates);
   }
 
-  return NextResponse.json({ ok: true });
+  invalidateProfileCache(id);
+  return apiOk({ ok: true });
 }
 
 /**
  * DELETE /api/admin/users/[id]
- * Properly delete: sessions → profile → auth user
- * This is the CORRECT delete that removes the user from auth.users so they CANNOT sign in again.
+ * Cascade-delete: sessions → profile → auth user.
  */
 export async function DELETE(
   _request: NextRequest,
@@ -82,14 +71,13 @@ export async function DELETE(
 
   const { id } = await params;
 
-  // Prevent self-deletion
   if (currentUser.id === id) {
-    return NextResponse.json({ error: "You cannot delete your own account" }, { status: 400 });
+    return badRequest("You cannot delete your own account");
   }
 
   const admin = createSupabaseAdmin();
 
-  // Step 1: Delete all sessions for this user
+  // Step 1: delete sessions (non-fatal if none exist)
   const { error: sessionsError } = await admin
     .from("swimming_sessions")
     .delete()
@@ -97,19 +85,15 @@ export async function DELETE(
 
   if (sessionsError) {
     console.error("Delete sessions error:", sessionsError.message);
-    // Non-fatal — continue with user deletion
   }
 
-  // Step 2: Delete profile row
+  // Step 2: delete profile row
   await admin.from("profiles").delete().eq("id", id);
 
-  // Step 3: Delete from auth.users — THIS is the critical step.
-  // Without this, the user can still sign in and the profile gets auto-recreated.
+  // Step 3: delete auth user — prevents re-login and profile recreation
   const { error: authError } = await admin.auth.admin.deleteUser(id);
+  if (authError) return serverError(authError.message);
 
-  if (authError) {
-    return NextResponse.json({ error: authError.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ ok: true });
+  invalidateProfileCache(id);
+  return apiOk({ ok: true });
 }
