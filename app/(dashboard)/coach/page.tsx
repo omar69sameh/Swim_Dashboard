@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { GitCompare } from "lucide-react";
 import SimpleSwimmerList from "@/components/dashboard/SimpleSwimmerList";
 import CoachRiskTable from "@/components/dashboard/CoachRiskTable";
 import WeeklyVolumeChart from "@/components/dashboard/WeeklyVolumeChart";
@@ -24,11 +26,20 @@ export default function CoachHomePage() {
 
   return (
     <>
-      <div>
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-white">Your swimmers</h1>
-        <p className="text-slate-400 text-sm mt-1">
-          Freestyle, Breaststroke, and Butterfly quality per swimmer
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-display font-bold text-white">Your swimmers</h1>
+          <p className="text-slate-400 text-sm mt-1">
+            Freestyle, Breaststroke, and Butterfly quality per swimmer
+          </p>
+        </div>
+        <Link
+          href="/coach/compare"
+          className="shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl border border-aqua-300/30 text-aqua-300 text-sm hover:bg-aqua-300/10 transition-colors"
+        >
+          <GitCompare className="w-4 h-4" />
+          Compare sessions
+        </Link>
       </div>
 
       {swimmers && (

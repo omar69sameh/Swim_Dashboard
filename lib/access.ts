@@ -40,5 +40,6 @@ export function canAccessSwimmer(user: AuthUser | null, swimmerId: string): bool
 }
 
 export function homePathForRole(role: AuthUser["role"]): string {
+  if (role === "admin") return "/admin";
   return role === "coach" ? "/coach" : "/swimmer";
 }

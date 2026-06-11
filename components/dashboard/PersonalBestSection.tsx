@@ -10,8 +10,6 @@ import StrokeIcon from "@/components/ui/StrokeIcon";
 interface PersonalBestSectionProps {
   pbs: PersonalBest[];
   sessionLinkPrefix: string;
-  /** Optional: pass qualityTier/label per sessionId so the tier badge is accurate */
-  tierMap?: Map<string, { tier?: string; label?: string }>;
 }
 
 const STROKE_ACCENT: Record<string, string> = {
@@ -25,11 +23,7 @@ const STROKE_ACCENT: Record<string, string> = {
 const SCORE_COLOR = (score: number) =>
   score >= 75 ? "text-emerald-400" : score >= 50 ? "text-amber-400" : "text-rose-400";
 
-export default function PersonalBestSection({
-  pbs,
-  sessionLinkPrefix,
-  tierMap,
-}: PersonalBestSectionProps) {
+export default function PersonalBestSection({ pbs, sessionLinkPrefix }: PersonalBestSectionProps) {
   if (pbs.length === 0) return null;
 
   return (
@@ -41,8 +35,7 @@ export default function PersonalBestSection({
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {pbs.map((pb, i) => {
-          const tierInfo = tierMap?.get(pb.sessionId);
-          const t = qualityTierDisplay(tierInfo?.tier, tierInfo?.label);
+          const t = qualityTierDisplay(pb.qualityTier, pb.qualityLabel);
           const accent = STROKE_ACCENT[pb.strokeType] ?? "border-white/10 bg-white/5";
           const scoreColor = SCORE_COLOR(pb.qualityScore);
 
@@ -58,7 +51,7 @@ export default function PersonalBestSection({
                 prefetch
                 className={`block glass-card border p-4 rounded-xl hover:brightness-110 transition-all ${accent}`}
               >
-                {/* Header row */}
+                {/* Header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <StrokeIcon stroke={pb.strokeType} size={18} />
@@ -77,7 +70,7 @@ export default function PersonalBestSection({
                   <span className="text-xs text-slate-500 mb-0.5">/ 100</span>
                 </div>
 
-                {/* Tier badge */}
+                {/* Risk tier badge */}
                 <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full border ${t.bg} ${t.color} mb-3`}>
                   {t.text}
                 </span>

@@ -74,12 +74,12 @@ function SessionPicker({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -4, scale: 0.98 }}
           transition={{ duration: 0.12 }}
-          className="rounded-xl border border-white/15 bg-ocean-950 shadow-2xl overflow-hidden"
+          className="rounded-xl border border-white/15 bg-ocean-950 shadow-2xl"
         >
             {options.length === 0 ? (
               <p className="px-4 py-3 text-sm text-slate-500">No other sessions available</p>
             ) : (
-              <ul className="max-h-64 overflow-y-auto divide-y divide-white/5">
+              <ul className="divide-y divide-white/5" style={{ maxHeight: 280, overflowY: "auto" }}>
                 {options.map((s) => {
                   const t = qualityTierDisplay(s.qualityTier, s.qualityLabel);
                   const isSelected = s.id === selectedId;
@@ -399,11 +399,12 @@ export default function CompareSessionsPage() {
                         verdict={strokesVerdict}
                       />
                     )}
-                    {(sessionA.duration > 0 || sessionB.duration > 0) && (
+                    {/* Duration — only shown when the data is actually stored (> 0) */}
+                    {(sessionA.duration > 0 && sessionB.duration > 0) && (
                       <MetricRow
                         label="Duration"
-                        leftVal={sessionA.duration > 0 ? `${Math.round(sessionA.duration / 60)} min` : "—"}
-                        rightVal={sessionB.duration > 0 ? `${Math.round(sessionB.duration / 60)} min` : "—"}
+                        leftVal={`${Math.round(sessionA.duration / 60)} min`}
+                        rightVal={`${Math.round(sessionB.duration / 60)} min`}
                         verdict={durationVerdict}
                       />
                     )}

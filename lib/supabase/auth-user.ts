@@ -15,6 +15,7 @@ function roleFromProfileAndMetadata(
   profile: ProfileRow | null,
   metadata: Record<string, unknown>
 ): UserRole {
+  if (profile?.role === "admin") return "admin";
   if (profile?.role === "coach" || profile?.role === "swimmer") {
     return profile.role;
   }
@@ -35,9 +36,10 @@ export function toAuthUser(user: User, profile: ProfileRow | null): AuthUser {
 
   if (role === "coach") {
     authUser.coachId = user.id;
-  } else {
+  } else if (role === "swimmer") {
     authUser.swimmerId = user.id;
   }
+  // admin has neither swimmerId nor coachId
 
   return authUser;
 }
