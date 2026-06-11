@@ -44,6 +44,8 @@ export function getLastSessionForSwimmer(swimmerId: string, sessionList: Session
 export interface PersonalBest {
   strokeType: TrackedStroke;
   qualityScore: number;
+  qualityTier?: string;
+  qualityLabel?: string;
   sessionId: string;
   date: string;
   numStrokes?: number;
@@ -69,6 +71,8 @@ export function getPersonalBestPerStroke(
     return {
       strokeType,
       qualityScore: best.qualityScore!,
+      qualityTier: best.qualityTier,
+      qualityLabel: best.qualityLabel,
       sessionId: best.id,
       date: best.date,
       numStrokes: best.numStrokes,

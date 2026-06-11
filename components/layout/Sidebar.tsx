@@ -10,6 +10,7 @@ import {
   ChevronRight,
   TrendingUp,
   UserCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { useAppStore } from "@/lib/store";
 import { useAuthStore } from "@/lib/auth-store";
@@ -28,7 +29,12 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const navItems =
-    user?.role === "coach"
+    user?.role === "admin"
+      ? [
+          { href: "/admin", label: "Users", icon: ShieldCheck },
+          { href: "/settings", label: "Settings", icon: Settings },
+        ]
+      : user?.role === "coach"
       ? [
           { href: "/coach", label: "Swimmers", icon: Users },
           { href: "/settings", label: "Settings", icon: Settings },

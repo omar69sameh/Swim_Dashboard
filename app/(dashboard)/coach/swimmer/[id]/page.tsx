@@ -137,7 +137,15 @@ export default function CoachSwimmerPage() {
           )}
 
           <div className="glass-card p-4">
-            <h2 className="text-sm font-semibold text-slate-300 mb-3">Recent sessions</h2>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-semibold text-slate-300">Recent sessions</h2>
+              <Link
+                href="/coach/compare"
+                className="text-xs text-aqua-300 hover:text-aqua-200 border border-aqua-300/30 rounded-lg px-3 py-1 hover:bg-aqua-300/10 transition-colors"
+              >
+                Compare sessions
+              </Link>
+            </div>
             <ul className="space-y-2">
               {recentSessions.map((session) => (
                 <li key={session.id}>

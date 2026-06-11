@@ -1,4 +1,4 @@
-export type ProfileRole = "coach" | "swimmer";
+export type ProfileRole = "coach" | "swimmer" | "admin";
 
 export interface ProfileRow {
   id: string;

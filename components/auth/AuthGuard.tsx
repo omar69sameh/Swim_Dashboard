@@ -25,7 +25,11 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       router.replace("/login");
       return;
     }
-    if (pathname.startsWith("/coach") && user.role !== "coach") {
+    if (pathname.startsWith("/admin") && user.role !== "admin") {
+      router.replace(homePathForRole(user.role));
+      return;
+    }
+    if (pathname.startsWith("/coach") && user.role !== "coach" && user.role !== "admin") {
       router.replace(homePathForRole(user.role));
       return;
     }
