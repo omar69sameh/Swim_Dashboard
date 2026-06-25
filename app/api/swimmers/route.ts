@@ -5,7 +5,7 @@ import { computeSwimmerStats } from "@/lib/supabase/swimmer-stats";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { unauthorized, serverError, apiOk } from "@/lib/api-helpers";
+import { unauthorized, forbidden, serverError, apiOk } from "@/lib/api-helpers";
 import type { ProfileRow } from "@/lib/supabase/database.types";
 import { NextRequest } from "next/server";
 
@@ -19,7 +19,21 @@ export async function GET(request: NextRequest) {
   const swimmerId = request.nextUrl.searchParams.get("swimmerId");
   const coachId = request.nextUrl.searchParams.get("coachId");
 
+  const authUser = await getAuthUserFromRequest();
+  if (!authUser) return unauthorized();
+
   if (!isSupabaseConfigured()) {
+    if (authUser.role === "swimmer") {
+      return apiOk(swimmers.filter((s) => s.id === authUser.swimmerId));
+    }
+    if (authUser.role === "coach") {
+      const ids = getMockSwimmerIdsForCoach(authUser.coachId ?? "");
+      if (swimmerId) {
+        if (!ids.includes(swimmerId)) return forbidden();
+        return apiOk(swimmers.filter((s) => s.id === swimmerId));
+      }
+      return apiOk(swimmers.filter((s) => ids.includes(s.id)));
+    }
     if (swimmerId) return apiOk(swimmers.filter((s) => s.id === swimmerId));
     if (coachId) {
       const ids = getMockSwimmerIdsForCoach(coachId);
@@ -27,9 +41,6 @@ export async function GET(request: NextRequest) {
     }
     return apiOk(swimmers);
   }
-
-  const authUser = await getAuthUserFromRequest();
-  if (!authUser) return unauthorized();
 
   const admin = createSupabaseAdmin();
   let profileQuery = admin.from("profiles").select(PROFILE_SELECT);
