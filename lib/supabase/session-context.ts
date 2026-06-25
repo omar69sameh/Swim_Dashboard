@@ -3,6 +3,7 @@ import { toAuthUser } from "./auth-user";
 import { ensureProfileForUser } from "./ensure-profile";
 import type { AuthUser } from "@/types/auth";
 import { isSupabaseConfigured } from "./env";
+import { MOCK_COOKIE_NAME } from "@/lib/mock-auth";
 import { cookies } from "next/headers";
 
 // supabase.auth.getUser() makes a network round-trip to Supabase's auth server
@@ -27,7 +28,18 @@ export function invalidateAuthCache() {
 }
 
 export async function getAuthUserFromRequest(): Promise<AuthUser | null> {
-  if (!isSupabaseConfigured()) return null;
+  if (!isSupabaseConfigured()) {
+    // In mock mode there is no JWT. Read the identity from the browser cookie
+    // that writeMockCookie() sets on sign-in so API routes can enforce RBAC.
+    const cookieStore = await cookies();
+    const raw = cookieStore.get(MOCK_COOKIE_NAME)?.value;
+    if (!raw) return null;
+    try {
+      return JSON.parse(decodeURIComponent(raw)) as AuthUser;
+    } catch {
+      return null;
+    }
+  }
 
   const cookieStore = await cookies();
   const token = extractAccessToken(cookieStore.getAll());

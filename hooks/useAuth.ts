@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getAuthService } from "@/services";
 import { useAuthStore } from "@/lib/auth-store";
-import { readStoredSession, writeStoredSession } from "@/lib/mock-auth";
+import { readStoredSession, writeStoredSession, writeMockCookie } from "@/lib/mock-auth";
 import { getDataProvider } from "@/services/config";
 import { homePathForRole } from "@/lib/access";
 import type { SignInInput, SignUpInput } from "@/types/auth";
@@ -38,6 +38,7 @@ export function useAuth() {
     async (input: SignInInput) => {
       const authUser = await getAuthService().signIn(input);
       writeStoredSession(authUser);
+      writeMockCookie(authUser);
       setUser(authUser);
       setHydrated(true);
       router.push(homePathForRole(authUser.role));
@@ -49,6 +50,7 @@ export function useAuth() {
     async (input: SignUpInput) => {
       const authUser = await getAuthService().signUp(input);
       writeStoredSession(authUser);
+      writeMockCookie(authUser);
       setUser(authUser);
       setHydrated(true);
       router.push(homePathForRole(authUser.role));
@@ -59,6 +61,7 @@ export function useAuth() {
   const signOut = useCallback(async () => {
     await getAuthService().signOut();
     writeStoredSession(null);
+    writeMockCookie(null);
     setUser(null);
     router.push("/login");
   }, [router, setUser]);

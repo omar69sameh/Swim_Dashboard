@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import SimpleSessionAnalysis from "@/components/session/SimpleSessionAnalysis";
 import LoadingState from "@/components/ui/LoadingState";
 import ErrorState from "@/components/ui/ErrorState";
-import { useSession, useMLResults } from "@/hooks";
+import { useSession, useMLResults, useSwimmers } from "@/hooks";
 import { useAuthStore } from "@/lib/auth-store";
 import { canAccessSwimmer } from "@/lib/access";
 import { formatDateTime, getStrokeEmoji, qualityTierDisplay } from "@/lib/utils";
@@ -18,6 +18,7 @@ export default function CoachSessionPage() {
   const sessionId = params.id as string;
   const user = useAuthStore((s) => s.user);
 
+  const { swimmers: assignedSwimmers } = useSwimmers();
   const { session, isLoading: sessionLoading, error: sessionError } = useSession(sessionId);
   const {
     mlResults,
@@ -30,10 +31,12 @@ export default function CoachSessionPage() {
   } = useMLResults(sessionId, session?.status);
 
   useEffect(() => {
-    if (session && user && !canAccessSwimmer(user, session.swimmerId)) {
+    if (!session || !user || !assignedSwimmers) return;
+    const assignedIds = assignedSwimmers.map((s) => s.id);
+    if (!canAccessSwimmer(user, session.swimmerId, assignedIds)) {
       router.replace("/coach");
     }
-  }, [session, user, router]);
+  }, [session, user, assignedSwimmers, router]);
 
   const showMlLoading = mlLoading && !mlResults;
 

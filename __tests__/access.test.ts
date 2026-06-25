@@ -83,12 +83,17 @@ describe("canAccessSwimmer", () => {
     expect(canAccessSwimmer(swimmerUser, "otherSwimmer")).toBe(false);
   });
 
-  test("UT-53: coach should only access assigned swimmers — FAILS (BUG-02 OWASP A01)", () => {
-    // canAccessSwimmer() is supposed to verify the coach-swimmer assignment
-    // before granting access. Currently it returns true unconditionally for all
-    // coaches (BUG-02). This test documents the CORRECT expected behaviour and
-    // will fail until BUG-02 is resolved.
+  test("UT-53: coach cannot access a swimmer without an explicit assignment list (BUG-02 fixed)", () => {
+    // No assignedSwimmerIds provided → fail-secure: deny access.
     expect(canAccessSwimmer(coachUser, "unassigned-swimmer-xyz")).toBe(false);
+  });
+
+  test("UT-53b: coach can access a swimmer when they appear in the assignment list", () => {
+    expect(canAccessSwimmer(coachUser, "swimmer1", ["swimmer1", "swimmer2"])).toBe(true);
+  });
+
+  test("UT-53c: coach cannot access a swimmer absent from the assignment list", () => {
+    expect(canAccessSwimmer(coachUser, "swimmer-other", ["swimmer1", "swimmer2"])).toBe(false);
   });
 
   test("UT-54: admin role returns false (not coach or swimmer)", () => {
@@ -110,12 +115,12 @@ describe("homePathForRole", () => {
   });
 });
 
-describe("getSessionFilters — BUG-05 detection", () => {
-  test("UT-58: swimmer with no swimmerId should return a safe filter, not undefined — FAILS (BUG-05)", () => {
-    // A swimmer whose profile has not yet populated swimmerId (e.g., during
-    // first-login race condition) causes getSessionFilters to return undefined.
-    // The service layer treats undefined as "no filter" — fetching ALL sessions.
-    // This is a data-isolation defect. Expected: a restrictive filter, not undefined.
+describe("getSessionFilters — BUG-05 regression", () => {
+  test("UT-58: swimmer with no swimmerId returns a restrictive filter, never undefined (BUG-05 fixed)", () => {
+    // Previously getSessionFilters returned undefined for a swimmer whose profile
+    // lacked swimmerId (e.g. first-login race condition), causing the service
+    // layer to return ALL sessions. Now it falls back to the user's auth id so
+    // the query is always scoped and returns an empty list instead.
     const swimmerNoId: AuthUser = {
       id: "s-noid",
       email: "noid@swim.com",
@@ -123,6 +128,7 @@ describe("getSessionFilters — BUG-05 detection", () => {
       name: "Profile Not Ready",
     };
     const filter = getSessionFilters(swimmerNoId);
-    expect(filter).not.toBeUndefined(); // FAILS — BUG-05: currently returns undefined
+    expect(filter).not.toBeUndefined();
+    expect(filter).toEqual({ swimmerId: "s-noid" });
   });
 });

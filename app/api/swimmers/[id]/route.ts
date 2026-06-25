@@ -1,4 +1,5 @@
 import { swimmers } from "@/lib/data";
+import { getSwimmerIdsForCoach as getMockSwimmerIdsForCoach } from "@/lib/mock-auth";
 import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { mapProfileToSwimmer } from "@/lib/supabase/mappers";
@@ -20,13 +21,18 @@ export async function GET(
 ) {
   const { id } = await params;
 
+  const authUser = await getAuthUserFromRequest();
+  if (!authUser) return unauthorized();
+
   if (!isSupabaseConfigured()) {
+    if (authUser.role === "swimmer" && authUser.swimmerId !== id) return forbidden();
+    if (authUser.role === "coach") {
+      const assigned = getMockSwimmerIdsForCoach(authUser.coachId ?? "");
+      if (!assigned.includes(id)) return forbidden();
+    }
     const swimmer = swimmers.find((s) => s.id === id);
     return swimmer ? apiOk(swimmer) : notFound("Swimmer");
   }
-
-  const authUser = await getAuthUserFromRequest();
-  if (!authUser) return unauthorized();
 
   if (authUser.role === "swimmer" && authUser.swimmerId !== id) return forbidden();
 
