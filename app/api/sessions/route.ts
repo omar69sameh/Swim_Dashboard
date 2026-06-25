@@ -20,7 +20,27 @@ export async function GET(request: NextRequest) {
   const swimmerId = request.nextUrl.searchParams.get("swimmerId");
   const swimmerIdsParam = request.nextUrl.searchParams.get("swimmerIds");
 
+  const authUser = await getAuthUserFromRequest();
+  if (!authUser) return unauthorized();
+
   if (!isSupabaseConfigured()) {
+    if (authUser.role === "swimmer") {
+      const ownId = authUser.swimmerId ?? authUser.id;
+      return apiOk(sessions.filter((s) => s.swimmerId === ownId));
+    }
+    if (authUser.role === "coach") {
+      const assignedIds = getMockSwimmerIdsForCoach(authUser.coachId ?? "");
+      if (swimmerId) {
+        if (!assignedIds.includes(swimmerId)) return forbidden();
+        return apiOk(sessions.filter((s) => s.swimmerId === swimmerId));
+      }
+      if (swimmerIdsParam) {
+        const requested = swimmerIdsParam.split(",").map((s) => s.trim());
+        const allowed = requested.filter((id) => assignedIds.includes(id));
+        return apiOk(sessions.filter((s) => allowed.includes(s.swimmerId)));
+      }
+      return apiOk(sessions.filter((s) => assignedIds.includes(s.swimmerId)));
+    }
     if (swimmerId) return apiOk(sessions.filter((s) => s.swimmerId === swimmerId));
     if (swimmerIdsParam) {
       const ids = swimmerIdsParam.split(",").map((s) => s.trim());
@@ -28,9 +48,6 @@ export async function GET(request: NextRequest) {
     }
     return apiOk(sessions);
   }
-
-  const authUser = await getAuthUserFromRequest();
-  if (!authUser) return unauthorized();
 
   const admin = createSupabaseAdmin();
   let query = admin

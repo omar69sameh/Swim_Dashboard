@@ -1,6 +1,8 @@
-import type { AuthUser, SignUpInput, UserRole } from "@/types/auth";
+import type { AuthUser, SignUpInput } from "@/types/auth";
 
 const STORAGE_KEY = "swimml_auth_session";
+// Same name is read by the server in session-context.ts (mock mode only).
+export const MOCK_COOKIE_NAME = "swimml_mock_auth";
 
 interface MockCredential {
   password: string;
@@ -71,6 +73,17 @@ export function writeStoredSession(user: AuthUser | null): void {
   }
 }
 
+/** Write the mock session to a browser cookie so Next.js API routes can read
+ *  it server-side and enforce auth checks even in mock (no-Supabase) mode. */
+export function writeMockCookie(user: AuthUser | null): void {
+  if (typeof document === "undefined") return;
+  if (user) {
+    document.cookie = `${MOCK_COOKIE_NAME}=${encodeURIComponent(JSON.stringify(user))}; path=/; SameSite=Strict; max-age=86400`;
+  } else {
+    document.cookie = `${MOCK_COOKIE_NAME}=; path=/; SameSite=Strict; max-age=0`;
+  }
+}
+
 export function mockSignIn(email: string, password: string): AuthUser | null {
   const normalized = email.trim().toLowerCase();
   const all = [...mockUsers, ...dynamicUsers];
@@ -113,10 +126,3 @@ export function mockSignUp(input: SignUpInput): AuthUser {
   return { ...user };
 }
 
-export function getDemoAccounts(): { email: string; password: string; role: UserRole }[] {
-  return [
-    { email: "coach@demo.com", password: "coach123", role: "coach" },
-    { email: "sarah@demo.com", password: "swim123", role: "swimmer" },
-    { email: "marcus@demo.com", password: "swim123", role: "swimmer" },
-  ];
-}

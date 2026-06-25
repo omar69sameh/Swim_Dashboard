@@ -11,7 +11,7 @@ import WeeklyVolumeChart from "@/components/dashboard/WeeklyVolumeChart";
 import QualityChart from "@/components/dashboard/QualityChart";
 import LoadingState from "@/components/ui/LoadingState";
 import ErrorState from "@/components/ui/ErrorState";
-import { useSwimmer, useSessions, useHistoricalData } from "@/hooks";
+import { useSwimmer, useSessions, useHistoricalData, useSwimmers } from "@/hooks";
 import { useAuthStore } from "@/lib/auth-store";
 import { canAccessSwimmer } from "@/lib/access";
 import { getStrokeScoresForSwimmer, getPersonalBestPerStroke, getMonthlyStrokeStats } from "@/lib/stroke-scores";
@@ -23,15 +23,18 @@ export default function CoachSwimmerPage() {
   const swimmerId = params.id as string;
   const user = useAuthStore((s) => s.user);
 
+  const { swimmers: assignedSwimmers } = useSwimmers();
   const { swimmer, isLoading, error, refetch } = useSwimmer(swimmerId);
   const { sessions } = useSessions({ swimmerId });
   const { history, isLoading: historyLoading } = useHistoricalData(swimmerId);
 
   useEffect(() => {
-    if (user && !canAccessSwimmer(user, swimmerId)) {
+    if (!user || !assignedSwimmers) return;
+    const assignedIds = assignedSwimmers.map((s) => s.id);
+    if (!canAccessSwimmer(user, swimmerId, assignedIds)) {
       router.replace("/coach");
     }
-  }, [user, swimmerId, router]);
+  }, [user, swimmerId, assignedSwimmers, router]);
 
   if (!isLoading && !swimmer) {
     return (

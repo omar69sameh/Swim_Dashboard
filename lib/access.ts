@@ -1,4 +1,3 @@
-import { getSwimmerIdsForCoach } from "@/lib/mock-auth";
 import type { AuthUser } from "@/types/auth";
 import type { SessionFilters, SwimmerListOptions } from "@/services/types";
 
@@ -18,8 +17,12 @@ export function getSessionFilters(user: AuthUser | null, swimmerId?: string): Se
     return { swimmerId };
   }
   if (!user) return undefined;
-  if (user.role === "swimmer" && user.swimmerId) {
-    return { swimmerId: user.swimmerId };
+  if (user.role === "swimmer") {
+    // BUG-05 fix: always return a restrictive filter for swimmers.
+    // If swimmerId is missing (e.g. profile not yet created), fall back to
+    // user.id which won't match any real session — guaranteeing an empty
+    // result instead of leaking all sessions.
+    return { swimmerId: user.swimmerId ?? user.id };
   }
   if (user.role === "coach") {
     return {};
@@ -27,14 +30,21 @@ export function getSessionFilters(user: AuthUser | null, swimmerId?: string): Se
   return undefined;
 }
 
-export function canAccessSwimmer(user: AuthUser | null, swimmerId: string): boolean {
+export function canAccessSwimmer(
+  user: AuthUser | null,
+  swimmerId: string,
+  assignedSwimmerIds?: string[]
+): boolean {
   if (!user) return false;
   if (user.role === "swimmer") {
     return user.swimmerId === swimmerId;
   }
-  // Server BFF enforces coach_id assignment; UI only links to listed swimmers
   if (user.role === "coach") {
-    return true;
+    // BUG-02 fix: require an explicit assignment list and deny when absent
+    // (fail-secure). The BFF already enforces this server-side; this guard
+    // also enforces it client-side so UI redirects before any data renders.
+    if (!assignedSwimmerIds) return false;
+    return assignedSwimmerIds.includes(swimmerId);
   }
   return false;
 }

@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  Cell,
 } from "recharts";
 import type { Session } from "@/types";
 import { TRACKED_STROKES } from "@/lib/stroke-scores";

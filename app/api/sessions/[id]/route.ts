@@ -1,4 +1,5 @@
 import { sessions } from "@/lib/data";
+import { getSwimmerIdsForCoach as getMockSwimmerIdsForCoach } from "@/lib/mock-auth";
 import { fetchAnalysis } from "@/lib/supabase/analysis";
 import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
@@ -20,13 +21,19 @@ export async function GET(
 ) {
   const { id } = await params;
 
-  if (!isSupabaseConfigured()) {
-    const session = sessions.find((s) => s.id === id);
-    return session ? apiOk(session) : notFound("Session");
-  }
-
   const authUser = await getAuthUserFromRequest();
   if (!authUser) return unauthorized();
+
+  if (!isSupabaseConfigured()) {
+    const session = sessions.find((s) => s.id === id);
+    if (!session) return notFound("Session");
+    if (authUser.role === "swimmer" && session.swimmerId !== authUser.swimmerId) return forbidden();
+    if (authUser.role === "coach") {
+      const assigned = getMockSwimmerIdsForCoach(authUser.coachId ?? "");
+      if (!assigned.includes(session.swimmerId)) return forbidden();
+    }
+    return apiOk(session);
+  }
 
   const admin = createSupabaseAdmin();
   const { data, error } = await admin

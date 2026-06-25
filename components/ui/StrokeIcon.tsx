@@ -36,7 +36,6 @@ export default function StrokeIcon({ stroke, size = 28, className, animated = fa
     animated && "group-hover:scale-110",
     className
   );
-  const svgStyle = animated ? undefined : undefined;
   const glowStyle = { filter: glow };
 
   const icons: Record<string, React.ReactNode> = {
