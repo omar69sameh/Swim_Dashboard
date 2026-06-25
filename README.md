@@ -257,13 +257,6 @@ Test cases trace to functional requirements **FR-01–FR-43** and non-functional
 
 *(BUG-02 broken coach access and BUG-05 swimmer data-isolation were fixed and verified closed.)*
 
----
-
-## Documentation
-
-- **Thesis figures:** `thesis-figures/` (architecture, UML, ERD, UI, Gantt, defect lifecycle).
-- **QA artifacts:** `gradtesting/` (Katalon scripts, Postman collections, test plan, bug report, traceability matrix, usability report, screenshots).
-- **Project-management deliverables:** `SwimMate-SPM/`.
 
 ---
 
