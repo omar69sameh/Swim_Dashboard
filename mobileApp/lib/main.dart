@@ -1090,7 +1090,7 @@ class _IMUScreenState extends State<IMUScreen> with SingleTickerProviderStateMix
       gyroHistory.clear();
       accelSamples.clear();
       gyroSamples.clear();
-      statusMessage = 'Data reset';
+      statusMessage = 'Ready to start monitoring';
       startTime = null;
       endTime = null;
     });
@@ -1132,7 +1132,7 @@ class _IMUScreenState extends State<IMUScreen> with SingleTickerProviderStateMix
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.folder_open),
+            icon: const Icon(Icons.folder_open, semanticLabel: 'My Sessions'),
             onPressed: _showSessionsDialog,
             tooltip: 'My Sessions',
           ),
