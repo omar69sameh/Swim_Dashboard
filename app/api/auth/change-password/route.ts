@@ -1,43 +1,32 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { NextRequest, NextResponse } from "next/server";
+import { badRequest, unauthorized, serverError, apiOk, apiError } from "@/lib/api-helpers";
+import { NextRequest } from "next/server";
 
+/**
+ * POST /api/auth/change-password
+ */
 export async function POST(request: NextRequest) {
-  if (!isSupabaseConfigured()) {
-    return NextResponse.json({ error: "Auth not configured" }, { status: 400 });
-  }
+  if (!isSupabaseConfigured()) return apiError("Auth not configured", 400);
 
   const { currentPassword, newPassword } = await request.json();
 
-  if (!currentPassword || !newPassword) {
-    return NextResponse.json({ error: "Both passwords are required" }, { status: 400 });
-  }
-  if (newPassword.length < 6) {
-    return NextResponse.json({ error: "Password must be at least 6 characters" }, { status: 400 });
-  }
+  if (!currentPassword || !newPassword) return badRequest("Both passwords are required");
+  if (newPassword.length < 6) return badRequest("Password must be at least 6 characters");
 
   const supabase = await createSupabaseServerClient();
 
-  // Verify the current session user
   const { data: { user }, error: userErr } = await supabase.auth.getUser();
-  if (userErr || !user?.email) {
-    return NextResponse.json({ error: "Not signed in" }, { status: 401 });
-  }
+  if (userErr || !user?.email) return unauthorized();
 
-  // Re-authenticate with current password to verify it
   const { error: signInErr } = await supabase.auth.signInWithPassword({
     email: user.email,
     password: currentPassword,
   });
-  if (signInErr) {
-    return NextResponse.json({ error: "Current password is incorrect" }, { status: 400 });
-  }
+  if (signInErr) return badRequest("Current password is incorrect");
 
-  // Update to new password
   const { error: updateErr } = await supabase.auth.updateUser({ password: newPassword });
-  if (updateErr) {
-    return NextResponse.json({ error: updateErr.message }, { status: 400 });
-  }
+  if (updateErr) return serverError(updateErr.message);
 
-  return NextResponse.json({ ok: true });
+  return apiOk({ ok: true });
 }

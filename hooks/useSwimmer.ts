@@ -9,7 +9,8 @@ export function useSwimmer(id: string | undefined) {
       if (!id) return Promise.resolve(null);
       return getSwimmerService().getSwimmer(id);
     },
-    [id]
+    [id],
+    { cacheKey: id ? `swimmer:${id}` : undefined }
   );
 
   return { swimmer: data, isLoading, error, refetch };

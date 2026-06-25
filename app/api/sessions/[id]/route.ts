@@ -5,8 +5,8 @@ import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { mapSwimmingSessionToSession } from "@/lib/supabase/mappers";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { unauthorized, forbidden, notFound, apiOk } from "@/lib/api-helpers";
 import type { SwimmingSessionRow } from "@/lib/supabase/database.types";
-import { NextResponse } from "next/server";
 
 const SESSION_SELECT =
   "id, user_id, session_id, swimmer_info, device_info, session_metadata, created_at, analysis_status, analyzed_at";
@@ -22,16 +22,11 @@ export async function GET(
 
   if (!isSupabaseConfigured()) {
     const session = sessions.find((s) => s.id === id);
-    if (!session) {
-      return NextResponse.json({ error: "Session not found" }, { status: 404 });
-    }
-    return NextResponse.json(session);
+    return session ? apiOk(session) : notFound("Session");
   }
 
   const authUser = await getAuthUserFromRequest();
-  if (!authUser) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
+  if (!authUser) return unauthorized();
 
   const admin = createSupabaseAdmin();
   const { data, error } = await admin
@@ -40,23 +35,17 @@ export async function GET(
     .eq("id", id)
     .maybeSingle();
 
-  if (error || !data) {
-    return NextResponse.json({ error: "Session not found" }, { status: 404 });
-  }
+  if (error || !data) return notFound("Session");
 
   const row = data as SwimmingSessionRow;
 
-  if (authUser.role === "swimmer" && row.user_id !== authUser.swimmerId) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  if (authUser.role === "swimmer" && row.user_id !== authUser.swimmerId) return forbidden();
 
   if (authUser.role === "coach") {
     const allowed = await isSwimmerAssignedToCoach(row.user_id, authUser.id);
-    if (!allowed) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
+    if (!allowed) return forbidden();
   }
 
   const analysis = await fetchAnalysis(id);
-  return NextResponse.json(mapSwimmingSessionToSession(row, analysis));
+  return apiOk(mapSwimmingSessionToSession(row, analysis));
 }

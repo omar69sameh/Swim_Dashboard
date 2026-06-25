@@ -1,20 +1,15 @@
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { NextResponse } from "next/server";
+import { unauthorized, apiOk, apiError } from "@/lib/api-helpers";
 
 /**
  * GET /api/auth/session
- * Returns current user from Supabase session cookie
  */
 export async function GET() {
-  if (!isSupabaseConfigured()) {
-    return NextResponse.json({ error: "No server session in mock mode" }, { status: 401 });
-  }
+  if (!isSupabaseConfigured()) return apiError("No server session in mock mode", 401);
 
   const user = await getAuthUserFromRequest();
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
+  if (!user) return unauthorized();
 
-  return NextResponse.json(user);
+  return apiOk(user);
 }

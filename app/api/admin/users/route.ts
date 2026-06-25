@@ -1,17 +1,11 @@
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
-import { NextRequest, NextResponse } from "next/server";
-
-function unauthorized() {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-}
-function forbidden() {
-  return NextResponse.json({ error: "Forbidden: admin only" }, { status: 403 });
-}
+import { unauthorized, forbidden, badRequest, serverError, apiOk } from "@/lib/api-helpers";
+import { NextRequest } from "next/server";
 
 /**
  * GET /api/admin/users
- * List all users with profile info + session count
+ * List all users with profile info + session count.
  */
 export async function GET() {
   const currentUser = await getAuthUserFromRequest();
@@ -20,24 +14,14 @@ export async function GET() {
 
   const admin = createSupabaseAdmin();
 
-  // Fetch all auth users
-  const { data: authData, error: authError } = await admin.auth.admin.listUsers({
-    page: 1,
-    perPage: 1000,
-  });
-  if (authError) {
-    return NextResponse.json({ error: authError.message }, { status: 500 });
-  }
+  const { data: authData, error: authError } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+  if (authError) return serverError(authError.message);
 
-  // Fetch all profiles
   const { data: profiles } = await admin
     .from("profiles")
-    .select("id, first_name, last_name, age, role, coach_id, created_at");
+    .select("id, first_name, last_name, age, role, coach_id");
 
-  // Fetch session counts per user
-  const { data: sessionCounts } = await admin
-    .from("swimming_sessions")
-    .select("user_id");
+  const { data: sessionCounts } = await admin.from("swimming_sessions").select("user_id");
 
   const profileMap = new Map((profiles ?? []).map((p: Record<string, unknown>) => [p.id, p]));
   const countMap = new Map<string, number>();
@@ -53,7 +37,7 @@ export async function GET() {
     return {
       id: u.id,
       email: u.email ?? "",
-      name: ([firstName, lastName].filter(Boolean).join(" ") || u.email?.split("@")[0]) ?? "—",
+      name: [firstName, lastName].filter(Boolean).join(" ") || u.email?.split("@")[0] || "—",
       role: (profile?.role as string) ?? "swimmer",
       age: (profile?.age as number | null) ?? null,
       coachId: (profile?.coach_id as string | null) ?? null,
@@ -64,12 +48,12 @@ export async function GET() {
     };
   });
 
-  return NextResponse.json({ users });
+  return apiOk({ users });
 }
 
 /**
  * POST /api/admin/users
- * Create a new user (auth + profile)
+ * Create a new user (auth + profile).
  */
 export async function POST(request: NextRequest) {
   const currentUser = await getAuthUserFromRequest();
@@ -87,12 +71,11 @@ export async function POST(request: NextRequest) {
   };
 
   if (!email || !password || !name || !role) {
-    return NextResponse.json({ error: "email, password, name, role are required" }, { status: 400 });
+    return badRequest("email, password, name and role are required");
   }
 
   const admin = createSupabaseAdmin();
 
-  // Create auth user
   const { data, error } = await admin.auth.admin.createUser({
     email,
     password,
@@ -101,22 +84,18 @@ export async function POST(request: NextRequest) {
   });
 
   if (error || !data.user) {
-    return NextResponse.json({ error: error?.message ?? "Failed to create user" }, { status: 400 });
+    return serverError(error?.message ?? "Failed to create user");
   }
 
   const parts = name.trim().split(/\s+/);
-  const first_name = parts[0] ?? name;
-  const last_name = parts.slice(1).join(" ") || null;
-
-  // Create profile
   await admin.from("profiles").upsert({
     id: data.user.id,
-    first_name,
-    last_name,
+    first_name: parts[0] ?? name,
+    last_name: parts.slice(1).join(" ") || null,
     age: role === "swimmer" && age ? age : null,
     role,
     coach_id: role === "swimmer" && coachId ? coachId : null,
   });
 
-  return NextResponse.json({ ok: true, userId: data.user.id });
+  return apiOk({ ok: true, userId: data.user.id }, 201);
 }

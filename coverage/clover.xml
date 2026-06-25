@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1781807611335" clover="3.2.0">
+  <project timestamp="1781807611335" name="All files">
+    <metrics statements="97" coveredstatements="92" conditionals="118" coveredconditionals="115" methods="28" coveredmethods="26" elements="243" coveredelements="233" complexity="0" loc="97" ncloc="97" packages="1" files="3" classes="3"/>
+    <file name="access.ts" path="E:\dev\Swim_Dashboard\lib\access.ts">
+      <metrics statements="26" coveredstatements="26" conditionals="30" coveredconditionals="30" methods="4" coveredmethods="4"/>
+      <line num="5" count="2" type="stmt"/>
+      <line num="6" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="7" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="10" count="3" type="cond" truecount="4" falsecount="0"/>
+      <line num="11" count="2" type="stmt"/>
+      <line num="13" count="1" type="stmt"/>
+      <line num="16" count="2" type="stmt"/>
+      <line num="17" count="7" type="cond" truecount="2" falsecount="0"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="20" count="6" type="cond" truecount="2" falsecount="0"/>
+      <line num="21" count="5" type="cond" truecount="4" falsecount="0"/>
+      <line num="22" count="2" type="stmt"/>
+      <line num="24" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="25" count="2" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="30" count="2" type="stmt"/>
+      <line num="31" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="32" count="6" type="cond" truecount="2" falsecount="0"/>
+      <line num="33" count="4" type="stmt"/>
+      <line num="36" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="39" count="1" type="stmt"/>
+      <line num="42" count="2" type="stmt"/>
+      <line num="43" count="6" type="cond" truecount="2" falsecount="0"/>
+      <line num="44" count="4" type="cond" truecount="2" falsecount="0"/>
+    </file>
+    <file name="stroke-scores.ts" path="E:\dev\Swim_Dashboard\lib\stroke-scores.ts">
+      <metrics statements="32" coveredstatements="32" conditionals="53" coveredconditionals="50" methods="16" coveredmethods="16"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="11" count="2" type="stmt"/>
+      <line num="15" count="7" type="stmt"/>
+      <line num="16" count="21" type="stmt"/>
+      <line num="19" count="33" type="cond" truecount="4" falsecount="0"/>
+      <line num="24" count="2" type="stmt"/>
+      <line num="26" count="21" type="stmt"/>
+      <line num="28" count="21" type="stmt"/>
+      <line num="38" count="2" type="stmt"/>
+      <line num="39" count="5" type="stmt"/>
+      <line num="40" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="41" count="5" type="stmt"/>
+      <line num="55" count="2" type="stmt"/>
+      <line num="59" count="7" type="stmt"/>
+      <line num="60" count="21" type="stmt"/>
+      <line num="63" count="36" type="cond" truecount="4" falsecount="0"/>
+      <line num="68" count="6" type="cond" truecount="6" falsecount="2"/>
+      <line num="70" count="21" type="cond" truecount="2" falsecount="0"/>
+      <line num="71" count="6" type="stmt"/>
+      <line num="90" count="2" type="stmt"/>
+      <line num="94" count="5" type="stmt"/>
+      <line num="95" count="5" type="stmt"/>
+      <line num="96" count="5" type="stmt"/>
+      <line num="98" count="5" type="stmt"/>
+      <line num="99" count="8" type="cond" truecount="5" falsecount="0"/>
+      <line num="100" count="7" type="stmt"/>
+      <line num="101" count="7" type="cond" truecount="2" falsecount="0"/>
+      <line num="104" count="5" type="stmt"/>
+      <line num="105" count="18" type="stmt"/>
+      <line num="106" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="107" count="6" type="cond" truecount="3" falsecount="1"/>
+      <line num="108" count="4" type="stmt"/>
+    </file>
+    <file name="utils.ts" path="E:\dev\Swim_Dashboard\lib\utils.ts">
+      <metrics statements="39" coveredstatements="34" conditionals="35" coveredconditionals="35" methods="8" coveredmethods="6"/>
+      <line num="1" count="2" type="stmt"/>
+      <line num="2" count="2" type="stmt"/>
+      <line num="4" count="2" type="stmt"/>
+      <line num="5" count="0" type="stmt"/>
+      <line num="8" count="2" type="stmt"/>
+      <line num="9" count="7" type="stmt"/>
+      <line num="10" count="7" type="stmt"/>
+      <line num="11" count="7" type="stmt"/>
+      <line num="14" count="2" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="22" count="2" type="stmt"/>
+      <line num="23" count="0" type="stmt"/>
+      <line num="24" count="0" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+      <line num="29" count="2" type="stmt"/>
+      <line num="30" count="3" type="stmt"/>
+      <line num="37" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="40" count="2" type="stmt"/>
+      <line num="41" count="4" type="stmt"/>
+      <line num="46" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="51" count="2" type="stmt"/>
+      <line num="55" count="13" type="cond" truecount="4" falsecount="0"/>
+      <line num="57" count="13" type="cond" truecount="4" falsecount="0"/>
+      <line num="58" count="3" type="stmt"/>
+      <line num="60" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="61" count="1" type="stmt"/>
+      <line num="63" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="64" count="3" type="stmt"/>
+      <line num="66" count="6" type="cond" truecount="5" falsecount="0"/>
+      <line num="67" count="3" type="stmt"/>
+      <line num="70" count="3" type="cond" truecount="6" falsecount="0"/>
+      <line num="71" count="1" type="stmt"/>
+      <line num="73" count="2" type="cond" truecount="6" falsecount="0"/>
+      <line num="74" count="1" type="stmt"/>
+      <line num="76" count="1" type="stmt"/>
+      <line num="79" count="2" type="stmt"/>
+      <line num="80" count="2" type="stmt"/>
+      <line num="85" count="2" type="cond" truecount="2" falsecount="0"/>
+    </file>
+  </project>
+</coverage>

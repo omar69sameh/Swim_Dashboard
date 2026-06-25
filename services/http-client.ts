@@ -53,3 +53,32 @@ export function bustApiCache(path?: string) {
     cache.clear();
   }
 }
+
+async function apiMutate<T>(method: "POST" | "PATCH" | "DELETE", path: string, body?: unknown): Promise<T> {
+  const base = getApiBaseUrl();
+  const url = `${base}${path}`;
+
+  const response = await fetch(url, {
+    method,
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    credentials: "include",
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+
+  if (!response.ok) {
+    let message = `Request failed: ${response.status}`;
+    try {
+      const parsed = await response.json();
+      if (parsed?.error) message = parsed.error;
+    } catch {
+      // ignore parse errors
+    }
+    throw new ServiceError(message, response.status);
+  }
+
+  return response.json() as Promise<T>;
+}
+
+export const apiPost = <T>(path: string, body: unknown) => apiMutate<T>("POST", path, body);
+export const apiPatch = <T>(path: string, body: unknown) => apiMutate<T>("PATCH", path, body);
+export const apiDelete = <T>(path: string) => apiMutate<T>("DELETE", path);

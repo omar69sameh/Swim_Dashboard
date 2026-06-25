@@ -3,21 +3,12 @@ import { isSwimmerAssignedToCoach } from "@/lib/supabase/coach-assignments";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthUserFromRequest } from "@/lib/supabase/session-context";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { unauthorized, forbidden, notFound, serverError, apiOk } from "@/lib/api-helpers";
 import type { HistoricalDataPoint, StrokeType } from "@/types";
-import { NextResponse } from "next/server";
 
 function mapStroke(value: string): StrokeType {
-  const v = value as StrokeType;
-  if (
-    v === "Freestyle" ||
-    v === "Backstroke" ||
-    v === "Breaststroke" ||
-    v === "Butterfly" ||
-    v === "IM"
-  ) {
-    return v;
-  }
-  return "Freestyle";
+  const valid: StrokeType[] = ["Freestyle", "Backstroke", "Breaststroke", "Butterfly", "IM"];
+  return valid.includes(value as StrokeType) ? (value as StrokeType) : "Freestyle";
 }
 
 /**
@@ -31,26 +22,17 @@ export async function GET(
 
   if (!isSupabaseConfigured()) {
     const swimmer = swimmers.find((s) => s.id === swimmerId);
-    if (!swimmer) {
-      return NextResponse.json({ error: "Swimmer not found" }, { status: 404 });
-    }
-    return NextResponse.json(generateHistoricalData(swimmerId));
+    return swimmer ? apiOk(generateHistoricalData(swimmerId)) : notFound("Swimmer");
   }
 
   const authUser = await getAuthUserFromRequest();
-  if (!authUser) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
+  if (!authUser) return unauthorized();
 
-  if (authUser.role === "swimmer" && authUser.swimmerId !== swimmerId) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  if (authUser.role === "swimmer" && authUser.swimmerId !== swimmerId) return forbidden();
 
   if (authUser.role === "coach") {
     const allowed = await isSwimmerAssignedToCoach(swimmerId, authUser.id);
-    if (!allowed) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
+    if (!allowed) return forbidden();
   }
 
   const admin = createSupabaseAdmin();
@@ -60,31 +42,22 @@ export async function GET(
     .eq("user_id", swimmerId)
     .eq("analysis_status", "completed");
 
-  if (sessErr) {
-    return NextResponse.json({ error: sessErr.message }, { status: 500 });
-  }
+  if (sessErr) return serverError(sessErr.message);
 
   const sessionIds = (sessionRows ?? []).map((r) => r.id as string);
-  if (sessionIds.length === 0) {
-    return NextResponse.json([]);
-  }
+  if (sessionIds.length === 0) return apiOk([]);
 
   const { data: analyses, error: analErr } = await admin
     .from("session_analysis")
     .select("session_id, primary_stroke, quality_score, created_at")
     .in("session_id", sessionIds);
 
-  if (analErr) {
-    return NextResponse.json({ error: analErr.message }, { status: 500 });
-  }
+  if (analErr) return serverError(analErr.message);
 
   const dateBySession = new Map<string, string>();
   for (const s of sessionRows ?? []) {
     const meta = s.session_metadata as { start_time?: string } | null;
-    dateBySession.set(
-      s.id as string,
-      meta?.start_time ?? (s.created_at as string) ?? new Date().toISOString()
-    );
+    dateBySession.set(s.id as string, meta?.start_time ?? (s.created_at as string) ?? new Date().toISOString());
   }
 
   const points: HistoricalDataPoint[] = (analyses ?? [])
@@ -97,5 +70,5 @@ export async function GET(
     }))
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  return NextResponse.json(points);
+  return apiOk(points);
 }

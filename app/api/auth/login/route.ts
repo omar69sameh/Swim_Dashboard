@@ -3,7 +3,8 @@ import { toAuthUser } from "@/lib/supabase/auth-user";
 import { ensureProfileForUser } from "@/lib/supabase/ensure-profile";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { mockSignIn } from "@/lib/mock-auth";
-import { NextRequest, NextResponse } from "next/server";
+import { badRequest, unauthorized, apiOk, apiError } from "@/lib/api-helpers";
+import { NextRequest } from "next/server";
 
 const loginAttempts = new Map<string, { count: number; resetAt: number }>();
 
@@ -21,44 +22,29 @@ function isRateLimited(ip: string): boolean {
 
 /**
  * POST /api/auth/login
- * Supabase Auth signInWithPassword + session cookies
  */
 export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for") ?? "unknown";
-  if (isRateLimited(ip)) {
-    return NextResponse.json({ error: "Too many attempts. Try again in a minute." }, { status: 429 });
-  }
+  if (isRateLimited(ip)) return apiError("Too many attempts. Try again in a minute.", 429);
 
   const body = await request.json();
   const email = body.email as string;
   const password = body.password as string;
 
-  if (!email || !password) {
-    return NextResponse.json({ error: "Email and password required" }, { status: 400 });
-  }
+  if (!email || !password) return badRequest("Email and password required");
 
   if (!isSupabaseConfigured()) {
     const user = mockSignIn(email, password);
-    if (!user) {
-      return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
-    }
-    return NextResponse.json(user);
+    return user ? apiOk(user) : unauthorized();
   }
 
   const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.trim(),
-    password,
-  });
+  const { data, error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
 
   if (error || !data.user) {
-    return NextResponse.json(
-      { error: error?.message ?? "Invalid email or password" },
-      { status: 401 }
-    );
+    return apiError(error?.message ?? "Invalid email or password", 401);
   }
 
   const profile = await ensureProfileForUser(data.user);
-
-  return NextResponse.json(toAuthUser(data.user, profile));
+  return apiOk(toAuthUser(data.user, profile));
 }
