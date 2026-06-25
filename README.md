@@ -2,8 +2,6 @@
 
 Integration-ready swimming progress app for **coaches** and **swimmers**. Next.js 15, TypeScript, Tailwind CSS, **service layer** (microservice-style clients), **BFF API routes**, and **presentational components**.
 
-See **[docs/FRONTEND_READINESS.md](docs/FRONTEND_READINESS.md)** for production checklist and architecture audit.
-
 ## Demo accounts
 
 | Role | Email | Password |

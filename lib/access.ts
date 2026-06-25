@@ -1,4 +1,3 @@
-import { getSwimmerIdsForCoach } from "@/lib/mock-auth";
 import type { AuthUser } from "@/types/auth";
 import type { SessionFilters, SwimmerListOptions } from "@/services/types";
 

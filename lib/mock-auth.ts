@@ -1,4 +1,4 @@
-import type { AuthUser, SignUpInput, UserRole } from "@/types/auth";
+import type { AuthUser, SignUpInput } from "@/types/auth";
 
 const STORAGE_KEY = "swimml_auth_session";
 
@@ -113,10 +113,3 @@ export function mockSignUp(input: SignUpInput): AuthUser {
   return { ...user };
 }
 
-export function getDemoAccounts(): { email: string; password: string; role: UserRole }[] {
-  return [
-    { email: "coach@demo.com", password: "coach123", role: "coach" },
-    { email: "sarah@demo.com", password: "swim123", role: "swimmer" },
-    { email: "marcus@demo.com", password: "swim123", role: "swimmer" },
-  ];
-}
